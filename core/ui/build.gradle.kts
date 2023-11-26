@@ -17,5 +17,5 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(libs.bundles.compose)
     implementation(libs.coil)
-    implementation(libs.bundles.retrofit)
+    debugImplementation(libs.bundles.compose.debug)
 }
