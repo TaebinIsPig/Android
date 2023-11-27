@@ -11,3 +11,6 @@ android {
         versionName = libs.versions.versionName.get()
     }
 }
+dependencies {
+    implementation(project(":feature:intro"))
+}
