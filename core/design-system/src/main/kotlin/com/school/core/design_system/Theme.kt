@@ -29,7 +29,7 @@ fun SchoolTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable
             content = {
                 Box(
                     modifier = Modifier
-                        .background(SchoolTheme.colors.main)
+                        .background(SchoolTheme.colors.white)
                         .fillMaxSize()
                 ) {
                     content()
