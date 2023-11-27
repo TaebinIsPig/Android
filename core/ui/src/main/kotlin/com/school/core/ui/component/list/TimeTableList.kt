@@ -17,7 +17,7 @@ import com.school.core.design_system.SchoolTheme
 import com.school.core.ui.component.textview.BodyLargeText
 
 @Composable
-fun ScheduleList(
+fun TimetableList(
     modifier: Modifier = Modifier,
     timeTable: List<String>,
 ) {
@@ -49,7 +49,7 @@ fun ScheduleList(
 @Composable
 fun PreviewScheduleList() {
     SchoolTheme {
-        ScheduleList(
+        TimetableList(
             timeTable = listOf(
                 "1. 국어",
                 "2. 사회",

@@ -37,7 +37,7 @@ enum class MealType(val type: String) {
 }
 
 @Composable
-fun MealList(
+fun CafeteriaList(
     modifier: Modifier = Modifier,
     cafeteria: List<String>,
     calorie: Float,
@@ -130,7 +130,7 @@ fun PreviewMealList() {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            MealList(
+            CafeteriaList(
                 cafeteria = listOf(
                     "친환경백미밥자율",
                     "닭가슴살샐러드",
@@ -140,7 +140,7 @@ fun PreviewMealList() {
                     "시리얼&우유"
                 ), calorie = 721.2F
             )
-            MealList(
+            CafeteriaList(
                 cafeteria = listOf(
                     "친환경백미밥자율",
                     "닭가슴살샐러드",
