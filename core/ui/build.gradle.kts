@@ -13,8 +13,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:design-system"))
-    implementation(project(":core:domain"))
+    implementation(projects.core.designSystem)
+    implementation(projects.core.domain)
     implementation(libs.bundles.compose)
     implementation(libs.coil)
     debugImplementation(libs.bundles.compose.debug)
