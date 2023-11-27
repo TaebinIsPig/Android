@@ -44,10 +44,23 @@ class SchoolIconList private constructor(
             drawableId = R.drawable.ic_password_visible,
             contentDescription = "passwordVisibleIcon"
         )
+
         @Stable
         val PasswordHide = SchoolIconList(
             drawableId = R.drawable.ic_password_hide,
             contentDescription = "passwordHideIcon"
+        )
+
+        @Stable
+        val SignupTopBackground = SchoolIconList(
+            drawableId = R.drawable.ic_signup_top_background,
+            contentDescription = "signupTopBackground"
+        )
+
+        @Stable
+        val Back = SchoolIconList(
+            drawableId = R.drawable.ic_back,
+            contentDescription = "back"
         )
     }
 }

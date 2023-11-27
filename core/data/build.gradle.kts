@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:domain"))
+    implementation(projects.core.domain)
     implementation(libs.paging)
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.okhttp)

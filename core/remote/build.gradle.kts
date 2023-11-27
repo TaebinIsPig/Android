@@ -16,7 +16,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:data"))
+    implementation(projects.core.data)
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.okhttp)
     testImplementation(libs.okhttp.sse)

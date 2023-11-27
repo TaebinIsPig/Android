@@ -1,3 +1,5 @@
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     repositories {
         google()
@@ -22,3 +24,4 @@ include(":core:remote")
 include(":core:ui")
 include(":core:design-system")
 include(":feature:intro")
+include(":feature:signup")
