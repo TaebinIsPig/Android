@@ -12,5 +12,9 @@ android {
     }
 }
 dependencies {
-    implementation(project(":feature:intro"))
+    projects.feature.dependencyProject.allprojects.forEachIndexed { index, project ->
+        if (index != 0) {
+            implementation(project)
+        }
+    }
 }
