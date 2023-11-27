@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import com.school.core.design_system.attribute.LocalSchoolColors
 import com.school.core.design_system.attribute.LocalSchoolTypography
 import com.school.core.design_system.attribute.SchoolColor
+import com.school.core.design_system.attribute.SchoolTypography
 import com.school.core.design_system.attribute.darkColor
 import com.school.core.design_system.attribute.lightColor
 import com.school.core.design_system.attribute.schoolTypography
@@ -28,7 +29,7 @@ fun SchoolTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable
             content = {
                 Box(
                     modifier = Modifier
-                        .background(SchoolTheme.colors.main)
+                        .background(SchoolTheme.colors.white)
                         .fillMaxSize()
                 ) {
                     content()
@@ -42,7 +43,7 @@ object SchoolTheme {
     val colors: SchoolColor
         @Composable
         get() = LocalSchoolColors.current
-    val typography: SchoolColor
+    val typography: SchoolTypography
         @Composable
-        get() = LocalSchoolColors.current
+        get() = LocalSchoolTypography.current
 }
