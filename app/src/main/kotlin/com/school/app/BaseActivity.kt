@@ -13,6 +13,8 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.school.core.design_system.SchoolTheme
+import com.school.feature.intro.navigation.IntroNavigationItem
+import com.school.feature.intro.navigation.introGraph
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +38,7 @@ class MainActivity : ComponentActivity() {
 fun BaseApp(navController: NavHostController) {
     AnimatedNavHost(
         navController = navController,
-        startDestination = "",
+        startDestination = IntroNavigationItem.Intro.route,
         enterTransition = {
             slideInHorizontally(
                 initialOffsetX = { it * 2 }, animationSpec = tween(
@@ -53,5 +55,6 @@ fun BaseApp(navController: NavHostController) {
             )
         }
     ) {
+        introGraph(navigateLogin = {}, navigateSignUp = {})
     }
 }

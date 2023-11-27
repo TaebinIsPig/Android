@@ -15,8 +15,13 @@ internal val pretendard = FontFamily(
     Font(R.font.pretendard_semibold, FontWeight.SemiBold),
 )
 
+internal val fugazOne = FontFamily(
+    Font(R.font.fugazone_regular)
+)
+
 @Immutable
 data class SchoolTypography(
+    val fugazOne: TextStyle,
     val title: TextStyle,
     val titleLarge: TextStyle,
     val titleMedium: TextStyle,
@@ -28,6 +33,7 @@ data class SchoolTypography(
 
 internal val LocalSchoolTypography = compositionLocalOf {
     SchoolTypography(
+        fugazOne = TextStyle.Default,
         title = TextStyle.Default,
         titleLarge = TextStyle.Default,
         titleMedium = TextStyle.Default,
@@ -39,11 +45,42 @@ internal val LocalSchoolTypography = compositionLocalOf {
 }
 
 val schoolTypography = SchoolTypography(
-    title = TextStyle(fontFamily = pretendard, fontWeight = FontWeight.Normal, fontSize = 24.sp),
-    titleLarge = TextStyle(fontFamily = pretendard, fontWeight = FontWeight.Normal, fontSize = 22.sp),
-    titleMedium = TextStyle(fontFamily = pretendard, fontWeight = FontWeight.Normal, fontSize = 20.sp),
-    titleSmall = TextStyle(fontFamily = pretendard, fontWeight = FontWeight.Normal, fontSize = 18.sp),
-    bodyLarge = TextStyle(fontFamily = pretendard, fontWeight = FontWeight.Normal, fontSize = 16.sp),
-    bodyMedium = TextStyle(fontFamily = pretendard, fontWeight = FontWeight.Normal, fontSize = 14.sp),
-    bodySmall = TextStyle(fontFamily = pretendard, fontWeight = FontWeight.Normal, fontSize = 12.sp),
+    fugazOne = TextStyle(
+        fontFamily = fugazOne,
+    ),
+    title = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 24.sp
+    ),
+    titleLarge = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 22.sp
+    ),
+    titleMedium = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 20.sp
+    ),
+    titleSmall = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 18.sp
+    ),
+    bodyLarge = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp
+    ),
+    bodySmall = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp
+    ),
 )
