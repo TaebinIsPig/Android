@@ -58,6 +58,12 @@ class SchoolIconList private constructor(
         )
 
         @Stable
+        val SignInTopBackground = SchoolIconList(
+            drawableId = R.drawable.ic_signin_top_background,
+            contentDescription = "signInTopBackground"
+        )
+
+        @Stable
         val Back = SchoolIconList(
             drawableId = R.drawable.ic_back,
             contentDescription = "back"
