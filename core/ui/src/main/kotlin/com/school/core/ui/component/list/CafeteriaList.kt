@@ -125,7 +125,7 @@ fun MealTabHeader(
 
 @Preview
 @Composable
-fun PreviewMealList() {
+fun PreviewCafeteriaList() {
     SchoolTheme {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp)

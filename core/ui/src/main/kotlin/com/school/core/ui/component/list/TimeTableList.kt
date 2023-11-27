@@ -47,7 +47,7 @@ fun TimetableList(
 
 @Preview
 @Composable
-fun PreviewScheduleList() {
+fun PreviewTimetableList() {
     SchoolTheme {
         TimetableList(
             timeTable = listOf(
