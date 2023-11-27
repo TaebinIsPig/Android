@@ -29,6 +29,7 @@ data class SchoolTypography(
     val bodyLarge: TextStyle,
     val bodyMedium: TextStyle,
     val bodySmall: TextStyle,
+    val head: TextStyle,
 )
 
 internal val LocalSchoolTypography = compositionLocalOf {
@@ -41,6 +42,7 @@ internal val LocalSchoolTypography = compositionLocalOf {
         bodyLarge = TextStyle.Default,
         bodyMedium = TextStyle.Default,
         bodySmall = TextStyle.Default,
+        head = TextStyle.Default,
     )
 }
 
@@ -83,4 +85,9 @@ val schoolTypography = SchoolTypography(
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp
     ),
+    head = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 32.sp
+    )
 )
