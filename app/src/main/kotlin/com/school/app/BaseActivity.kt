@@ -16,6 +16,8 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.school.core.design_system.SchoolTheme
 import com.school.feature.intro.navigation.IntroNavigationItem
 import com.school.feature.intro.navigation.introGraph
+import com.school.feature.signin.navigation.navigateSignIn
+import com.school.feature.signin.navigation.signInGraph
 import com.school.feature.signup.navigation.SignupNavigationItem
 import com.school.feature.signup.navigation.navigateSignup
 import com.school.feature.signup.navigation.signupGraph
@@ -59,7 +61,15 @@ fun BaseApp(navController: NavHostController) {
             )
         }
     ) {
-        introGraph(navigateLogin = {}, navigateSignUp = navController::navigateSignup)
+        introGraph(
+            navigateLogin = navController::navigateSignIn,
+            navigateSignUp = navController::navigateSignup
+        )
         signupGraph(popBackStack = navController::popBackStack, navigateMain = {})
+        signInGraph(
+            popBackStack = navController::popBackStack,
+            navigateMain = {},
+            navigateFindId = {},
+            navigateFindPw = {})
     }
 }
