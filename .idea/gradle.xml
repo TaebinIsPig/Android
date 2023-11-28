@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/core/remote" />
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/cafeteria" />
             <option value="$PROJECT_DIR$/feature/intro" />
             <option value="$PROJECT_DIR$/feature/main" />
             <option value="$PROJECT_DIR$/feature/signin" />
