@@ -54,7 +54,7 @@ fun CafeteriaList(
             .padding(horizontal = 16.dp)
             .fillMaxWidth()
             .background(color = SchoolTheme.colors.white, shape = RoundedCornerShape(20.dp))
-            .padding(top = 8.dp, bottom = 28.dp, start = 20.dp, end = 20.dp)
+            .padding(top = 8.dp, start = 20.dp, end = 20.dp)
     ) {
         onTabHeaderClick?.let {
             var currentMealType by remember { mutableStateOf(MealType.Breakfast) }
@@ -77,13 +77,14 @@ fun CafeteriaList(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(45.dp))
+        Spacer(modifier = Modifier.weight(2F))
         BodyLargeText(
             modifier = Modifier.align(End),
             text = "${calorie}kcal",
             fontWeight = FontWeight.Medium,
             color = SchoolTheme.colors.black
         )
+        Spacer(modifier = Modifier.weight(1F))
     }
 }
 
