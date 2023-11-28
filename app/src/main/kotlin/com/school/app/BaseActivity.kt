@@ -17,6 +17,7 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.school.app.bottom_navigation.SchoolBottomNavigation
 import com.school.core.design_system.SchoolTheme
+import com.school.feature.cafeteria.navigation.cafeteriaGraph
 import com.school.feature.intro.navigation.IntroNavigationItem
 import com.school.feature.intro.navigation.introGraph
 import com.school.feature.main.navigation.mainGraph
@@ -92,5 +93,6 @@ fun BaseApp(
             navigateFindId = {},
             navigateFindPw = {})
         mainGraph(navigateProfile = {})
+        cafeteriaGraph()
     }
 }
