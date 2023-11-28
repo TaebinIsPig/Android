@@ -3,6 +3,7 @@ package com.school.app.bottom_navigation
 import com.school.core.design_system.attribute.SchoolIconList
 import com.school.feature.cafeteria.navigation.CafeteriaNavigationItem
 import com.school.feature.main.navigation.MainNavigationItem
+import com.school.feature.timetable.navigation.TimetableNavigationItem
 
 enum class BottomNavigationItem(
     val route: String,
@@ -23,7 +24,7 @@ enum class BottomNavigationItem(
         unselectedIcon = SchoolIconList.NavCafeteriaUnselected
     ),
     Timetable(
-        route = MainNavigationItem.Main.route,
+        route = TimetableNavigationItem.Timetable.route,
         title = "시간표",
         selectedIcon = SchoolIconList.NavTimetableSelected,
         unselectedIcon = SchoolIconList.NavTimetableUnselected

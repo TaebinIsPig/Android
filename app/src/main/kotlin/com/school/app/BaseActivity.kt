@@ -27,6 +27,7 @@ import com.school.feature.signin.navigation.navigateSignIn
 import com.school.feature.signin.navigation.signInGraph
 import com.school.feature.signup.navigation.navigateSignup
 import com.school.feature.signup.navigation.signupGraph
+import com.school.feature.timetable.navigation.timetableGraph
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -94,5 +95,6 @@ fun BaseApp(
             navigateFindPw = {})
         mainGraph(navigateProfile = {})
         cafeteriaGraph()
+        timetableGraph()
     }
 }
