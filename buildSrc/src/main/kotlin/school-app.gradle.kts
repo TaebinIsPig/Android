@@ -64,6 +64,7 @@ dependencies {
     implementation(project(":core:remote"))
     implementation(project(":core:local"))
     implementation(project(":core:design-system"))
+    implementation(project(":core:ui"))
     implementation(libs.findLibrary("androidx.core").get())
     implementation(libs.findBundle("compose").get())
     implementation(libs.findLibrary("accompanist.nav").get())
