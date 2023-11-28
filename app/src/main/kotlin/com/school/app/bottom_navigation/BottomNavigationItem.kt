@@ -1,6 +1,7 @@
 package com.school.app.bottom_navigation
 
 import com.school.core.design_system.attribute.SchoolIconList
+import com.school.feature.cafeteria.navigation.CafeteriaNavigationItem
 import com.school.feature.main.navigation.MainNavigationItem
 
 enum class BottomNavigationItem(
@@ -16,7 +17,7 @@ enum class BottomNavigationItem(
         unselectedIcon = SchoolIconList.NavMainUnselected
     ),
     Cafeteria(
-        route = MainNavigationItem.Main.route,
+        route = CafeteriaNavigationItem.Cafeteria.route,
         title = "급식",
         selectedIcon = SchoolIconList.NavCafeteriaSelected,
         unselectedIcon = SchoolIconList.NavCafeteriaUnselected
