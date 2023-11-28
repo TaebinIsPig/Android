@@ -8,15 +8,20 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.school.app.bottom_navigation.SchoolBottomNavigation
 import com.school.core.design_system.SchoolTheme
 import com.school.feature.intro.navigation.IntroNavigationItem
 import com.school.feature.intro.navigation.introGraph
 import com.school.feature.main.navigation.mainGraph
 import com.school.feature.main.navigation.navigateMain
+import com.school.feature.signin.navigation.SignInNavigationItem
 import com.school.feature.signin.navigation.navigateSignIn
 import com.school.feature.signin.navigation.signInGraph
 import com.school.feature.signup.navigation.navigateSignup
@@ -33,7 +38,15 @@ class MainActivity : ComponentActivity() {
         setContent {
             navController = rememberAnimatedNavController()
             SchoolTheme {
-                BaseApp(navController = navController)
+                Scaffold(
+                    bottomBar = { SchoolBottomNavigation(navController = navController) },
+                    content = {
+                        BaseApp(
+                            modifier = Modifier.padding(it),
+                            navController = navController
+                        )
+                    }
+                )
             }
         }
     }
@@ -41,8 +54,12 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun BaseApp(navController: NavHostController) {
+fun BaseApp(
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+) {
     AnimatedNavHost(
+        modifier = modifier,
         navController = navController,
         startDestination = IntroNavigationItem.Intro.route,
         enterTransition = {
@@ -67,11 +84,11 @@ fun BaseApp(navController: NavHostController) {
         )
         signupGraph(
             popBackStack = navController::popBackStack,
-            navigateMain = navController::navigateMain
+            navigateMain = { navController.navigateMain(IntroNavigationItem.Intro.route) }
         )
         signInGraph(
             popBackStack = navController::popBackStack,
-            navigateMain = navController::navigateMain,
+            navigateMain = { navController.navigateMain(IntroNavigationItem.Intro.route) },
             navigateFindId = {},
             navigateFindPw = {})
         mainGraph(navigateProfile = {})
