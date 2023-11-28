@@ -3,6 +3,7 @@ package com.school.feature.cafeteria.cafeteria
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,6 +31,7 @@ import com.school.core.ui.component.textview.BodyMediumText
 import com.school.core.ui.component.textview.FugazOneText
 import com.school.core.ui.component.textview.TitleMediumText
 import com.school.core.ui.util.data.toDisplayDate
+import com.school.core.ui.util.modifier.schoolClickable
 import java.time.LocalDate
 
 @Composable
@@ -68,7 +70,7 @@ fun CafeteriaScreen() {
         ) {
             Spacer(modifier = Modifier.height(40.dp))
             Row(
-                modifier = Modifier.padding(horizontal = 20.dp),
+                modifier = Modifier.padding(start = 16.dp, end = 32.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
@@ -85,6 +87,11 @@ fun CafeteriaScreen() {
                 OpenDatePickerButton(isOpen = isOpenDatePicker) {
                     isOpenDatePicker = !isOpenDatePicker
                 }
+                Box(modifier = Modifier.weight(1F))
+                SchoolIcon(
+                    modifier = Modifier.schoolClickable { currentDate = LocalDate.now() },
+                    icon = SchoolIconList.DateRefresh
+                )
             }
             Spacer(modifier = Modifier.height(20.dp))
             AnimatedVisibility(visible = isOpenDatePicker) {
