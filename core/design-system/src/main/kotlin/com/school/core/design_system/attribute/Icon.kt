@@ -74,5 +74,53 @@ class SchoolIconList private constructor(
             drawableId = R.drawable.ic_profile,
             contentDescription = "profile"
         )
+
+        @Stable
+        val NavMainSelected = SchoolIconList(
+            drawableId = R.drawable.ic_nav_main_selected,
+            contentDescription = "navMainSelected"
+        )
+
+        @Stable
+        val NavMainUnselected = SchoolIconList(
+            drawableId = R.drawable.ic_nav_main_unselected,
+            contentDescription = "navMainUnselected"
+        )
+
+        @Stable
+        val NavCafeteriaSelected = SchoolIconList(
+            drawableId = R.drawable.ic_nav_cafeteria_selected,
+            contentDescription = "navCafeteriaSelected"
+        )
+
+        @Stable
+        val NavCafeteriaUnselected = SchoolIconList(
+            drawableId = R.drawable.ic_nav_cafeteria_unselected,
+            contentDescription = "navCafeteriaUnselected"
+        )
+
+        @Stable
+        val NavTimetableSelected = SchoolIconList(
+            drawableId = R.drawable.ic_nav_timetable_selected,
+            contentDescription = "navTimetableSelected"
+        )
+
+        @Stable
+        val NavTimetableUnselected = SchoolIconList(
+            drawableId = R.drawable.ic_nav_timetable_unselected,
+            contentDescription = "navTimetableUnselected"
+        )
+
+        @Stable
+        val NavScheduleSelected = SchoolIconList(
+            drawableId = R.drawable.ic_nav_schedule_selected,
+            contentDescription = "navScheduleSelected"
+        )
+
+        @Stable
+        val NavScheduleUnselected = SchoolIconList(
+            drawableId = R.drawable.ic_nav_schedule_unselected,
+            contentDescription = "navScheduleUnSelected"
+        )
     }
 }
