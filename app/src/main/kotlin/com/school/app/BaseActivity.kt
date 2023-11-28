@@ -11,14 +11,14 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.school.core.design_system.SchoolTheme
 import com.school.feature.intro.navigation.IntroNavigationItem
 import com.school.feature.intro.navigation.introGraph
+import com.school.feature.main.navigation.mainGraph
+import com.school.feature.main.navigation.navigateMain
 import com.school.feature.signin.navigation.navigateSignIn
 import com.school.feature.signin.navigation.signInGraph
-import com.school.feature.signup.navigation.SignupNavigationItem
 import com.school.feature.signup.navigation.navigateSignup
 import com.school.feature.signup.navigation.signupGraph
 import dagger.hilt.android.AndroidEntryPoint
@@ -65,11 +65,15 @@ fun BaseApp(navController: NavHostController) {
             navigateLogin = navController::navigateSignIn,
             navigateSignUp = navController::navigateSignup
         )
-        signupGraph(popBackStack = navController::popBackStack, navigateMain = {})
+        signupGraph(
+            popBackStack = navController::popBackStack,
+            navigateMain = navController::navigateMain
+        )
         signInGraph(
             popBackStack = navController::popBackStack,
-            navigateMain = {},
+            navigateMain = navController::navigateMain,
             navigateFindId = {},
             navigateFindPw = {})
+        mainGraph(navigateProfile = {})
     }
 }

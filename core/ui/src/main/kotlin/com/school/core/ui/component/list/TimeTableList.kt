@@ -24,9 +24,9 @@ fun TimetableList(
     RemoveOverScrollLazyColumn(
         modifier = modifier
             .shadow(
-                elevation = 16.dp,
+                elevation = 30.dp,
                 spotColor = Color(0x1A3D3D3D),
-                ambientColor = Color(0x1A3D3D3D),
+                ambientColor = Color(0xFF3D3D3D),
                 shape = RoundedCornerShape(20.dp)
             )
             .padding(horizontal = 16.dp)

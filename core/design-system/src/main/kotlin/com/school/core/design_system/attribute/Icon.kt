@@ -68,5 +68,11 @@ class SchoolIconList private constructor(
             drawableId = R.drawable.ic_back,
             contentDescription = "back"
         )
+
+        @Stable
+        val Profile = SchoolIconList(
+            drawableId = R.drawable.ic_profile,
+            contentDescription = "profile"
+        )
     }
 }
