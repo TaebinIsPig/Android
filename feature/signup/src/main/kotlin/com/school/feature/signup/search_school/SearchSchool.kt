@@ -36,6 +36,7 @@ fun SearchSchoolScreen(
     val state = container.stateFlow.collectAsState().value
     val isSelectSchool = state.school.isNotEmpty()
     var schoolName by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
     var grade by remember { mutableStateOf("") }
     var `class` by remember { mutableStateOf("") }
     var number by remember { mutableStateOf("") }
@@ -55,8 +56,15 @@ fun SearchSchoolScreen(
             } else null
         )
         if (isSelectSchool) {
+            Spacer(modifier = Modifier.height(28.dp))
+            SchoolTextField(
+                title = "이름",
+                value = name,
+                onValueChange = { name = it },
+                hint = "이름을 입력해주세요."
+            )
             Row(
-                modifier = Modifier.padding(top = 24.dp, start = 16.dp, end = 90.dp),
+                modifier = Modifier.padding(top = 28.dp, start = 16.dp, end = 90.dp),
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 WriteSchoolInfoTextField(

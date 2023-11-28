@@ -62,11 +62,19 @@ fun MainScreen(
             fontWeight = FontWeight.SemiBold
         )
         Spacer(modifier = Modifier.height(16.dp))
-        BodyMediumText(
+        Row(
             modifier = Modifier.padding(horizontal = 16.dp),
-            text = "2학년 3반",
-            fontWeight = FontWeight.Medium
-        )
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            BodyMediumText(
+                text = "2학년 3반",
+                fontWeight = FontWeight.Medium
+            )
+            BodyMediumText(
+                text = "이동욱",
+                fontWeight = FontWeight.Medium
+            )
+        }
         Spacer(modifier = Modifier.height(25.dp))
         Column(
             modifier = Modifier
