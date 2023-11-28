@@ -130,6 +130,12 @@ class SchoolIconList private constructor(
         )
 
         @Stable
+        val Timetable = SchoolIconList(
+            drawableId = R.drawable.ic_timetable,
+            contentDescription = "timetable"
+        )
+
+        @Stable
         val OpenDatePicker = SchoolIconList(
             drawableId = R.drawable.ic_open_datepicker,
             contentDescription = "openDatePicker"
