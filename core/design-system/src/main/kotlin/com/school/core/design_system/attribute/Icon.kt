@@ -140,5 +140,17 @@ class SchoolIconList private constructor(
             drawableId = R.drawable.ic_open_datepicker,
             contentDescription = "openDatePicker"
         )
+
+        @Stable
+        val NextMonth = SchoolIconList(
+            drawableId = R.drawable.ic_next_month,
+            contentDescription = "nextMonth"
+        )
+
+        @Stable
+        val PrevMonth = SchoolIconList(
+            drawableId = R.drawable.ic_prev_month,
+            contentDescription = "prevMonth"
+        )
     }
 }
