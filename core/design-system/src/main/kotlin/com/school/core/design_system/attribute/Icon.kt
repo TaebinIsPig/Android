@@ -122,5 +122,17 @@ class SchoolIconList private constructor(
             drawableId = R.drawable.ic_nav_schedule_unselected,
             contentDescription = "navScheduleUnSelected"
         )
+
+        @Stable
+        val Cafeteria = SchoolIconList(
+            drawableId = R.drawable.ic_cafeteria,
+            contentDescription = "cafeteria"
+        )
+
+        @Stable
+        val OpenDatePicker = SchoolIconList(
+            drawableId = R.drawable.ic_open_datepicker,
+            contentDescription = "openDatePicker"
+        )
     }
 }
