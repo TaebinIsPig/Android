@@ -25,6 +25,7 @@
             <option value="$PROJECT_DIR$/feature/cafeteria" />
             <option value="$PROJECT_DIR$/feature/intro" />
             <option value="$PROJECT_DIR$/feature/main" />
+            <option value="$PROJECT_DIR$/feature/schedule" />
             <option value="$PROJECT_DIR$/feature/signin" />
             <option value="$PROJECT_DIR$/feature/timetable" />
           </set>
