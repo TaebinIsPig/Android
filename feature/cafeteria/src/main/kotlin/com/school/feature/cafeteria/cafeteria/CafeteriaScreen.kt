@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -28,6 +29,7 @@ import com.school.core.ui.component.button.OpenDatePickerButton
 import com.school.core.ui.component.datepicker.MonthDatePicker
 import com.school.core.ui.component.list.CafeteriaList
 import com.school.core.ui.component.textview.BodyMediumText
+import com.school.core.ui.component.textview.BodySmallText
 import com.school.core.ui.component.textview.FugazOneText
 import com.school.core.ui.component.textview.TitleMediumText
 import com.school.core.ui.util.data.toDisplayDate
@@ -88,10 +90,19 @@ fun CafeteriaScreen() {
                     isOpenDatePicker = !isOpenDatePicker
                 }
                 Box(modifier = Modifier.weight(1F))
-                SchoolIcon(
-                    modifier = Modifier.schoolClickable { currentDate = LocalDate.now() },
-                    icon = SchoolIconList.DateRefresh
-                )
+                Box {
+                    SchoolIcon(
+                        modifier = Modifier.schoolClickable { currentDate = LocalDate.now() },
+                        icon = SchoolIconList.CurrentDate
+                    )
+                    BodySmallText(
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .offset(y = 1.dp),
+                        text = currentDate.dayOfMonth.toString(),
+                        color = SchoolTheme.colors.pink3
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(20.dp))
             AnimatedVisibility(visible = isOpenDatePicker) {
