@@ -142,9 +142,9 @@ class SchoolIconList private constructor(
         )
 
         @Stable
-        val DateRefresh = SchoolIconList(
-            drawableId = R.drawable.ic_date_refresh,
-            contentDescription = "dateRefresh"
+        val CurrentDate = SchoolIconList(
+            drawableId = R.drawable.ic_current_date,
+            contentDescription = "currentDate"
         )
 
         @Stable
