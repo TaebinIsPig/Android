@@ -22,6 +22,7 @@ import com.school.feature.intro.navigation.IntroNavigationItem
 import com.school.feature.intro.navigation.introGraph
 import com.school.feature.main.navigation.mainGraph
 import com.school.feature.main.navigation.navigateMain
+import com.school.feature.schedule.navigation.scheduleGraph
 import com.school.feature.signin.navigation.SignInNavigationItem
 import com.school.feature.signin.navigation.navigateSignIn
 import com.school.feature.signin.navigation.signInGraph
@@ -97,5 +98,6 @@ fun BaseApp(
         mainGraph(navigateProfile = {})
         cafeteriaGraph()
         timetableGraph()
+        scheduleGraph()
     }
 }
