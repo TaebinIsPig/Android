@@ -8,10 +8,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -29,17 +27,17 @@ import com.school.feature.signup.signup.SignupViewModel
 
 @Composable
 fun SearchSchoolScreen(
-    navigateMain: () -> Unit,
+    navigatePhoneNumber: () -> Unit,
     signupViewModel: SignupViewModel,
 ) {
     val container = signupViewModel.container
     val state = container.stateFlow.collectAsState().value
-    val isSelectSchool = state.school.isNotEmpty()
-    var schoolName by remember { mutableStateOf("") }
-    var name by remember { mutableStateOf("") }
-    var grade by remember { mutableStateOf("") }
-    var `class` by remember { mutableStateOf("") }
-    var number by remember { mutableStateOf("") }
+    val isSelectSchool = state.schoolName.isNotEmpty()
+    var schoolName by remember { mutableStateOf(state.schoolName) }
+    var name by remember { mutableStateOf(state.name) }
+    var grade by remember { mutableStateOf(state.grade) }
+    var `class` by remember { mutableStateOf(state.`class`) }
+    var number by remember { mutableStateOf(state.number) }
     Column {
         SchoolTextField(
             title = "학교",
@@ -90,8 +88,16 @@ fun SearchSchoolScreen(
         }
         Spacer(modifier = Modifier.height(40.dp))
         SchoolButton(text = "넘어가기") {
-            if (!isSelectSchool) signupViewModel.saveSchool(school = schoolName)
-            else navigateMain()
+            if (!isSelectSchool) signupViewModel.saveSchool(schoolName = schoolName)
+            else {
+                signupViewModel.saveStudentInfo(
+                    grade = grade,
+                    `class` = `class`,
+                    number = number,
+                    name = name
+                )
+                navigatePhoneNumber()
+            }
         }
     }
 }

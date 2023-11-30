@@ -30,7 +30,7 @@ import com.school.core.ui.component.textview.HeadText
 
 @Composable
 fun CertificateScreen(
-    navigateSearchSchool: () -> Unit,
+    navigateWriteSignInfo: () -> Unit,
 ) {
     var certificateNumber by remember { mutableStateOf("") }
     Column(
@@ -56,7 +56,7 @@ fun CertificateScreen(
         }
         Spacer(modifier = Modifier.height(40.dp))
         SchoolButton(text = "넘어가기") {
-            navigateSearchSchool()
+            navigateWriteSignInfo()
         }
     }
 }

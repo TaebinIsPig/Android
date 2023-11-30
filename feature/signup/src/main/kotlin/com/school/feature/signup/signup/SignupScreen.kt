@@ -25,7 +25,7 @@ import com.school.feature.signup.navigation.InternalSignupNavigationItem
 import com.school.feature.signup.navigation.internalSignupGraph
 import com.school.feature.signup.navigation.navigateCertificate
 import com.school.feature.signup.navigation.navigatePhoneNumber
-import com.school.feature.signup.navigation.navigateSearchSchool
+import com.school.feature.signup.navigation.navigateWriteSignInfo
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -51,10 +51,12 @@ fun SignupScreen(
                     .align(Alignment.TopStart)
                     .padding(top = 20.dp, start = 16.dp)
                     .schoolClickable {
-                        if (navController.currentBackStackEntry?.destination?.route == InternalSignupNavigationItem.WriteSignInfo.route) {
-                            popBackStack()
-                        } else if (state.school.isNotEmpty()) {
-                            signupViewModel.saveSchool(school = "")
+                        if (navController.currentBackStackEntry?.destination?.route == InternalSignupNavigationItem.SearchSchool.route) {
+                            if (state.schoolName.isNotEmpty()) {
+                                signupViewModel.saveSchool(schoolName = "")
+                            } else {
+                                popBackStack()
+                            }
                         } else {
                             navController.popBackStack()
                         }
@@ -73,13 +75,13 @@ fun SignupScreen(
         AnimatedNavHost(
             modifier = Modifier.fillMaxSize(),
             navController = navController,
-            startDestination = InternalSignupNavigationItem.WriteSignInfo.route
+            startDestination = InternalSignupNavigationItem.SearchSchool.route
         ) {
             internalSignupGraph(
                 signupViewModel = signupViewModel,
                 navigatePhoneNumber = navController::navigatePhoneNumber,
                 navigateCertificate = navController::navigateCertificate,
-                navigateSearchSchool = navController::navigateSearchSchool,
+                navigateWriteSignInfo = navController::navigateWriteSignInfo,
                 navigateMain = navigateMain
             )
         }

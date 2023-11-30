@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,12 +17,10 @@ import com.school.feature.signup.signup.SignupViewModel
 
 @Composable
 fun WriteSignInfoScreen(
-    navigatePhoneNumber: () -> Unit,
+    navigateMain: () -> Unit,
     signupViewModel: SignupViewModel,
 ) {
-    val container = signupViewModel.container
-    val state = container.stateFlow.collectAsState().value
-    var id by remember { mutableStateOf(state.id) }
+    var id by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(true) }
     var passwordCheck by remember { mutableStateOf("") }
@@ -63,8 +60,7 @@ fun WriteSignInfoScreen(
         )
         Spacer(modifier = Modifier.height(40.dp))
         SchoolButton(text = "넘어가기") {
-            signupViewModel.saveSignInfo(id = id, password = password)
-            navigatePhoneNumber()
+            navigateMain()
         }
     }
 }

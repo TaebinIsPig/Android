@@ -22,12 +22,12 @@ internal fun NavGraphBuilder.internalSignupGraph(
     signupViewModel: SignupViewModel,
     navigatePhoneNumber: () -> Unit,
     navigateCertificate: () -> Unit,
-    navigateSearchSchool: () -> Unit,
+    navigateWriteSignInfo: () -> Unit,
     navigateMain: () -> Unit,
 ) {
     composable(InternalSignupNavigationItem.WriteSignInfo.route) {
         WriteSignInfoScreen(
-            navigatePhoneNumber = navigatePhoneNumber,
+            navigateMain = navigateMain,
             signupViewModel = signupViewModel
         )
     }
@@ -40,10 +40,10 @@ internal fun NavGraphBuilder.internalSignupGraph(
     }
 
     composable(InternalSignupNavigationItem.Certificate.route) {
-        CertificateScreen(navigateSearchSchool = navigateSearchSchool)
+        CertificateScreen(navigateWriteSignInfo = navigateWriteSignInfo)
     }
 
     composable(InternalSignupNavigationItem.SearchSchool.route) {
-        SearchSchoolScreen(navigateMain = navigateMain, signupViewModel = signupViewModel)
+        SearchSchoolScreen(navigatePhoneNumber = navigatePhoneNumber, signupViewModel = signupViewModel)
     }
 }

@@ -12,16 +12,15 @@ import javax.inject.Inject
 class SignupViewModel @Inject constructor(
 ) : ViewModel(), ContainerHost<SignupState, Unit> {
     override val container = container<SignupState, Unit>(SignupState())
+    fun saveSchool(schoolName: String) = intent {
+        reduce { state.copy(schoolName = schoolName) }
+    }
 
-    fun saveSignInfo(id: String, password: String) = intent {
-        reduce { state.copy(id = id, password = password) }
+    fun saveStudentInfo(grade: String, `class`: String, number: String, name: String) = intent {
+        reduce { state.copy(grade = grade, `class` = `class`, number = number, name = name) }
     }
 
     fun savePhoneNumber(phoneNumber: String) = intent {
         reduce { state.copy(phoneNumber = phoneNumber) }
-    }
-
-    fun saveSchool(school: String) = intent {
-        reduce { state.copy(school = school) }
     }
 }
