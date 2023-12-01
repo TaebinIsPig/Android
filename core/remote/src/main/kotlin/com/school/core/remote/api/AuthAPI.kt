@@ -1,6 +1,8 @@
 package com.school.core.remote.api
 
+import com.school.core.data.remote.request.auth.SignInRequest
 import com.school.core.data.remote.request.auth.SignupRequest
+import com.school.core.data.remote.response.auth.TokenResponse
 import com.school.core.remote.util.EndPoint
 import retrofit2.Response
 import retrofit2.http.Body
@@ -24,4 +26,9 @@ interface AuthAPI {
         @Path("authCode") authCode: Int,
         @Path("phoneNumber") phoneNumber: String,
     ): Response<Void?>
+
+    @POST("${EndPoint.auth}/signin")
+    suspend fun signIn(
+        @Body signInRequest: SignInRequest,
+    ): TokenResponse
 }
