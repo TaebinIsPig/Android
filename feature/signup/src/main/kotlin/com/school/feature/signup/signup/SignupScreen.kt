@@ -11,8 +11,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -27,7 +30,7 @@ import com.school.feature.signup.navigation.navigateCertificate
 import com.school.feature.signup.navigation.navigatePhoneNumber
 import com.school.feature.signup.navigation.navigateWriteSignInfo
 
-@OptIn(ExperimentalAnimationApi::class)
+@OptIn(ExperimentalAnimationApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun SignupScreen(
     popBackStack: () -> Unit,
@@ -37,8 +40,15 @@ fun SignupScreen(
     val navController = rememberAnimatedNavController()
     val container = signupViewModel.container
     val state = container.stateFlow.collectAsState().value
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
 
-    Column {
+    Column(
+        modifier = Modifier.schoolClickable {
+            focusManager.clearFocus()
+            keyboardController?.hide()
+        }
+    ) {
         Box {
             SchoolIcon(
                 modifier = Modifier
@@ -55,6 +65,7 @@ fun SignupScreen(
                             if (state.schoolName.isNotEmpty()) {
                                 signupViewModel.saveSchool(schoolName = "")
                             } else {
+                                keyboardController?.hide()
                                 popBackStack()
                             }
                         } else {
