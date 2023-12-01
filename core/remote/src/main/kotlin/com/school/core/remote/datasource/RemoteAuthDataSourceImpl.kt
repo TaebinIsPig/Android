@@ -27,4 +27,8 @@ class RemoteAuthDataSourceImpl @Inject constructor(
     override suspend fun signIn(signInRequest: SignInRequest): TokenResponse = schoolApiCall {
         authAPI.signIn(signInRequest = signInRequest)
     }
+
+    override suspend fun refresh(refreshToken: String): TokenResponse = schoolApiCall {
+        authAPI.refresh(refreshToken = refreshToken)
+    }
 }

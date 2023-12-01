@@ -11,4 +11,6 @@ interface AuthRepository {
     suspend fun verifyCertificate(authCode: Int, phoneNumber: String)
 
     suspend fun signIn(signInParam: SignInParam)
+
+    suspend fun isSignIn()
 }

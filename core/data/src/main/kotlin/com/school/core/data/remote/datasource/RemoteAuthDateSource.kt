@@ -12,4 +12,6 @@ interface RemoteAuthDateSource {
     suspend fun verifyCertificate(authCode: Int, phoneNumber: String)
 
     suspend fun signIn(signInRequest: SignInRequest): TokenResponse
+
+    suspend fun refresh(refreshToken: String): TokenResponse
 }
