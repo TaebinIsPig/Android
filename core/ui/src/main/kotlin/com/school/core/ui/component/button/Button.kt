@@ -15,20 +15,23 @@ import com.school.core.ui.util.modifier.schoolClickable
 
 @Composable
 fun SchoolButton(
-    modifier: Modifier = Modifier
-        .padding(horizontal = 16.dp)
-        .fillMaxWidth(),
+    modifier: Modifier = Modifier,
+    activate: Boolean = true,
     text: String,
     onClick: () -> Unit,
 ) {
     TitleSmallText(
         modifier = modifier
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth()
             .background(
-                color = SchoolTheme.colors.pink3,
+                color = if (activate) SchoolTheme.colors.pink3 else SchoolTheme.colors.lightGray,
                 shape = RoundedCornerShape(10.dp)
             )
             .padding(vertical = 20.dp)
-            .schoolClickable(onClick = onClick),
+            .schoolClickable(onClick = {
+                if (activate) onClick()
+            }),
         text = text,
         fontWeight = FontWeight.SemiBold
     )
@@ -38,7 +41,7 @@ fun SchoolButton(
 @Composable
 fun PreviewSchoolButton() {
     SchoolTheme {
-        SchoolButton(text = "로그인"){
+        SchoolButton(text = "로그인") {
 
         }
     }
