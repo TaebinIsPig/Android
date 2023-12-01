@@ -30,6 +30,7 @@ suspend inline fun <T> schoolApiCall(
             callFunction()
         }
     } catch (e: HttpException) {
+        println("안녕 에러")
         val error = e.getError() ?: Error("", e.code())
         throw when (error.status) {
             400 -> WrongDataException(error.message)
@@ -46,14 +47,17 @@ suspend inline fun <T> schoolApiCall(
 
 fun <T> Response<T>.errorHandling() {
     if (!isSuccessful) {
-        throw when (code()) {
-            400 -> WrongDataException(message())
-            401 -> InvalidTokenException(message())
-            404 -> NotFoundException(message())
-            409 -> ConflictDataException(message())
-            429 -> TooManyRequestException(message())
-            in 500..600 -> ServerErrorException(message())
-            else -> UnKnownHttpException(message())
+        val error = errorBody()?.let { Gson().fromJson(it.string(), Error::class.java) }
+        error?.let {
+            throw when (error.status) {
+                400 -> WrongDataException(error.message)
+                401 -> InvalidTokenException(error.message)
+                404 -> NotFoundException(error.message)
+                409 -> ConflictDataException(error.message)
+                429 -> TooManyRequestException(error.message)
+                in 500..600 -> ServerErrorException(error.message)
+                else -> UnKnownHttpException(error.message)
+            }
         }
     }
 }

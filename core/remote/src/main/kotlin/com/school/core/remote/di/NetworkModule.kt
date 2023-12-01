@@ -2,6 +2,7 @@ package com.school.core.remote.di
 
 import android.content.Context
 import com.school.core.remote.BuildConfig
+import com.school.core.remote.api.AuthAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,11 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
     @Provides
-    fun provideOkHttpclient(
-        @ApplicationContext context: Context,
-    ): OkHttpClient {
+    fun provideOkHttpclient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .cache(Cache(context.cacheDir, 20L * 1024 * 1024))
             .build()
     }
 
@@ -32,4 +30,7 @@ object NetworkModule {
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+
+    @Provides
+    fun provideAuthAPI(retrofit: Retrofit): AuthAPI = retrofit.create(AuthAPI::class.java)
 }

@@ -23,16 +23,35 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.school.core.design_system.SchoolTheme
 import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textview.BodyMediumText
+import com.school.core.ui.component.textview.BodySmallText
 import com.school.core.ui.component.textview.HeadText
+import com.school.core.ui.util.lifecycle.observeWithLifecycle
+import com.school.feature.signup.signup.SignupSideEffect
+import com.school.feature.signup.signup.SignupViewModel
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@OptIn(InternalCoroutinesApi::class)
 @Composable
 fun CertificateScreen(
-    navigateSearchSchool: () -> Unit,
+    navigateWriteSignInfo: () -> Unit,
+    signupViewModel: SignupViewModel,
 ) {
+    val container = signupViewModel.container
+    val sideEffect = container.sideEffectFlow
     var certificateNumber by remember { mutableStateOf("") }
+    var certificateNumberErrorText by remember { mutableStateOf("") }
+
+    sideEffect.observeWithLifecycle {
+        when (it) {
+            is SignupSideEffect.Success -> navigateWriteSignInfo()
+            is SignupSideEffect.Error -> it.message?.let { certificateNumberErrorText = it }
+        }
+    }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -54,9 +73,15 @@ fun CertificateScreen(
                 color = SchoolTheme.colors.pink3
             )
         }
-        Spacer(modifier = Modifier.height(40.dp))
-        SchoolButton(text = "넘어가기") {
-            navigateSearchSchool()
+        if (certificateNumberErrorText.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(8.dp))
+            BodySmallText(text = certificateNumberErrorText, color = SchoolTheme.colors.error)
+            Spacer(modifier = Modifier.height(18.dp))
+        } else {
+            Spacer(modifier = Modifier.height(40.dp))
+        }
+        SchoolButton(text = "넘어가기", activate = certificateNumber.isNotEmpty()) {
+            signupViewModel.verifyCertificate(authCode = certificateNumber)
         }
     }
 }
@@ -124,8 +149,6 @@ fun CertificateNumber(modifier: Modifier = Modifier, number: String) {
 @Composable
 fun PreviewCertificateScreen() {
     SchoolTheme {
-        CertificateScreen {
-
-        }
+        CertificateScreen(navigateWriteSignInfo = {}, signupViewModel = hiltViewModel())
     }
 }
