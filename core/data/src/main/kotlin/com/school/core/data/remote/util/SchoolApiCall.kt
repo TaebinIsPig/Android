@@ -2,9 +2,12 @@ package com.school.core.data.remote.util
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import com.school.core.data.remote.exception.ExpiredTokenException
+import com.school.core.data.remote.exception.FailRefreshException
+import com.school.core.data.remote.exception.NeedSignInException
 import com.school.core.domain.exception.ConflictDataException
-import com.school.core.domain.exception.ExpiredTokenException
 import com.school.core.domain.exception.InvalidTokenException
+import com.school.core.domain.exception.NeedTokenException
 import com.school.core.domain.exception.NotFoundException
 import com.school.core.domain.exception.ServerErrorException
 import com.school.core.domain.exception.TooManyRequestException
@@ -30,7 +33,6 @@ suspend inline fun <T> schoolApiCall(
             callFunction()
         }
     } catch (e: HttpException) {
-        println("안녕 에러")
         val error = e.getError() ?: Error("", e.code())
         throw when (error.status) {
             400 -> WrongDataException(error.message)
@@ -41,8 +43,12 @@ suspend inline fun <T> schoolApiCall(
             in 500..600 -> ServerErrorException(error.message)
             else -> UnKnownHttpException(error.message)
         }
+    } catch (e: NeedSignInException) {
+        throw NeedTokenException()
     } catch (e: ExpiredTokenException) {
-        throw ExpiredTokenException()
+        throw NeedTokenException()
+    } catch (e: FailRefreshException) {
+        throw NeedTokenException()
     }
 
 fun <T> Response<T>.errorHandling() {
