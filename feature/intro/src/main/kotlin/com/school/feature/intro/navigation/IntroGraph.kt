@@ -9,8 +9,13 @@ import com.school.feature.intro.intro.IntroScreen
 fun NavGraphBuilder.introGraph(
     navigateLogin: () -> Unit,
     navigateSignUp: () -> Unit,
+    navigateMain: () -> Unit,
 ) {
     composable(route = IntroNavigationItem.Intro.route) {
-        IntroScreen(navigateLogin = navigateLogin, navigateSignUp = navigateSignUp)
+        IntroScreen(
+            navigateLogin = navigateLogin,
+            navigateSignUp = navigateSignUp,
+            navigateMain = navigateMain
+        )
     }
 }
