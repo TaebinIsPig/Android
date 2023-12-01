@@ -16,6 +16,7 @@ data class SchoolColor(
     val lightGray2: Color,
     val white: Color,
     val black: Color,
+    val error: Color,
 )
 
 internal val LocalSchoolColors = staticCompositionLocalOf {
@@ -30,6 +31,7 @@ internal val LocalSchoolColors = staticCompositionLocalOf {
         lightGray2 = Color.Unspecified,
         white = Color.Unspecified,
         black = Color.Unspecified,
+        error = Color.Unspecified
     )
 }
 
@@ -44,6 +46,7 @@ val lightColor = SchoolColor(
     lightGray2 = Color(0xFFE6E6E6),
     white = Color(0xFFFFFFFF),
     black = Color(0xFF000000),
+    error = Color(0xFFFF0000),
 )
 
 val darkColor = SchoolColor(
@@ -57,4 +60,5 @@ val darkColor = SchoolColor(
     lightGray2 = Color(0xFFE6E6E6),
     white = Color(0xFFFFFFFF),
     black = Color(0xFF000000),
+    error = Color(0xFFFF0000),
 )
