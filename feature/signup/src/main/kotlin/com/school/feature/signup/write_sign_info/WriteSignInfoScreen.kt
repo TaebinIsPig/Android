@@ -13,18 +13,31 @@ import androidx.compose.ui.unit.dp
 import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.PasswordVisibleIcon
 import com.school.core.ui.component.textfield.SchoolTextField
+import com.school.core.ui.util.lifecycle.observeWithLifecycle
+import com.school.feature.signup.signup.SignupSideEffect
 import com.school.feature.signup.signup.SignupViewModel
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@OptIn(InternalCoroutinesApi::class)
 @Composable
 fun WriteSignInfoScreen(
     navigateMain: () -> Unit,
     signupViewModel: SignupViewModel,
 ) {
+    val container = signupViewModel.container
+    val sideEffect = container.sideEffectFlow
     var id by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(true) }
     var passwordCheck by remember { mutableStateOf("") }
     var isPasswordCheckVisible by remember { mutableStateOf(true) }
+
+    sideEffect.observeWithLifecycle {
+        when (it) {
+            is SignupSideEffect.Success -> navigateMain()
+        }
+    }
+
     Column {
         SchoolTextField(
             title = "아이디",
@@ -60,7 +73,9 @@ fun WriteSignInfoScreen(
         )
         Spacer(modifier = Modifier.height(40.dp))
         SchoolButton(text = "넘어가기") {
-            navigateMain()
+            if (password == passwordCheck) {
+                signupViewModel.signup(id = id, password = password)
+            }
         }
     }
 }

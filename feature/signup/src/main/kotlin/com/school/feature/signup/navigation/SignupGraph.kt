@@ -40,10 +40,16 @@ internal fun NavGraphBuilder.internalSignupGraph(
     }
 
     composable(InternalSignupNavigationItem.Certificate.route) {
-        CertificateScreen(navigateWriteSignInfo = navigateWriteSignInfo)
+        CertificateScreen(
+            navigateWriteSignInfo = navigateWriteSignInfo,
+            signupViewModel = signupViewModel
+        )
     }
 
     composable(InternalSignupNavigationItem.SearchSchool.route) {
-        SearchSchoolScreen(navigatePhoneNumber = navigatePhoneNumber, signupViewModel = signupViewModel)
+        SearchSchoolScreen(
+            navigatePhoneNumber = navigatePhoneNumber,
+            signupViewModel = signupViewModel
+        )
     }
 }

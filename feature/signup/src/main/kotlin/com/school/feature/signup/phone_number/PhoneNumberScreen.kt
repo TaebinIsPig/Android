@@ -14,16 +14,28 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.SchoolTextField
+import com.school.core.ui.util.lifecycle.observeWithLifecycle
+import com.school.feature.signup.signup.SignupSideEffect
 import com.school.feature.signup.signup.SignupViewModel
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@OptIn(InternalCoroutinesApi::class)
 @Composable
 fun PhoneNumberScreen(
     navigateCertificate: () -> Unit,
     signupViewModel: SignupViewModel,
 ) {
     val container = signupViewModel.container
+    val sideEffect = container.sideEffectFlow
     val state = container.stateFlow.collectAsState().value
     var phoneNumber by remember { mutableStateOf(state.phoneNumber) }
+
+    sideEffect.observeWithLifecycle {
+        when (it) {
+            is SignupSideEffect.Success -> navigateCertificate()
+        }
+    }
+
     Column {
         SchoolTextField(
             title = "전화번호",
@@ -35,7 +47,6 @@ fun PhoneNumberScreen(
         Spacer(modifier = Modifier.height(40.dp))
         SchoolButton(text = "인증하기") {
             signupViewModel.sendCertificate(phoneNumber = phoneNumber)
-            navigateCertificate()
         }
     }
 }
