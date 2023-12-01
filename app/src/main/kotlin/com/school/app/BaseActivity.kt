@@ -82,11 +82,12 @@ fun BaseApp(
     ) {
         introGraph(
             navigateLogin = navController::navigateSignIn,
-            navigateSignUp = navController::navigateSignup
+            navigateSignUp = navController::navigateSignup,
+            navigateMain = { navController.navigateMain(IntroNavigationItem.Intro.route) }
         )
         signupGraph(
             popBackStack = navController::popBackStack,
-            navigateMain = { navController.navigateMain(IntroNavigationItem.Intro.route) }
+            navigateSignIn = { navController.navigateSignIn(IntroNavigationItem.Intro.route) }
         )
         signInGraph(
             popBackStack = navController::popBackStack,

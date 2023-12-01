@@ -11,9 +11,9 @@ import com.school.feature.signup.signup.SignupViewModel
 import com.school.feature.signup.write_sign_info.WriteSignInfoScreen
 
 @OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.signupGraph(popBackStack: () -> Unit, navigateMain: () -> Unit) {
+fun NavGraphBuilder.signupGraph(popBackStack: () -> Unit, navigateSignIn: () -> Unit) {
     composable(SignupNavigationItem.Signup.route) {
-        SignupScreen(popBackStack = popBackStack, navigateMain = navigateMain)
+        SignupScreen(popBackStack = popBackStack, navigateSignIn = navigateSignIn)
     }
 }
 

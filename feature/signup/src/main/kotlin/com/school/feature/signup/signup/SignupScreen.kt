@@ -34,7 +34,7 @@ import com.school.feature.signup.navigation.navigateWriteSignInfo
 @Composable
 fun SignupScreen(
     popBackStack: () -> Unit,
-    navigateMain: () -> Unit,
+    navigateSignIn: () -> Unit,
     signupViewModel: SignupViewModel = hiltViewModel(),
 ) {
     val navController = rememberAnimatedNavController()
@@ -93,7 +93,7 @@ fun SignupScreen(
                 navigatePhoneNumber = navController::navigatePhoneNumber,
                 navigateCertificate = navController::navigateCertificate,
                 navigateWriteSignInfo = navController::navigateWriteSignInfo,
-                navigateMain = navigateMain
+                navigateMain = navigateSignIn
             )
         }
     }

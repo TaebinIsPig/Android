@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.school.core.design_system.SchoolTheme
 import com.school.core.design_system.attribute.SchoolIcon
 import com.school.core.design_system.attribute.SchoolIconList
@@ -30,18 +31,41 @@ import com.school.core.ui.component.textfield.PasswordVisibleIcon
 import com.school.core.ui.component.textfield.SchoolTextField
 import com.school.core.ui.component.textview.BodySmallText
 import com.school.core.ui.component.textview.FugazOneText
+import com.school.core.ui.util.lifecycle.observeWithLifecycle
 import com.school.core.ui.util.modifier.schoolClickable
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@OptIn(InternalCoroutinesApi::class)
 @Composable
 fun SignInScreen(
     popBackStack: () -> Unit,
     navigateMain: () -> Unit,
     navigateFindId: () -> Unit,
     navigateFindPw: () -> Unit,
+    signInViewModel: SignInViewModel = hiltViewModel(),
 ) {
+    val container = signInViewModel.container
+    val sideEffect = container.sideEffectFlow
     var id by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(true) }
+    var idErrorText by remember { mutableStateOf("") }
+    var passwordErrorText by remember { mutableStateOf("") }
+
+    sideEffect.observeWithLifecycle {
+        when (it) {
+            is SignInSideEffect.Success -> navigateMain()
+            is SignInSideEffect.Error -> {
+                it.message?.let {
+                    if (it.contains("아이디")) {
+                        idErrorText = it
+                    } else {
+                        passwordErrorText = it
+                    }
+                }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -75,7 +99,15 @@ fun SignInScreen(
             onValueChange = { id = it },
             hint = "아이디를 입력해주세요."
         )
-        Spacer(modifier = Modifier.height(28.dp))
+        if (idErrorText.isNotEmpty()) {
+            BodySmallText(
+                modifier = Modifier.padding(top = 8.dp, bottom = 6.dp, start = 16.dp),
+                text = idErrorText,
+                color = SchoolTheme.colors.error
+            )
+        } else {
+            Spacer(modifier = Modifier.height(28.dp))
+        }
         SchoolTextField(
             title = "비밀번호",
             value = password,
@@ -88,7 +120,15 @@ fun SignInScreen(
                 }
             }
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        if (passwordErrorText.isNotEmpty()) {
+            BodySmallText(
+                modifier = Modifier.padding(top = 8.dp, bottom = 6.dp, start = 16.dp),
+                text = passwordErrorText,
+                color = SchoolTheme.colors.error
+            )
+        } else {
+            Spacer(modifier = Modifier.height(28.dp))
+        }
         Row(
             modifier = Modifier
                 .align(End)
@@ -114,8 +154,8 @@ fun SignInScreen(
             )
         }
         Spacer(modifier = Modifier.height(18.dp))
-        SchoolButton(text = "확인하기") {
-            navigateMain()
+        SchoolButton(text = "확인하기", activate = id.isNotEmpty() && password.isNotEmpty()) {
+            signInViewModel.signIn(id = id, password = password)
         }
     }
 }
