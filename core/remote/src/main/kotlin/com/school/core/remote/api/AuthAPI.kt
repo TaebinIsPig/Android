@@ -13,7 +13,7 @@ interface AuthAPI {
         @Body signupRequest: SignupRequest,
     ): Response<Void?>
 
-    @POST("${EndPoint.auth}/phone-number/send/{phoneNumber}")
+    @POST("${EndPoint.auth}/send/phone-number/{phoneNumber}")
     suspend fun sendCertificate(
         @Path("phoneNumber") phoneNumber: String,
     ): Response<Void?>
