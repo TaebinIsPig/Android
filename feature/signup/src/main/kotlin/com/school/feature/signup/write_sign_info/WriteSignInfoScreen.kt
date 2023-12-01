@@ -97,7 +97,10 @@ fun WriteSignInfoScreen(
             }
         )
         Spacer(modifier = Modifier.height(40.dp))
-        SchoolButton(text = "넘어가기") {
+        SchoolButton(
+            text = "넘어가기",
+            activate = id.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty()
+        ) {
             if (password == passwordCheck) {
                 signupViewModel.signup(id = id, password = password)
             }

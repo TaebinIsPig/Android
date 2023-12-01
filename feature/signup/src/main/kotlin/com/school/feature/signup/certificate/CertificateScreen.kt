@@ -80,7 +80,7 @@ fun CertificateScreen(
         } else {
             Spacer(modifier = Modifier.height(40.dp))
         }
-        SchoolButton(text = "넘어가기") {
+        SchoolButton(text = "넘어가기", activate = certificateNumber.isNotEmpty()) {
             signupViewModel.verifyCertificate(authCode = certificateNumber)
         }
     }

@@ -89,7 +89,10 @@ fun SearchSchoolScreen(
             }
         }
         Spacer(modifier = Modifier.height(40.dp))
-        SchoolButton(text = "넘어가기") {
+        SchoolButton(
+            text = "넘어가기",
+            activate = (state.schoolName.isEmpty() && schoolName.isNotEmpty()) || (schoolName.isNotEmpty() && grade.isNotEmpty() && `class`.isNotEmpty() && number.isNotEmpty() && name.isNotEmpty())
+        ) {
             if (!isSelectSchool) signupViewModel.saveSchool(schoolName = schoolName)
             else {
                 signupViewModel.saveStudentInfo(
