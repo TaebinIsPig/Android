@@ -15,4 +15,6 @@ data class SignupState(
 
 sealed class SignupSideEffect {
     data object Success : SignupSideEffect()
+
+    data class Error(val message: String? = null) : SignupSideEffect()
 }

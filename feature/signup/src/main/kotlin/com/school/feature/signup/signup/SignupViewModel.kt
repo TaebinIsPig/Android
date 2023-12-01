@@ -42,6 +42,7 @@ class SignupViewModel @Inject constructor(
             postSideEffect(SignupSideEffect.Success)
             reduce { state.copy(phoneNumber = phoneNumber) }
         }.onFailure {
+            postSideEffect(SignupSideEffect.Error(it.message))
         }
     }
 
@@ -52,7 +53,7 @@ class SignupViewModel @Inject constructor(
         ).onSuccess {
             postSideEffect(SignupSideEffect.Success)
         }.onFailure {
-
+            postSideEffect(SignupSideEffect.Error(it.message))
         }
     }
 
@@ -69,6 +70,7 @@ class SignupViewModel @Inject constructor(
         ).onSuccess {
             postSideEffect(SignupSideEffect.Success)
         }.onFailure {
+            postSideEffect(SignupSideEffect.Error(it.message))
         }
     }
 }

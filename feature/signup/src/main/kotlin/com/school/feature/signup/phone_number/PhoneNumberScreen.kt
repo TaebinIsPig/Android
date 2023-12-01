@@ -12,8 +12,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.school.core.design_system.SchoolTheme
 import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.SchoolTextField
+import com.school.core.ui.component.textview.BodySmallText
 import com.school.core.ui.util.lifecycle.observeWithLifecycle
 import com.school.feature.signup.signup.SignupSideEffect
 import com.school.feature.signup.signup.SignupViewModel
@@ -29,10 +31,12 @@ fun PhoneNumberScreen(
     val sideEffect = container.sideEffectFlow
     val state = container.stateFlow.collectAsState().value
     var phoneNumber by remember { mutableStateOf(state.phoneNumber) }
+    var phoneNumberErrorText by remember { mutableStateOf("") }
 
     sideEffect.observeWithLifecycle {
         when (it) {
             is SignupSideEffect.Success -> navigateCertificate()
+            is SignupSideEffect.Error -> it.message?.let { phoneNumberErrorText = it }
         }
     }
 
@@ -44,7 +48,13 @@ fun PhoneNumberScreen(
             hint = "전화번호를 입력해주세요.",
             keyboardType = KeyboardType.Number
         )
-        Spacer(modifier = Modifier.height(40.dp))
+        if (phoneNumberErrorText.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(8.dp))
+            BodySmallText(text = phoneNumberErrorText, color = SchoolTheme.colors.error)
+            Spacer(modifier = Modifier.height(18.dp))
+        } else {
+            Spacer(modifier = Modifier.height(40.dp))
+        }
         SchoolButton(text = "인증하기") {
             signupViewModel.sendCertificate(phoneNumber = phoneNumber)
         }

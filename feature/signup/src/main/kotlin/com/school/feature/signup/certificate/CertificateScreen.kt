@@ -27,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.school.core.design_system.SchoolTheme
 import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textview.BodyMediumText
+import com.school.core.ui.component.textview.BodySmallText
 import com.school.core.ui.component.textview.HeadText
 import com.school.core.ui.util.lifecycle.observeWithLifecycle
 import com.school.feature.signup.signup.SignupSideEffect
@@ -42,10 +43,12 @@ fun CertificateScreen(
     val container = signupViewModel.container
     val sideEffect = container.sideEffectFlow
     var certificateNumber by remember { mutableStateOf("") }
+    var certificateNumberErrorText by remember { mutableStateOf("") }
 
     sideEffect.observeWithLifecycle {
         when (it) {
             is SignupSideEffect.Success -> navigateWriteSignInfo()
+            is SignupSideEffect.Error -> it.message?.let { certificateNumberErrorText = it }
         }
     }
 
@@ -70,7 +73,13 @@ fun CertificateScreen(
                 color = SchoolTheme.colors.pink3
             )
         }
-        Spacer(modifier = Modifier.height(40.dp))
+        if (certificateNumberErrorText.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(8.dp))
+            BodySmallText(text = certificateNumberErrorText, color = SchoolTheme.colors.error)
+            Spacer(modifier = Modifier.height(18.dp))
+        } else {
+            Spacer(modifier = Modifier.height(40.dp))
+        }
         SchoolButton(text = "넘어가기") {
             signupViewModel.verifyCertificate(authCode = certificateNumber)
         }
