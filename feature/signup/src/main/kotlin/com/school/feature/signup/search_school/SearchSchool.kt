@@ -37,9 +37,9 @@ fun SearchSchoolScreen(
     val isSelectSchool = state.schoolName.isNotEmpty()
     var schoolName by remember { mutableStateOf(state.schoolName) }
     var name by remember { mutableStateOf(state.name) }
-    var grade by remember { mutableStateOf(state.studentInfo.grade.toString()) }
-    var `class` by remember { mutableStateOf(state.studentInfo.`class`.toString()) }
-    var number by remember { mutableStateOf(state.studentInfo.number.toString()) }
+    var grade by remember { mutableStateOf(state.studentInfo.grade.let { if (it == 0) "" else it.toString() }) }
+    var `class` by remember { mutableStateOf(state.studentInfo.`class`.let { if (it == 0) "" else it.toString() }) }
+    var number by remember { mutableStateOf(state.studentInfo.number.let { if (it == 0) "" else it.toString() }) }
     Column {
         SchoolTextField(
             title = "학교",
