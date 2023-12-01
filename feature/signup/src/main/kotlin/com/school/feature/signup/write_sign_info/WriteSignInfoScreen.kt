@@ -101,7 +101,9 @@ fun WriteSignInfoScreen(
             text = "넘어가기",
             activate = id.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty()
         ) {
-            if (password == passwordCheck) {
+            if (password != passwordCheck) {
+                passwordErrorText = "두 비밀번호가 일치하지 않습니다."
+            } else {
                 signupViewModel.signup(id = id, password = password)
             }
         }
