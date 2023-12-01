@@ -17,4 +17,8 @@ class RemoteAuthDataSourceImpl @Inject constructor(
     override suspend fun sendCertificate(phoneNumber: String) = schoolApiCall {
         authAPI.sendCertificate(phoneNumber = phoneNumber).errorHandling()
     }
+
+    override suspend fun verifyCertificate(authCode: Int, phoneNumber: String) = schoolApiCall {
+        authAPI.verifyCertificate(authCode = authCode, phoneNumber = phoneNumber).errorHandling()
+    }
 }

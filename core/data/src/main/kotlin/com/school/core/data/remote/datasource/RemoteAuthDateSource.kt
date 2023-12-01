@@ -6,4 +6,6 @@ interface RemoteAuthDateSource {
     suspend fun signup(signupRequest: SignupRequest)
 
     suspend fun sendCertificate(phoneNumber: String)
+
+    suspend fun verifyCertificate(authCode: Int, phoneNumber: String)
 }

@@ -14,4 +14,7 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun sendCertificate(phoneNumber: String) =
         remoteAuthDateSource.sendCertificate(phoneNumber = phoneNumber)
+
+    override suspend fun verifyCertificate(authCode: Int, phoneNumber: String) =
+        remoteAuthDateSource.verifyCertificate(authCode = authCode, phoneNumber = phoneNumber)
 }
