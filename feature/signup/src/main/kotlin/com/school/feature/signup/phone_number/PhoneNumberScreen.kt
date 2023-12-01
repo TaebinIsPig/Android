@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.SchoolTextField
@@ -28,11 +29,12 @@ fun PhoneNumberScreen(
             title = "전화번호",
             value = phoneNumber,
             onValueChange = { phoneNumber = it },
-            hint = "전화번호를 입력해주세요."
+            hint = "전화번호를 입력해주세요.",
+            keyboardType = KeyboardType.Number
         )
         Spacer(modifier = Modifier.height(40.dp))
         SchoolButton(text = "인증하기") {
-            signupViewModel.savePhoneNumber(phoneNumber = phoneNumber)
+            signupViewModel.sendCertificate(phoneNumber = phoneNumber)
             navigateCertificate()
         }
     }

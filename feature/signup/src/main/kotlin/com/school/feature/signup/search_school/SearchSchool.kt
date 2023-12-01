@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -17,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.school.core.design_system.SchoolTheme
 import com.school.core.ui.component.button.SchoolButton
@@ -35,9 +37,9 @@ fun SearchSchoolScreen(
     val isSelectSchool = state.schoolName.isNotEmpty()
     var schoolName by remember { mutableStateOf(state.schoolName) }
     var name by remember { mutableStateOf(state.name) }
-    var grade by remember { mutableStateOf(state.grade) }
-    var `class` by remember { mutableStateOf(state.`class`) }
-    var number by remember { mutableStateOf(state.number) }
+    var grade by remember { mutableStateOf(state.studentInfo.grade.toString()) }
+    var `class` by remember { mutableStateOf(state.studentInfo.`class`.toString()) }
+    var number by remember { mutableStateOf(state.studentInfo.number.toString()) }
     Column {
         SchoolTextField(
             title = "학교",
@@ -120,6 +122,7 @@ fun WriteSchoolInfoTextField(
             .padding(vertical = 7.dp, horizontal = 12.dp),
         value = value,
         onValueChange = { if (it.length < maxLength) onValueChange(it) },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         textStyle = SchoolTheme.typography.bodyLarge.copy(color = SchoolTheme.colors.black)
     ) {
         Box {
