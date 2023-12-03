@@ -65,62 +65,39 @@ fun MonthDatePicker(
         pagerIdx = currentPage
     }
 
-    Row(
-        modifier = Modifier
+    HorizontalPager(
+        modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 2.dp),
-        horizontalArrangement = Arrangement.spacedBy(7.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(horizontal = 16.dp),
+        state = pagerState,
     ) {
-        SchoolIcon(
-            modifier = Modifier.schoolClickable {
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage(pagerState.currentPage - 1)
-                }
-            },
-            icon = SchoolIconList.PrevMonth
-        )
-        HorizontalPager(
-            modifier = modifier
-                .weight(1F),
-            state = pagerState,
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(7),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(7),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                items(dayOfWeekList) {
-                    BodyMediumText(text = it, color = SchoolTheme.colors.black)
-                }
-                items(spaceCount, itemContent = {})
-                items((1..currentDate.getStartOrLastDate(isStart = false).dayOfMonth).toList()) {
-                    val isSelected = currentDate.dayOfMonth == it
-                    BodyMediumText(
-                        modifier = Modifier
-                            .wrapContentSize()
-                            .background(
-                                color = if (isSelected) SchoolTheme.colors.main else Color.Transparent,
-                                shape = CircleShape
-                            )
-                            .padding(vertical = 4.dp, horizontal = 8.dp)
-                            .schoolClickable {
-                                onSelect(currentDate.setDate(date = it))
-                            },
-                        text = it.toString(),
-                        color = if (isSelected) SchoolTheme.colors.white else SchoolTheme.colors.gray
-                    )
-                }
+            items(dayOfWeekList) {
+                BodyMediumText(text = it, color = SchoolTheme.colors.black)
+            }
+            items(spaceCount, itemContent = {})
+            items((1..currentDate.getStartOrLastDate(isStart = false).dayOfMonth).toList()) {
+                val isSelected = currentDate.dayOfMonth == it
+                BodyMediumText(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .background(
+                            color = if (isSelected) SchoolTheme.colors.main else Color.Transparent,
+                            shape = CircleShape
+                        )
+                        .padding(vertical = 4.dp, horizontal = 8.dp)
+                        .schoolClickable {
+                            onSelect(currentDate.setDate(date = it))
+                        },
+                    text = it.toString(),
+                    color = if (isSelected) SchoolTheme.colors.white else SchoolTheme.colors.gray
+                )
             }
         }
-        SchoolIcon(
-            modifier = Modifier.schoolClickable {
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                }
-            },
-            icon = SchoolIconList.NextMonth
-        )
     }
 }
 
