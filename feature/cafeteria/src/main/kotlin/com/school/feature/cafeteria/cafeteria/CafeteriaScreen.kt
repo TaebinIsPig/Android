@@ -72,7 +72,7 @@ fun CafeteriaScreen() {
         ) {
             Spacer(modifier = Modifier.height(40.dp))
             Row(
-                modifier = Modifier.padding(start = 16.dp, end = 32.dp),
+                modifier = Modifier.padding(horizontal = 16.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
