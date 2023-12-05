@@ -1,7 +1,7 @@
 package com.school.feature.account_management.signup.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.school.core.domain.param.SignupParam
+import com.school.core.domain.param.auth.SignupParam
 import com.school.core.domain.usecase.auth.SignupUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.ContainerHost

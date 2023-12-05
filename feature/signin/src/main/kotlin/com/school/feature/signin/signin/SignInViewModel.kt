@@ -1,7 +1,7 @@
 package com.school.feature.signin.signin
 
 import androidx.lifecycle.ViewModel
-import com.school.core.domain.param.SignInParam
+import com.school.core.domain.param.auth.SignInParam
 import com.school.core.domain.usecase.auth.SignInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.ContainerHost

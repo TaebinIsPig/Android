@@ -1,4 +1,4 @@
-package com.school.core.domain.param
+package com.school.core.domain.param.auth
 
 data class SignupParam(
     val name: String,

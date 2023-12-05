@@ -1,7 +1,7 @@
 package com.school.core.domain.repository
 
-import com.school.core.domain.param.SignInParam
-import com.school.core.domain.param.SignupParam
+import com.school.core.domain.param.auth.SignInParam
+import com.school.core.domain.param.auth.SignupParam
 
 interface AuthRepository {
     suspend fun signup(signupParam: SignupParam)
