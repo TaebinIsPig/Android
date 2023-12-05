@@ -3,6 +3,7 @@ package com.school.feature.account_management.certificate.send_certificate
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -49,15 +50,16 @@ fun PhoneNumberScreen(
             keyboardType = KeyboardType.Number
         )
         if (phoneNumberErrorText.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(8.dp))
-            BodySmallText(text = phoneNumberErrorText, color = SchoolTheme.colors.error)
-            Spacer(modifier = Modifier.height(18.dp))
+            BodySmallText(
+                modifier = Modifier.padding(top = 8.dp, bottom = 6.dp, start = 16.dp),
+                text = phoneNumberErrorText,
+                color = SchoolTheme.colors.error
+            )
         } else {
             Spacer(modifier = Modifier.height(40.dp))
         }
         SchoolButton(text = "인증하기", activate = phoneNumber.isNotEmpty()) {
-//            certificateViewModel.sendCertificate(phoneNumber = phoneNumber)
-            navigateCertificate()
+            certificateViewModel.sendCertificate(phoneNumber = phoneNumber)
         }
     }
 }

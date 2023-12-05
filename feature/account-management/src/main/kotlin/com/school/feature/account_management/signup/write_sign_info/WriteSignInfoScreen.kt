@@ -3,6 +3,7 @@ package com.school.feature.account_management.signup.write_sign_info
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -59,9 +60,11 @@ fun WriteSignInfoScreen(
             hint = "아이디를 입력해주세요."
         )
         if (idErrorText.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(8.dp))
-            BodySmallText(text = idErrorText, color = SchoolTheme.colors.error)
-            Spacer(modifier = Modifier.height(6.dp))
+            BodySmallText(
+                modifier = Modifier.padding(top = 8.dp, bottom = 6.dp, start = 16.dp),
+                text = idErrorText,
+                color = SchoolTheme.colors.error
+            )
         } else {
             Spacer(modifier = Modifier.height(28.dp))
         }
@@ -78,9 +81,11 @@ fun WriteSignInfoScreen(
             }
         )
         if (passwordErrorText.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(8.dp))
-            BodySmallText(text = passwordErrorText, color = SchoolTheme.colors.error)
-            Spacer(modifier = Modifier.height(6.dp))
+            BodySmallText(
+                modifier = Modifier.padding(top = 8.dp, bottom = 6.dp, start = 16.dp),
+                text = passwordErrorText,
+                color = SchoolTheme.colors.error
+            )
         } else {
             Spacer(modifier = Modifier.height(28.dp))
         }

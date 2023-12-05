@@ -3,6 +3,7 @@ package com.school.feature.account_management.find.find_pw
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,9 +41,11 @@ fun FindPwScreen(
             }
         )
         if (passwordErrorText.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(8.dp))
-            BodySmallText(text = passwordErrorText, color = SchoolTheme.colors.error)
-            Spacer(modifier = Modifier.height(6.dp))
+            BodySmallText(
+                modifier = Modifier.padding(top = 8.dp, bottom = 6.dp, start = 16.dp),
+                text = passwordErrorText,
+                color = SchoolTheme.colors.error
+            )
         } else {
             Spacer(modifier = Modifier.height(28.dp))
         }
