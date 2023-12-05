@@ -33,14 +33,14 @@ class SignupViewModel @Inject constructor(
         }
     }
 
-    fun signup(id: String, password: String) = intent {
+    fun signup(id: String, password: String, phoneNumber: String) = intent {
         signupUseCase(
             SignupParam(
                 name = state.name,
                 studentInfo = state.studentInfo,
                 id = id,
                 password = password,
-                phoneNumber = "",
+                phoneNumber = phoneNumber,
                 school = state.schoolName
             )
         ).onSuccess {

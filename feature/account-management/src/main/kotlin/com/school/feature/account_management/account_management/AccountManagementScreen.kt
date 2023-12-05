@@ -114,6 +114,7 @@ fun AccountManagementScreen(
         ) {
             signupGraph(
                 signupViewModel = signupViewModel,
+                certificateViewModel = certificateViewModel,
                 navigatePhoneNumber = navController::navigatePhoneNumber,
                 navigateSignIn = navigateSignIn
             )
