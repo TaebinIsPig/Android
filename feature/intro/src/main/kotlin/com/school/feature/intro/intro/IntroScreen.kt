@@ -35,7 +35,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @OptIn(InternalCoroutinesApi::class)
 @Composable
 fun IntroScreen(
-    navigateLogin: () -> Unit,
+    navigateSignIn: () -> Unit,
     navigateSignUp: () -> Unit,
     navigateMain: () -> Unit,
     introViewModel: IntroViewModel = hiltViewModel(),
@@ -95,7 +95,7 @@ fun IntroScreen(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                SchoolButton(text = "로그인", onClick = navigateLogin)
+                SchoolButton(text = "로그인", onClick = navigateSignIn)
                 Spacer(modifier = Modifier.height(14.dp))
                 Row(
                     modifier = Modifier.schoolClickable(onClick = navigateSignUp),
@@ -114,6 +114,6 @@ fun IntroScreen(
 @Composable
 fun PreviewIntroScreen() {
     SchoolTheme {
-        IntroScreen(navigateLogin = {}, navigateSignUp = {}, navigateMain = {})
+        IntroScreen(navigateSignIn = {}, navigateSignUp = {}, navigateMain = {})
     }
 }

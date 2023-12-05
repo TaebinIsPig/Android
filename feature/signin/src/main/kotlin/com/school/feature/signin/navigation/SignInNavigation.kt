@@ -2,9 +2,7 @@ package com.school.feature.signin.navigation
 
 import androidx.navigation.NavController
 
-fun NavController.navigateSignIn(route: String? = null) =
+fun NavController.navigateSignIn() =
     navigate(SignInNavigationItem.SignIn.route) {
-        route?.let {
-            popUpTo(it)
-        }
+        popUpTo(graph.startDestinationRoute ?: return@navigate)
     }

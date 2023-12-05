@@ -22,11 +22,12 @@ import com.school.feature.intro.navigation.IntroNavigationItem
 import com.school.feature.intro.navigation.introGraph
 import com.school.feature.main.navigation.mainGraph
 import com.school.feature.main.navigation.navigateMain
-import com.school.feature.signin.navigation.SignInNavigationItem
 import com.school.feature.signin.navigation.navigateSignIn
 import com.school.feature.signin.navigation.signInGraph
-import com.school.feature.signup.navigation.navigateSignup
-import com.school.feature.signup.navigation.signupGraph
+import com.school.feature.account_management.navigation.navigateSignup
+import com.school.feature.account_management.navigation.accountManagementGraph
+import com.school.feature.account_management.navigation.navigateFindID
+import com.school.feature.account_management.navigation.navigateFindPw
 import com.school.feature.timetable.navigation.timetableGraph
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -81,19 +82,20 @@ fun BaseApp(
         }
     ) {
         introGraph(
-            navigateLogin = navController::navigateSignIn,
+            navigateSignIn = navController::navigateSignIn,
             navigateSignUp = navController::navigateSignup,
-            navigateMain = { navController.navigateMain(IntroNavigationItem.Intro.route) }
+            navigateMain = navController::navigateMain
         )
-        signupGraph(
+        accountManagementGraph(
             popBackStack = navController::popBackStack,
-            navigateSignIn = { navController.navigateSignIn(IntroNavigationItem.Intro.route) }
+            navigateSignIn = navController::navigateSignIn
         )
         signInGraph(
             popBackStack = navController::popBackStack,
-            navigateMain = { navController.navigateMain(IntroNavigationItem.Intro.route) },
-            navigateFindId = {},
-            navigateFindPw = {})
+            navigateMain = navController::navigateMain,
+            navigateFindId = navController::navigateFindID,
+            navigateFindPw = navController::navigateFindPw
+        )
         mainGraph(navigateProfile = {})
         cafeteriaGraph()
         timetableGraph()
