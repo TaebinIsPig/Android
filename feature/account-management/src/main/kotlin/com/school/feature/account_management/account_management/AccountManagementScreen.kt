@@ -35,6 +35,7 @@ import com.school.feature.account_management.find.navigation.findGraph
 import com.school.feature.account_management.find.navigation.navigateFindID
 import com.school.feature.account_management.find.navigation.navigateFindPw
 import com.school.feature.account_management.find.navigation.navigateWriteID
+import com.school.feature.account_management.find.viewmodel.FindViewModel
 import com.school.feature.account_management.navigation.AccountManagementType
 import com.school.feature.account_management.signup.navigation.SignupNavigationItem
 import com.school.feature.account_management.signup.navigation.navigateWriteSignInfo
@@ -48,6 +49,7 @@ fun AccountManagementScreen(
     popBackStack: () -> Unit,
     navigateSignIn: () -> Unit,
     signupViewModel: SignupViewModel = hiltViewModel(),
+    findViewModel: FindViewModel = hiltViewModel(),
     certificateViewModel: CertificateViewModel = hiltViewModel(),
 ) {
     val navController = rememberAnimatedNavController()
@@ -116,6 +118,8 @@ fun AccountManagementScreen(
                 navigateSignIn = navigateSignIn
             )
             findGraph(
+                findViewModel = findViewModel,
+                certificateViewModel = certificateViewModel,
                 navigateSignIn = navigateSignIn,
                 navigateFindPw = navController::navigateFindPw
             )
