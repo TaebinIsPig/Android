@@ -1,6 +1,6 @@
 package com.school.core.domain.usecase.auth
 
-import com.school.core.domain.param.SignupParam
+import com.school.core.domain.param.auth.SignupParam
 import com.school.core.domain.repository.AuthRepository
 import javax.inject.Inject
 

@@ -1,6 +1,6 @@
 package com.school.feature.account_management.signup.viewmodel
 
-import com.school.core.domain.param.SignupParam
+import com.school.core.domain.param.auth.SignupParam
 
 data class SignupState(
     val schoolName: String = "",

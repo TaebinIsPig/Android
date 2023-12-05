@@ -1,6 +1,7 @@
 package com.school.core.remote.di
 
 import com.school.core.remote.BuildConfig
+import com.school.core.remote.api.AccountAPI
 import com.school.core.remote.api.AuthAPI
 import com.school.core.remote.interceptor.TokenInterceptor
 import dagger.Module
@@ -34,4 +35,7 @@ object NetworkModule {
 
     @Provides
     fun provideAuthAPI(retrofit: Retrofit): AuthAPI = retrofit.create(AuthAPI::class.java)
+
+    @Provides
+    fun provideAccountAPI(retrofit: Retrofit): AccountAPI = retrofit.create(AccountAPI::class.java)
 }

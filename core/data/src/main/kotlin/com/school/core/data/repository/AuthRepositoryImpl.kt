@@ -5,8 +5,8 @@ import com.school.core.data.remote.datasource.RemoteAuthDateSource
 import com.school.core.data.remote.request.auth.toRequest
 import com.school.core.data.remote.response.auth.TokenResponse
 import com.school.core.domain.exception.NeedTokenException
-import com.school.core.domain.param.SignInParam
-import com.school.core.domain.param.SignupParam
+import com.school.core.domain.param.auth.SignInParam
+import com.school.core.domain.param.auth.SignupParam
 import com.school.core.domain.repository.AuthRepository
 import java.time.LocalDateTime
 import javax.inject.Inject

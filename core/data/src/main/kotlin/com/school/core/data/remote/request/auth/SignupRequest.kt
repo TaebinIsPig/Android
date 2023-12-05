@@ -1,7 +1,7 @@
 package com.school.core.data.remote.request.auth
 
 import com.google.gson.annotations.SerializedName
-import com.school.core.domain.param.SignupParam
+import com.school.core.domain.param.auth.SignupParam
 
 data class SignupRequest(
     @SerializedName("name")

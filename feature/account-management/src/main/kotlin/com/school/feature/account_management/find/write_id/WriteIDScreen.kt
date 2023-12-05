@@ -12,10 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.SchoolTextField
+import com.school.feature.account_management.find.viewmodel.FindViewModel
 
 @Composable
 fun WriteIDScreen(
     navigateFindPw: () -> Unit,
+    findViewModel: FindViewModel,
 ) {
     var id by remember { mutableStateOf("") }
     Column {
@@ -30,6 +32,7 @@ fun WriteIDScreen(
             text = "넘어가기",
             activate = id.isNotEmpty()
         ) {
+            findViewModel.saveId(id = id)
             navigateFindPw()
         }
     }

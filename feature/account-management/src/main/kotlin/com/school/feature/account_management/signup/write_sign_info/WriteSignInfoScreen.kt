@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,6 +18,7 @@ import com.school.core.ui.component.textfield.PasswordVisibleIcon
 import com.school.core.ui.component.textfield.SchoolTextField
 import com.school.core.ui.component.textview.BodySmallText
 import com.school.core.ui.util.lifecycle.observeWithLifecycle
+import com.school.feature.account_management.certificate.viewmodel.CertificateViewModel
 import com.school.feature.account_management.signup.viewmodel.SignupSideEffect
 import com.school.feature.account_management.signup.viewmodel.SignupViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -26,9 +28,11 @@ import kotlinx.coroutines.InternalCoroutinesApi
 fun WriteSignInfoScreen(
     navigateSignIn: () -> Unit,
     signupViewModel: SignupViewModel,
+    certificateViewModel: CertificateViewModel,
 ) {
     val container = signupViewModel.container
     val sideEffect = container.sideEffectFlow
+    val certificateState = certificateViewModel.container.stateFlow.collectAsState().value
     var id by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(true) }
@@ -109,7 +113,11 @@ fun WriteSignInfoScreen(
             if (password != passwordCheck) {
                 passwordErrorText = "두 비밀번호가 일치하지 않습니다."
             } else {
-                signupViewModel.signup(id = id, password = password)
+                signupViewModel.signup(
+                    id = id,
+                    password = password,
+                    phoneNumber = certificateState.phoneNumber
+                )
             }
         }
     }
