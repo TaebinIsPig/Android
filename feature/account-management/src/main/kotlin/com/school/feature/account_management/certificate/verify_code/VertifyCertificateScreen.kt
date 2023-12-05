@@ -1,4 +1,4 @@
-package com.school.feature.account_management.certificate
+package com.school.feature.account_management.certificate.verify_code
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,34 +22,41 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.school.core.design_system.SchoolTheme
 import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textview.BodyMediumText
 import com.school.core.ui.component.textview.BodySmallText
 import com.school.core.ui.component.textview.HeadText
 import com.school.core.ui.util.lifecycle.observeWithLifecycle
-import com.school.feature.account_management.account_management.SignupSideEffect
-import com.school.feature.account_management.account_management.SignupViewModel
+import com.school.feature.account_management.certificate.viewmodel.CertificateSideEffect
+import com.school.feature.account_management.certificate.viewmodel.CertificateViewModel
+import com.school.feature.account_management.navigation.AccountManagementType
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @OptIn(InternalCoroutinesApi::class)
 @Composable
 fun CertificateScreen(
     navigateWriteSignInfo: () -> Unit,
-    signupViewModel: SignupViewModel,
+    navigateFindId: () -> Unit,
+    navigateWriteId: () -> Unit,
+    certificateViewModel: CertificateViewModel,
 ) {
-    val container = signupViewModel.container
+    val container = certificateViewModel.container
+    val state = container.stateFlow.collectAsState().value
     val sideEffect = container.sideEffectFlow
     var certificateNumber by remember { mutableStateOf("") }
     var certificateNumberErrorText by remember { mutableStateOf("") }
 
     sideEffect.observeWithLifecycle {
         when (it) {
-            is SignupSideEffect.Success -> navigateWriteSignInfo()
-            is SignupSideEffect.Error -> it.message?.let { certificateNumberErrorText = it }
+            is CertificateSideEffect.Success -> when (state.accountManagementType) {
+                AccountManagementType.Signup -> navigateWriteSignInfo()
+                AccountManagementType.FindID -> navigateFindId()
+                AccountManagementType.FindPW -> navigateWriteId()
+            }
+
+            is CertificateSideEffect.Error -> it.message?.let { certificateNumberErrorText = it }
         }
     }
 
@@ -81,7 +89,7 @@ fun CertificateScreen(
             Spacer(modifier = Modifier.height(40.dp))
         }
         SchoolButton(text = "넘어가기", activate = certificateNumber.isNotEmpty()) {
-            signupViewModel.verifyCertificate(authCode = certificateNumber)
+            certificateViewModel.verifyCertificate(authCode = certificateNumber)
         }
     }
 }
@@ -142,13 +150,5 @@ fun CertificateNumber(modifier: Modifier = Modifier, number: String) {
             text = number,
             color = SchoolTheme.colors.black
         )
-    }
-}
-
-@Preview
-@Composable
-fun PreviewCertificateScreen() {
-    SchoolTheme {
-        CertificateScreen(navigateWriteSignInfo = {}, signupViewModel = hiltViewModel())
     }
 }

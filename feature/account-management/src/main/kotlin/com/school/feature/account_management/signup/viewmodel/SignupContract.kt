@@ -1,4 +1,4 @@
-package com.school.feature.account_management.account_management
+package com.school.feature.account_management.signup.viewmodel
 
 import com.school.core.domain.param.SignupParam
 
@@ -10,7 +10,6 @@ data class SignupState(
         number = 0
     ),
     val name: String = "",
-    val phoneNumber: String = "",
 )
 
 sealed class SignupSideEffect {

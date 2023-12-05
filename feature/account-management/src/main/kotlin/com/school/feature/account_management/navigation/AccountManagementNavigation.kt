@@ -7,12 +7,3 @@ fun NavController.navigateSignup() = navigate(AccountManagementNavigationItem.Si
 fun NavController.navigateFindID() = navigate(AccountManagementNavigationItem.FindID.route)
 
 fun NavController.navigateFindPw() = navigate(AccountManagementNavigationItem.FindPw.route)
-
-fun NavController.navigatePhoneNumber() =
-    navigate(SignupNavigationItem.PhoneNumber.route)
-
-fun NavController.navigateCertificate() =
-    navigate(SignupNavigationItem.Certificate.route)
-
-fun NavController.navigateWriteSignInfo() =
-    navigate(SignupNavigationItem.WriteSignInfo.route)

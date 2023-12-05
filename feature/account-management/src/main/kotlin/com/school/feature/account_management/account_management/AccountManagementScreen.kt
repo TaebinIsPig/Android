@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -24,12 +26,16 @@ import com.school.core.design_system.attribute.SchoolIcon
 import com.school.core.design_system.attribute.SchoolIconList
 import com.school.core.ui.component.textview.FugazOneText
 import com.school.core.ui.util.modifier.schoolClickable
+import com.school.feature.account_management.certificate.navigation.CertificateNavigationItem
+import com.school.feature.account_management.certificate.navigation.certificateGraph
+import com.school.feature.account_management.certificate.navigation.navigateCertificate
+import com.school.feature.account_management.certificate.navigation.navigatePhoneNumber
+import com.school.feature.account_management.certificate.viewmodel.CertificateViewModel
 import com.school.feature.account_management.navigation.AccountManagementType
-import com.school.feature.account_management.navigation.SignupNavigationItem
-import com.school.feature.account_management.navigation.signupGraph
-import com.school.feature.account_management.navigation.navigateCertificate
-import com.school.feature.account_management.navigation.navigatePhoneNumber
-import com.school.feature.account_management.navigation.navigateWriteSignInfo
+import com.school.feature.account_management.signup.navigation.SignupNavigationItem
+import com.school.feature.account_management.signup.navigation.navigateWriteSignInfo
+import com.school.feature.account_management.signup.navigation.signupGraph
+import com.school.feature.account_management.signup.viewmodel.SignupViewModel
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalComposeUiApi::class)
 @Composable
@@ -38,12 +44,17 @@ fun AccountManagementScreen(
     popBackStack: () -> Unit,
     navigateSignIn: () -> Unit,
     signupViewModel: SignupViewModel = hiltViewModel(),
+    certificateViewModel: CertificateViewModel = hiltViewModel(),
 ) {
     val navController = rememberAnimatedNavController()
     val container = signupViewModel.container
     val state = container.stateFlow.collectAsState().value
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
+
+    LaunchedEffect(Unit) {
+        certificateViewModel.saveAccountManagementType(accountManagementType = accountManagementType)
+    }
 
     Column(
         modifier = Modifier.schoolClickable {
@@ -63,7 +74,7 @@ fun AccountManagementScreen(
                     .align(Alignment.TopStart)
                     .padding(top = 20.dp, start = 16.dp)
                     .schoolClickable {
-                        if (navController.currentBackStackEntry?.destination?.route == SignupNavigationItem.SearchSchool.route || navController.graph.startDestinationRoute == SignupNavigationItem.PhoneNumber.route) {
+                        if (navController.currentBackStackEntry?.destination?.route == navController.graph.startDestinationRoute) {
                             if (state.schoolName.isNotEmpty()) {
                                 signupViewModel.saveSchool(schoolName = "")
                             } else {
@@ -81,7 +92,8 @@ fun AccountManagementScreen(
                     .align(Alignment.TopStart)
                     .padding(top = 88.dp, start = 50.dp),
                 text = accountManagementType.title,
-                textSize = 32
+                textSize = 32,
+                textAlign = TextAlign.Start
             )
         }
         Spacer(modifier = Modifier.height(34.dp))
@@ -90,16 +102,21 @@ fun AccountManagementScreen(
             navController = navController,
             startDestination = when (accountManagementType) {
                 AccountManagementType.Signup -> SignupNavigationItem.SearchSchool.route
-                AccountManagementType.FindID -> SignupNavigationItem.PhoneNumber.route
-                AccountManagementType.FindPW -> SignupNavigationItem.PhoneNumber.route
+                AccountManagementType.FindID -> CertificateNavigationItem.PhoneNumber.route
+                AccountManagementType.FindPW -> CertificateNavigationItem.PhoneNumber.route
             }
         ) {
             signupGraph(
                 signupViewModel = signupViewModel,
                 navigatePhoneNumber = navController::navigatePhoneNumber,
-                navigateCertificate = navController::navigateCertificate,
-                navigateWriteSignInfo = navController::navigateWriteSignInfo,
                 navigateMain = navigateSignIn
+            )
+            certificateGraph(
+                certificateViewModel = certificateViewModel,
+                navigateWriteSignInfo = navController::navigateWriteSignInfo,
+                navigateCertificate = navController::navigateCertificate,
+                navigateFindId = {},
+                navigateWriteId = {},
             )
         }
     }

@@ -1,4 +1,4 @@
-package com.school.feature.account_management.phone_number
+package com.school.feature.account_management.certificate.send_certificate
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,17 +17,17 @@ import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.SchoolTextField
 import com.school.core.ui.component.textview.BodySmallText
 import com.school.core.ui.util.lifecycle.observeWithLifecycle
-import com.school.feature.account_management.account_management.SignupSideEffect
-import com.school.feature.account_management.account_management.SignupViewModel
+import com.school.feature.account_management.certificate.viewmodel.CertificateSideEffect
+import com.school.feature.account_management.certificate.viewmodel.CertificateViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @OptIn(InternalCoroutinesApi::class)
 @Composable
 fun PhoneNumberScreen(
     navigateCertificate: () -> Unit,
-    signupViewModel: SignupViewModel,
+    certificateViewModel: CertificateViewModel,
 ) {
-    val container = signupViewModel.container
+    val container = certificateViewModel.container
     val sideEffect = container.sideEffectFlow
     val state = container.stateFlow.collectAsState().value
     var phoneNumber by remember { mutableStateOf(state.phoneNumber) }
@@ -35,8 +35,8 @@ fun PhoneNumberScreen(
 
     sideEffect.observeWithLifecycle {
         when (it) {
-            is SignupSideEffect.Success -> navigateCertificate()
-            is SignupSideEffect.Error -> it.message?.let { phoneNumberErrorText = it }
+            is CertificateSideEffect.Success -> navigateCertificate()
+            is CertificateSideEffect.Error -> it.message?.let { phoneNumberErrorText = it }
         }
     }
 
@@ -56,7 +56,7 @@ fun PhoneNumberScreen(
             Spacer(modifier = Modifier.height(40.dp))
         }
         SchoolButton(text = "인증하기", activate = phoneNumber.isNotEmpty()) {
-            signupViewModel.sendCertificate(phoneNumber = phoneNumber)
+            certificateViewModel.sendCertificate(phoneNumber = phoneNumber)
         }
     }
 }

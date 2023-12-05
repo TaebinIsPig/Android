@@ -1,4 +1,4 @@
-package com.school.feature.account_management.search_school
+package com.school.feature.account_management.signup.search_school
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -25,7 +25,7 @@ import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.SchoolTextField
 import com.school.core.ui.component.textfield.SearchButton
 import com.school.core.ui.component.textview.BodyLargeText
-import com.school.feature.account_management.account_management.SignupViewModel
+import com.school.feature.account_management.signup.viewmodel.SignupViewModel
 
 @Composable
 fun SearchSchoolScreen(

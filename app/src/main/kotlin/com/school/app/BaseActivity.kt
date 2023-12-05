@@ -84,7 +84,7 @@ fun BaseApp(
         introGraph(
             navigateLogin = navController::navigateSignIn,
             navigateSignUp = navController::navigateSignup,
-            navigateMain = { navController.navigateMain(IntroNavigationItem.Intro.route) }
+            navigateMain = navController::navigateMain
         )
         accountManagementGraph(
             popBackStack = navController::popBackStack,
@@ -92,7 +92,7 @@ fun BaseApp(
         )
         signInGraph(
             popBackStack = navController::popBackStack,
-            navigateMain = { navController.navigateMain(IntroNavigationItem.Intro.route) },
+            navigateMain = navController::navigateMain,
             navigateFindId = navController::navigateFindID,
             navigateFindPw = navController::navigateFindPw
         )
