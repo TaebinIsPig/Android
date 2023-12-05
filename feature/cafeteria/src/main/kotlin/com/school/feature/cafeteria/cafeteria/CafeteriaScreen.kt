@@ -48,6 +48,7 @@ fun CafeteriaScreen() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .weight(0.3F)
                 .padding(start = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween

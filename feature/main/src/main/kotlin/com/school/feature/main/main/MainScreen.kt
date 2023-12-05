@@ -41,41 +41,47 @@ fun MainScreen(
             .fillMaxSize()
             .background(SchoolTheme.colors.main)
     ) {
-        Spacer(modifier = Modifier.height(20.dp))
-        Row(
+        Column(
             Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxWidth()
+                .weight(0.3F)
         ) {
-            BodyLargeText(text = "로고")
-            SchoolIcon(
-                modifier = Modifier.schoolClickable(onClick = navigateProfile),
-                icon = SchoolIconList.Profile
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(
+                Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                BodyLargeText(text = "로고")
+                SchoolIcon(
+                    modifier = Modifier.schoolClickable(onClick = navigateProfile),
+                    icon = SchoolIconList.Profile
+                )
+            }
+            Spacer(modifier = Modifier.weight(1F))
+            BodyLargeText(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                text = "광주소프트웨어마이스터고등학교",
+                fontWeight = FontWeight.SemiBold
             )
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                BodyMediumText(
+                    text = "2학년 3반",
+                    fontWeight = FontWeight.Medium
+                )
+                BodyMediumText(
+                    text = "이동욱",
+                    fontWeight = FontWeight.Medium
+                )
+            }
+            Spacer(modifier = Modifier.height(25.dp))
         }
-        Spacer(modifier = Modifier.height(30.dp))
-        BodyLargeText(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            text = "광주소프트웨어마이스터고등학교",
-            fontWeight = FontWeight.SemiBold
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Row(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            BodyMediumText(
-                text = "2학년 3반",
-                fontWeight = FontWeight.Medium
-            )
-            BodyMediumText(
-                text = "이동욱",
-                fontWeight = FontWeight.Medium
-            )
-        }
-        Spacer(modifier = Modifier.height(25.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth()

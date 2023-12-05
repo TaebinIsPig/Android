@@ -29,6 +29,7 @@ fun ScheduleScreen() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .weight(0.3F)
                 .padding(top = 9.dp, start = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
@@ -41,7 +42,6 @@ fun ScheduleScreen() {
             }
             SchoolIcon(icon = SchoolIconList.Schedule)
         }
-        Spacer(modifier = Modifier.height(17.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth()
