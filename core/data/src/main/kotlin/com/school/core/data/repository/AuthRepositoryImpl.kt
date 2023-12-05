@@ -41,7 +41,7 @@ class AuthRepositoryImpl @Inject constructor(
             }
             throw NeedTokenException()
         } else {
-            remoteAuthDateSource.refresh(refreshToken = refreshToken).saveToken()
+            remoteAuthDateSource.refresh(refreshToken = "Bearer $refreshToken").saveToken()
         }
     }
 
