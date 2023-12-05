@@ -88,7 +88,7 @@ fun BaseApp(
         )
         accountManagementGraph(
             popBackStack = navController::popBackStack,
-            navigateSignIn = { navController.navigateSignIn(IntroNavigationItem.Intro.route) }
+            navigateSignIn = navController::navigateSignIn
         )
         signInGraph(
             popBackStack = navController::popBackStack,
