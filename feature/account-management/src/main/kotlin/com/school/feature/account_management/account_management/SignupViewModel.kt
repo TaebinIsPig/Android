@@ -1,4 +1,4 @@
-package com.school.feature.signup.signup
+package com.school.feature.account_management.account_management
 
 import androidx.lifecycle.ViewModel
 import com.school.core.domain.param.SignupParam

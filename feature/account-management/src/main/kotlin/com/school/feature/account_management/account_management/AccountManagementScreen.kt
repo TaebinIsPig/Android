@@ -1,4 +1,4 @@
-package com.school.feature.signup.signup
+package com.school.feature.account_management.account_management
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
@@ -24,15 +24,17 @@ import com.school.core.design_system.attribute.SchoolIcon
 import com.school.core.design_system.attribute.SchoolIconList
 import com.school.core.ui.component.textview.FugazOneText
 import com.school.core.ui.util.modifier.schoolClickable
-import com.school.feature.signup.navigation.InternalSignupNavigationItem
-import com.school.feature.signup.navigation.internalSignupGraph
-import com.school.feature.signup.navigation.navigateCertificate
-import com.school.feature.signup.navigation.navigatePhoneNumber
-import com.school.feature.signup.navigation.navigateWriteSignInfo
+import com.school.feature.account_management.navigation.AccountManagementType
+import com.school.feature.account_management.navigation.SignupNavigationItem
+import com.school.feature.account_management.navigation.signupGraph
+import com.school.feature.account_management.navigation.navigateCertificate
+import com.school.feature.account_management.navigation.navigatePhoneNumber
+import com.school.feature.account_management.navigation.navigateWriteSignInfo
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalComposeUiApi::class)
 @Composable
-fun SignupScreen(
+fun AccountManagementScreen(
+    accountManagementType: AccountManagementType,
     popBackStack: () -> Unit,
     navigateSignIn: () -> Unit,
     signupViewModel: SignupViewModel = hiltViewModel(),
@@ -61,7 +63,7 @@ fun SignupScreen(
                     .align(Alignment.TopStart)
                     .padding(top = 20.dp, start = 16.dp)
                     .schoolClickable {
-                        if (navController.currentBackStackEntry?.destination?.route == InternalSignupNavigationItem.SearchSchool.route) {
+                        if (navController.currentBackStackEntry?.destination?.route == SignupNavigationItem.SearchSchool.route || navController.graph.startDestinationRoute == SignupNavigationItem.PhoneNumber.route) {
                             if (state.schoolName.isNotEmpty()) {
                                 signupViewModel.saveSchool(schoolName = "")
                             } else {
@@ -78,7 +80,7 @@ fun SignupScreen(
                 modifier = Modifier
                     .align(Alignment.TopStart)
                     .padding(top = 88.dp, start = 50.dp),
-                text = "SIGN UP",
+                text = accountManagementType.title,
                 textSize = 32
             )
         }
@@ -86,9 +88,13 @@ fun SignupScreen(
         AnimatedNavHost(
             modifier = Modifier.fillMaxSize(),
             navController = navController,
-            startDestination = InternalSignupNavigationItem.SearchSchool.route
+            startDestination = when (accountManagementType) {
+                AccountManagementType.Signup -> SignupNavigationItem.SearchSchool.route
+                AccountManagementType.FindID -> SignupNavigationItem.PhoneNumber.route
+                AccountManagementType.FindPW -> SignupNavigationItem.PhoneNumber.route
+            }
         ) {
-            internalSignupGraph(
+            signupGraph(
                 signupViewModel = signupViewModel,
                 navigatePhoneNumber = navController::navigatePhoneNumber,
                 navigateCertificate = navController::navigateCertificate,

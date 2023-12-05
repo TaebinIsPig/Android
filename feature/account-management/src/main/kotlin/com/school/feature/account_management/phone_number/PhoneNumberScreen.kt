@@ -1,4 +1,4 @@
-package com.school.feature.signup.phone_number
+package com.school.feature.account_management.phone_number
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,8 +17,8 @@ import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.SchoolTextField
 import com.school.core.ui.component.textview.BodySmallText
 import com.school.core.ui.util.lifecycle.observeWithLifecycle
-import com.school.feature.signup.signup.SignupSideEffect
-import com.school.feature.signup.signup.SignupViewModel
+import com.school.feature.account_management.account_management.SignupSideEffect
+import com.school.feature.account_management.account_management.SignupViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @OptIn(InternalCoroutinesApi::class)

@@ -1,4 +1,4 @@
-package com.school.feature.signup.certificate
+package com.school.feature.account_management.certificate
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -30,8 +30,8 @@ import com.school.core.ui.component.textview.BodyMediumText
 import com.school.core.ui.component.textview.BodySmallText
 import com.school.core.ui.component.textview.HeadText
 import com.school.core.ui.util.lifecycle.observeWithLifecycle
-import com.school.feature.signup.signup.SignupSideEffect
-import com.school.feature.signup.signup.SignupViewModel
+import com.school.feature.account_management.account_management.SignupSideEffect
+import com.school.feature.account_management.account_management.SignupViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @OptIn(InternalCoroutinesApi::class)
