@@ -4,13 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -29,6 +29,7 @@ import com.school.feature.account_management.navigation.navigateSignup
 import com.school.feature.account_management.navigation.accountManagementGraph
 import com.school.feature.account_management.navigation.navigateFindID
 import com.school.feature.account_management.navigation.navigateFindPw
+import com.school.feature.main.navigation.MainNavigationItem
 import com.school.feature.timetable.navigation.timetableGraph
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,14 +42,20 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             navController = rememberAnimatedNavController()
+            var previousRoute by remember { mutableStateOf(MainNavigationItem.Main.route) }
             SchoolTheme {
                 Scaffold(
-                    bottomBar = { SchoolBottomNavigation(navController = navController) },
+                    bottomBar = {
+                        SchoolBottomNavigation(navController = navController)
+                    },
                     content = {
                         BaseApp(
                             modifier = Modifier.padding(it),
-                            navController = navController
-                        )
+                            navController = navController,
+                            previousRoute = previousRoute,
+                        ) {
+                            previousRoute = it
+                        }
                     }
                 )
             }
@@ -61,27 +68,16 @@ class MainActivity : ComponentActivity() {
 fun BaseApp(
     modifier: Modifier = Modifier,
     navController: NavHostController,
+    previousRoute: String,
+    changePreviousRoute: (String) -> Unit,
 ) {
     AnimatedNavHost(
         modifier = modifier,
         navController = navController,
         startDestination = IntroNavigationItem.Intro.route,
-        enterTransition = {
-            slideInHorizontally(
-                initialOffsetX = { it * 2 }, animationSpec = tween(
-                    durationMillis = 500
-                )
-            )
-        },
-        popEnterTransition = { fadeIn(animationSpec = tween(durationMillis = 500)) },
-        popExitTransition = {
-            slideOutHorizontally(
-                targetOffsetX = { it * 2 }, animationSpec = tween(
-                    durationMillis = 500
-                )
-            )
-        }
     ) {
+        val isBackHome = previousRoute == MainNavigationItem.Main.route
+
         introGraph(
             navigateSignIn = navController::navigateSignIn,
             navigateSignUp = navController::navigateSignup,
@@ -97,9 +93,9 @@ fun BaseApp(
             navigateFindId = navController::navigateFindID,
             navigateFindPw = navController::navigateFindPw
         )
-        mainGraph(navigateProfile = {})
-        cafeteriaGraph()
-        timetableGraph()
-        scheduleGraph()
+        mainGraph(changePreviousRoute = changePreviousRoute, navigateProfile = {})
+        cafeteriaGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
+        timetableGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
+        scheduleGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
     }
 }
