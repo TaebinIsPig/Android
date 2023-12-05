@@ -25,10 +25,14 @@ fun NavGraphBuilder.findGraph(
     }
 
     composable(FindNavigationItem.FindPw.route) {
-        FindPwScreen(navigateSignIn = navigateSignIn)
+        FindPwScreen(
+            navigateSignIn = navigateSignIn,
+            findViewModel = findViewModel,
+            certificateViewModel = certificateViewModel
+        )
     }
 
     composable(FindNavigationItem.WriteID.route) {
-        WriteIDScreen(navigateFindPw = navigateFindPw)
+        WriteIDScreen(navigateFindPw = navigateFindPw, findViewModel = findViewModel)
     }
 }
