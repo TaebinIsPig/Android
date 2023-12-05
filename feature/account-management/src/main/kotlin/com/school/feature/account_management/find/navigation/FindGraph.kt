@@ -1,0 +1,26 @@
+package com.school.feature.account_management.find.navigation
+
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.navigation.NavGraphBuilder
+import com.google.accompanist.navigation.animation.composable
+import com.school.feature.account_management.find.find_id.FindIDScreen
+import com.school.feature.account_management.find.find_pw.FindPwScreen
+import com.school.feature.account_management.find.write_id.WriteIDScreen
+
+@OptIn(ExperimentalAnimationApi::class)
+fun NavGraphBuilder.findGraph(
+    navigateSignIn: () -> Unit,
+    navigateFindPw: () -> Unit,
+) {
+    composable(FindNavigationItem.FindID.route) {
+        FindIDScreen(navigateSignIn = navigateSignIn)
+    }
+
+    composable(FindNavigationItem.FindPw.route) {
+        FindPwScreen(navigateSignIn = navigateSignIn)
+    }
+
+    composable(FindNavigationItem.WriteID.route) {
+        WriteIDScreen(navigateFindPw = navigateFindPw)
+    }
+}

@@ -31,6 +31,10 @@ import com.school.feature.account_management.certificate.navigation.certificateG
 import com.school.feature.account_management.certificate.navigation.navigateCertificate
 import com.school.feature.account_management.certificate.navigation.navigatePhoneNumber
 import com.school.feature.account_management.certificate.viewmodel.CertificateViewModel
+import com.school.feature.account_management.find.navigation.findGraph
+import com.school.feature.account_management.find.navigation.navigateFindID
+import com.school.feature.account_management.find.navigation.navigateFindPw
+import com.school.feature.account_management.find.navigation.navigateWriteID
 import com.school.feature.account_management.navigation.AccountManagementType
 import com.school.feature.account_management.signup.navigation.SignupNavigationItem
 import com.school.feature.account_management.signup.navigation.navigateWriteSignInfo
@@ -109,14 +113,18 @@ fun AccountManagementScreen(
             signupGraph(
                 signupViewModel = signupViewModel,
                 navigatePhoneNumber = navController::navigatePhoneNumber,
-                navigateMain = navigateSignIn
+                navigateSignIn = navigateSignIn
+            )
+            findGraph(
+                navigateSignIn = navigateSignIn,
+                navigateFindPw = navController::navigateFindPw
             )
             certificateGraph(
                 certificateViewModel = certificateViewModel,
                 navigateWriteSignInfo = navController::navigateWriteSignInfo,
                 navigateCertificate = navController::navigateCertificate,
-                navigateFindId = {},
-                navigateWriteId = {},
+                navigateFindId = navController::navigateFindID,
+                navigateWriteId = navController::navigateWriteID,
             )
         }
     }

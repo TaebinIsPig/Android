@@ -7,13 +7,13 @@ import com.school.feature.intro.intro.IntroScreen
 
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.introGraph(
-    navigateLogin: () -> Unit,
+    navigateSignIn: () -> Unit,
     navigateSignUp: () -> Unit,
     navigateMain: () -> Unit,
 ) {
     composable(route = IntroNavigationItem.Intro.route) {
         IntroScreen(
-            navigateLogin = navigateLogin,
+            navigateSignIn = navigateSignIn,
             navigateSignUp = navigateSignUp,
             navigateMain = navigateMain
         )

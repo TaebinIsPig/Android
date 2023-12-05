@@ -1,4 +1,4 @@
-package com.school.feature.account_management.signup.write_sign_info
+package com.school.feature.account_management.find.find_pw
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,56 +15,18 @@ import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.PasswordVisibleIcon
 import com.school.core.ui.component.textfield.SchoolTextField
 import com.school.core.ui.component.textview.BodySmallText
-import com.school.core.ui.util.lifecycle.observeWithLifecycle
-import com.school.feature.account_management.signup.viewmodel.SignupSideEffect
-import com.school.feature.account_management.signup.viewmodel.SignupViewModel
-import kotlinx.coroutines.InternalCoroutinesApi
 
-@OptIn(InternalCoroutinesApi::class)
 @Composable
-fun WriteSignInfoScreen(
+fun FindPwScreen(
     navigateSignIn: () -> Unit,
-    signupViewModel: SignupViewModel,
 ) {
-    val container = signupViewModel.container
-    val sideEffect = container.sideEffectFlow
-    var id by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(true) }
     var passwordCheck by remember { mutableStateOf("") }
     var isPasswordCheckVisible by remember { mutableStateOf(true) }
-    var idErrorText by remember { mutableStateOf("") }
     var passwordErrorText by remember { mutableStateOf("") }
 
-    sideEffect.observeWithLifecycle {
-        when (it) {
-            is SignupSideEffect.Success -> navigateSignIn()
-            is SignupSideEffect.Error -> {
-                it.message?.let {
-                    if (it.contains("아이디")) {
-                        idErrorText = it
-                    } else {
-                        passwordErrorText = it
-                    }
-                }
-            }
-        }
-    }
-
     Column {
-        SchoolTextField(
-            title = "아이디",
-            value = id,
-            onValueChange = { id = it },
-            hint = "아이디를 입력해주세요."
-        )
-        if (idErrorText.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(8.dp))
-            BodySmallText(text = idErrorText, color = SchoolTheme.colors.error)
-            Spacer(modifier = Modifier.height(6.dp))
-        } else {
-            Spacer(modifier = Modifier.height(28.dp))
-        }
         SchoolTextField(
             title = "비밀번호",
             value = password,
@@ -99,12 +61,12 @@ fun WriteSignInfoScreen(
         Spacer(modifier = Modifier.height(40.dp))
         SchoolButton(
             text = "넘어가기",
-            activate = id.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty()
+            activate = password.isNotEmpty() && passwordCheck.isNotEmpty()
         ) {
             if (password != passwordCheck) {
                 passwordErrorText = "두 비밀번호가 일치하지 않습니다."
             } else {
-                signupViewModel.signup(id = id, password = password)
+                navigateSignIn()
             }
         }
     }

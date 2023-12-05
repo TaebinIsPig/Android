@@ -89,7 +89,12 @@ fun CertificateScreen(
             Spacer(modifier = Modifier.height(40.dp))
         }
         SchoolButton(text = "넘어가기", activate = certificateNumber.isNotEmpty()) {
-            certificateViewModel.verifyCertificate(authCode = certificateNumber)
+//            certificateViewModel.verifyCertificate(authCode = certificateNumber)
+            when (state.accountManagementType) {
+                AccountManagementType.Signup -> navigateWriteSignInfo()
+                AccountManagementType.FindID -> navigateFindId()
+                AccountManagementType.FindPW -> navigateWriteId()
+            }
         }
     }
 }

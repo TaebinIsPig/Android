@@ -82,7 +82,7 @@ fun BaseApp(
         }
     ) {
         introGraph(
-            navigateLogin = navController::navigateSignIn,
+            navigateSignIn = navController::navigateSignIn,
             navigateSignUp = navController::navigateSignup,
             navigateMain = navController::navigateMain
         )

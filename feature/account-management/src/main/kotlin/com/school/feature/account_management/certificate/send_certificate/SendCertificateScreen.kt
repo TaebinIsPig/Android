@@ -56,7 +56,8 @@ fun PhoneNumberScreen(
             Spacer(modifier = Modifier.height(40.dp))
         }
         SchoolButton(text = "인증하기", activate = phoneNumber.isNotEmpty()) {
-            certificateViewModel.sendCertificate(phoneNumber = phoneNumber)
+//            certificateViewModel.sendCertificate(phoneNumber = phoneNumber)
+            navigateCertificate()
         }
     }
 }

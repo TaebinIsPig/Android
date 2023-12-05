@@ -11,11 +11,11 @@ import com.school.feature.account_management.signup.write_sign_info.WriteSignInf
 internal fun NavGraphBuilder.signupGraph(
     signupViewModel: SignupViewModel,
     navigatePhoneNumber: () -> Unit,
-    navigateMain: () -> Unit,
+    navigateSignIn: () -> Unit,
 ) {
     composable(SignupNavigationItem.WriteSignInfo.route) {
         WriteSignInfoScreen(
-            navigateMain = navigateMain,
+            navigateSignIn = navigateSignIn,
             signupViewModel = signupViewModel
         )
     }
