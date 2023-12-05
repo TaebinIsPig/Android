@@ -24,6 +24,7 @@ class TokenInterceptor @Inject constructor(
         val request = chain.request()
         val path = request.url.encodedPath
         if (path.startsWith("/${EndPoint.auth}")) return chain.proceed(request)
+        else if (path.contains("find")) return chain.proceed(request)
         val now = LocalDateTime.now()
         val accessExpiredAt =
             localAuthDataSource.fetchAccessTokenExp()
