@@ -17,6 +17,7 @@ import com.school.core.design_system.SchoolTheme
 import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.SchoolTextField
 import com.school.core.ui.component.textview.BodySmallText
+import com.school.core.ui.util.data.phoneNumberRegexCheck
 import com.school.core.ui.util.lifecycle.observeWithLifecycle
 import com.school.feature.account_management.certificate.viewmodel.CertificateSideEffect
 import com.school.feature.account_management.certificate.viewmodel.CertificateViewModel
@@ -59,7 +60,11 @@ fun PhoneNumberScreen(
             Spacer(modifier = Modifier.height(40.dp))
         }
         SchoolButton(text = "인증하기", activate = phoneNumber.isNotEmpty()) {
-            certificateViewModel.sendCertificate(phoneNumber = phoneNumber)
+            if (phoneNumber.phoneNumberRegexCheck().not()) {
+                phoneNumberErrorText = "전화번호 형식이 아닙니다."
+            } else {
+                certificateViewModel.sendCertificate(phoneNumber = phoneNumber)
+            }
         }
     }
 }
