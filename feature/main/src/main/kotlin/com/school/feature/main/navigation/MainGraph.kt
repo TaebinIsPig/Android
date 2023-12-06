@@ -1,13 +1,19 @@
 package com.school.feature.main.navigation
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.navigation.NavGraphBuilder
-import com.google.accompanist.navigation.animation.composable
+import com.school.core.ui.util.ui.mainComposable
 import com.school.feature.main.main.MainScreen
 
-@OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.mainGraph(navigateProfile: () -> Unit) {
-    composable(MainNavigationItem.Main.route) {
+fun NavGraphBuilder.mainGraph(
+    isBackHome: Boolean,
+    changePreviousRoute: (String) -> Unit,
+    navigateProfile: () -> Unit,
+) {
+    mainComposable(
+        route = MainNavigationItem.Main.route,
+        isBackHome = isBackHome
+    ) {
         MainScreen(navigateProfile = navigateProfile)
+        changePreviousRoute(MainNavigationItem.Main.route)
     }
 }

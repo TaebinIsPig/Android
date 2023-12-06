@@ -16,6 +16,7 @@ dependencies {
     implementation(projects.core.designSystem)
     implementation(projects.core.domain)
     implementation(libs.bundles.compose)
+    implementation(libs.accompanist.nav)
     implementation(libs.coil)
     debugImplementation(libs.bundles.compose.debug)
 }

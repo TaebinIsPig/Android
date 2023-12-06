@@ -3,6 +3,7 @@ package com.school.app.bottom_navigation
 import com.school.core.design_system.attribute.SchoolIconList
 import com.school.feature.cafeteria.navigation.CafeteriaNavigationItem
 import com.school.feature.main.navigation.MainNavigationItem
+import com.school.feature.schedule.navigation.ScheduleNavigationItem
 import com.school.feature.timetable.navigation.TimetableNavigationItem
 
 enum class BottomNavigationItem(
@@ -30,7 +31,7 @@ enum class BottomNavigationItem(
         unselectedIcon = SchoolIconList.NavTimetableUnselected
     ),
     Schedule(
-        route = MainNavigationItem.Main.route,
+        route = ScheduleNavigationItem.Schedule.route,
         title = "학사일정",
         selectedIcon = SchoolIconList.NavScheduleSelected,
         unselectedIcon = SchoolIconList.NavTimetableUnselected

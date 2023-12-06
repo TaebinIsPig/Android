@@ -7,8 +7,8 @@ data class TokenResponse(
     val accessToken: String,
     @SerializedName("refreshToken")
     val refreshToken: String,
-    @SerializedName("accessTokenExp")
+    @SerializedName("accessTokenExpiredAt")
     val accessTokenExp: String,
-    @SerializedName("refreshTokenExp")
+    @SerializedName("refreshTokenExpiredAt")
     val refreshTokenExp: String,
 )

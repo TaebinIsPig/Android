@@ -1,13 +1,15 @@
 package com.school.feature.cafeteria.navigation
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.navigation.NavGraphBuilder
-import com.google.accompanist.navigation.animation.composable
+import com.school.core.ui.util.ui.extraComposable
 import com.school.feature.cafeteria.cafeteria.CafeteriaScreen
 
-@OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.cafeteriaGraph() {
-    composable(CafeteriaNavigationItem.Cafeteria.route) {
+fun NavGraphBuilder.cafeteriaGraph(isBackHome: Boolean, changePreviousRoute: (String) -> Unit) {
+    extraComposable(
+        route = CafeteriaNavigationItem.Cafeteria.route,
+        isBackHome = isBackHome
+    ) {
         CafeteriaScreen()
+        changePreviousRoute(CafeteriaNavigationItem.Cafeteria.route)
     }
 }

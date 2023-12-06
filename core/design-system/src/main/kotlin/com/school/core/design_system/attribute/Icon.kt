@@ -136,9 +136,15 @@ class SchoolIconList private constructor(
         )
 
         @Stable
-        val DateRefresh = SchoolIconList(
-            drawableId = R.drawable.ic_date_refresh,
-            contentDescription = "dateRefresh"
+        val Schedule = SchoolIconList(
+            drawableId = R.drawable.ic_schedule,
+            contentDescription = "schedule"
+        )
+
+        @Stable
+        val CurrentDate = SchoolIconList(
+            drawableId = R.drawable.ic_current_date,
+            contentDescription = "currentDate"
         )
 
         @Stable
@@ -157,6 +163,12 @@ class SchoolIconList private constructor(
         val PrevMonth = SchoolIconList(
             drawableId = R.drawable.ic_prev_month,
             contentDescription = "prevMonth"
+        )
+
+        @Stable
+        val AddSchedule = SchoolIconList(
+            drawableId = R.drawable.ic_add_schedule,
+            contentDescription = "addSchedule"
         )
     }
 }
