@@ -17,6 +17,9 @@ import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.PasswordVisibleIcon
 import com.school.core.ui.component.textfield.SchoolTextField
 import com.school.core.ui.component.textview.BodySmallText
+import com.school.core.ui.util.data.idLengthCheck
+import com.school.core.ui.util.data.pwLengthCheck
+import com.school.core.ui.util.data.pwRegexCheck
 import com.school.core.ui.util.lifecycle.observeWithLifecycle
 import com.school.feature.account_management.certificate.viewmodel.CertificateViewModel
 import com.school.feature.account_management.signup.viewmodel.SignupSideEffect
@@ -27,6 +30,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @Composable
 fun WriteSignInfoScreen(
     navigateSignIn: () -> Unit,
+    popBackStack: () -> Unit,
     signupViewModel: SignupViewModel,
     certificateViewModel: CertificateViewModel,
 ) {
@@ -46,7 +50,10 @@ fun WriteSignInfoScreen(
             is SignupSideEffect.Success -> navigateSignIn()
             is SignupSideEffect.Error -> {
                 it.message?.let {
-                    if (it.contains("아이디")) {
+                    if (it.contains("전화번호")) {
+                        certificateViewModel.saveErrorMessage(message = it)
+                        popBackStack()
+                    } else if (it.contains("아이디")) {
                         idErrorText = it
                     } else {
                         passwordErrorText = it
@@ -112,6 +119,12 @@ fun WriteSignInfoScreen(
         ) {
             if (password != passwordCheck) {
                 passwordErrorText = "두 비밀번호가 일치하지 않습니다."
+            } else if (id.idLengthCheck().not()) {
+                idErrorText = "아이디의 글자 수는 8 ~ 15자 사이여야 합니다."
+            } else if (password.pwLengthCheck().not()) {
+                passwordErrorText = "비밀번호의 글자 수는 8 ~ 20자 사이여야 합니다."
+            } else if (password.pwRegexCheck().not()) {
+                passwordErrorText = "비밀번호는 대소문자와 특수문자를 한개씩 포함하여야 합니다."
             } else {
                 signupViewModel.signup(
                     id = id,

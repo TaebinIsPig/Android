@@ -15,10 +15,12 @@ fun NavGraphBuilder.findGraph(
     certificateViewModel: CertificateViewModel,
     navigateSignIn: () -> Unit,
     navigateFindPw: () -> Unit,
+    popBackStack: () -> Unit,
 ) {
     composable(FindNavigationItem.FindID.route) {
         FindIDScreen(
             navigateSignIn = navigateSignIn,
+            popBackStack = popBackStack,
             findViewModel = findViewModel,
             certificateViewModel = certificateViewModel
         )
@@ -27,6 +29,7 @@ fun NavGraphBuilder.findGraph(
     composable(FindNavigationItem.FindPw.route) {
         FindPwScreen(
             navigateSignIn = navigateSignIn,
+            popBackStack = popBackStack,
             findViewModel = findViewModel,
             certificateViewModel = certificateViewModel
         )

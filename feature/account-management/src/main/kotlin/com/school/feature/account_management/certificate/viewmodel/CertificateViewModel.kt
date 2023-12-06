@@ -27,7 +27,7 @@ class CertificateViewModel @Inject constructor(
     fun sendCertificate(phoneNumber: String) = intent {
         sendCertificateUseCase(phoneNumber = phoneNumber).onSuccess {
             postSideEffect(CertificateSideEffect.Success)
-            reduce { state.copy(phoneNumber = phoneNumber) }
+            reduce { state.copy(phoneNumber = phoneNumber, errorMessage = "") }
         }.onFailure {
             postSideEffect(CertificateSideEffect.Error(it.message))
         }
@@ -42,5 +42,9 @@ class CertificateViewModel @Inject constructor(
         }.onFailure {
             postSideEffect(CertificateSideEffect.Error(it.message))
         }
+    }
+
+    fun saveErrorMessage(message: String) = intent {
+        reduce { state.copy(errorMessage = message) }
     }
 }

@@ -25,6 +25,8 @@ import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.SchoolTextField
 import com.school.core.ui.component.textfield.SearchButton
 import com.school.core.ui.component.textview.BodyLargeText
+import com.school.core.ui.component.textview.BodySmallText
+import com.school.core.ui.util.data.nameLengthCheck
 import com.school.feature.account_management.signup.viewmodel.SignupViewModel
 
 @Composable
@@ -40,6 +42,7 @@ fun SearchSchoolScreen(
     var grade by remember { mutableStateOf(state.studentInfo.grade.let { if (it == 0) "" else it.toString() }) }
     var `class` by remember { mutableStateOf(state.studentInfo.`class`.let { if (it == 0) "" else it.toString() }) }
     var number by remember { mutableStateOf(state.studentInfo.number.let { if (it == 0) "" else it.toString() }) }
+    var nameErrorText by remember { mutableStateOf("") }
     Column {
         SchoolTextField(
             title = "학교",
@@ -63,8 +66,17 @@ fun SearchSchoolScreen(
                 onValueChange = { name = it },
                 hint = "이름을 입력해주세요."
             )
+            if (nameErrorText.isNotEmpty()) {
+                BodySmallText(
+                    modifier = Modifier.padding(top = 8.dp, bottom = 6.dp, start = 16.dp),
+                    text = nameErrorText,
+                    color = SchoolTheme.colors.error
+                )
+            } else {
+                Spacer(modifier = Modifier.height(28.dp))
+            }
             Row(
-                modifier = Modifier.padding(top = 28.dp, start = 16.dp, end = 90.dp),
+                modifier = Modifier.padding(start = 16.dp, end = 90.dp),
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 WriteSchoolInfoTextField(
@@ -95,13 +107,17 @@ fun SearchSchoolScreen(
         ) {
             if (!isSelectSchool) signupViewModel.saveSchool(schoolName = schoolName)
             else {
-                signupViewModel.saveStudentInfo(
-                    grade = grade,
-                    `class` = `class`,
-                    number = number,
-                    name = name
-                )
-                navigatePhoneNumber()
+                if (name.nameLengthCheck().not()) {
+                    nameErrorText = "이름의 글자 수는 2 ~ 10자 사이여야 합니다."
+                } else {
+                    signupViewModel.saveStudentInfo(
+                        grade = grade,
+                        `class` = `class`,
+                        number = number,
+                        name = name
+                    )
+                    navigatePhoneNumber()
+                }
             }
         }
     }
