@@ -164,5 +164,11 @@ class SchoolIconList private constructor(
             drawableId = R.drawable.ic_prev_month,
             contentDescription = "prevMonth"
         )
+
+        @Stable
+        val AddSchedule = SchoolIconList(
+            drawableId = R.drawable.ic_add_schedule,
+            contentDescription = "addSchedule"
+        )
     }
 }
