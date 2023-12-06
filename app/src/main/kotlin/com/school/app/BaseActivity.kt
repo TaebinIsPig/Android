@@ -4,6 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -12,9 +17,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.school.app.bottom_navigation.BottomNavigationItem
 import com.school.app.bottom_navigation.SchoolBottomNavigation
 import com.school.core.design_system.SchoolTheme
 import com.school.feature.cafeteria.navigation.cafeteriaGraph
@@ -42,19 +49,43 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             navController = rememberAnimatedNavController()
-            var previousRoute by remember { mutableStateOf(MainNavigationItem.Main.route) }
+            var previousRoute by remember { mutableStateOf("") }
             SchoolTheme {
                 Scaffold(
                     bottomBar = {
                         SchoolBottomNavigation(navController = navController)
                     },
                     content = {
-                        BaseApp(
-                            modifier = Modifier.padding(it),
-                            navController = navController,
-                            previousRoute = previousRoute,
-                        ) {
-                            previousRoute = it
+                        Box {
+                            if (BottomNavigationItem.values()
+                                    .any { it.route == navController.currentDestination?.route }
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(bottom = 60.dp)
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .weight(0.3F)
+                                            .background(SchoolTheme.colors.main)
+                                    )
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .weight(1F)
+                                            .background(SchoolTheme.colors.white)
+                                    )
+                                }
+                            }
+                            BaseApp(
+                                modifier = Modifier.padding(it),
+                                navController = navController,
+                                previousRoute = previousRoute,
+                            ) {
+                                previousRoute = it
+                            }
                         }
                     }
                 )
@@ -77,7 +108,6 @@ fun BaseApp(
         startDestination = IntroNavigationItem.Intro.route,
     ) {
         val isBackHome = previousRoute == MainNavigationItem.Main.route
-
         introGraph(
             navigateSignIn = navController::navigateSignIn,
             navigateSignUp = navController::navigateSignup,
@@ -93,7 +123,11 @@ fun BaseApp(
             navigateFindId = navController::navigateFindID,
             navigateFindPw = navController::navigateFindPw
         )
-        mainGraph(changePreviousRoute = changePreviousRoute, navigateProfile = {})
+        mainGraph(
+            isBackHome = isBackHome,
+            changePreviousRoute = changePreviousRoute,
+            navigateProfile = {}
+        )
         cafeteriaGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
         timetableGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
         scheduleGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
