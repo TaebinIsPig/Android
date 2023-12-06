@@ -17,7 +17,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,7 +39,6 @@ fun MonthDatePicker(
     onSelect: (LocalDate) -> Unit,
 ) {
     val spaceCount = currentDate.getSpaceCount()
-    val coroutineScope = rememberCoroutineScope()
     var pagerIdx by remember { mutableIntStateOf(Int.MAX_VALUE / 2) }
     val pagerState = rememberPagerState(initialPage = pagerIdx) {
         Int.MAX_VALUE
@@ -62,31 +60,33 @@ fun MonthDatePicker(
             .padding(horizontal = 16.dp),
         state = pagerState,
     ) {
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(7),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-            items(dayOfWeekList) {
-                BodyMediumText(text = it, color = SchoolTheme.colors.black)
-            }
-            items(spaceCount, itemContent = {})
-            items((1..currentDate.getStartOrLastDate(isStart = false).dayOfMonth).toList()) {
-                val isSelected = currentDate.dayOfMonth == it
-                BodyMediumText(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .background(
-                            color = if (isSelected) SchoolTheme.colors.main else Color.Transparent,
-                            shape = CircleShape
-                        )
-                        .padding(vertical = 4.dp, horizontal = 8.dp)
-                        .schoolClickable {
-                            onSelect(currentDate.setDate(date = it))
-                        },
-                    text = it.toString(),
-                    color = if (isSelected) SchoolTheme.colors.white else SchoolTheme.colors.gray
-                )
+        if (it in pagerState.currentPage - 1..pagerState.currentPage + 1) {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(7),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                items(dayOfWeekList) {
+                    BodyMediumText(text = it, color = SchoolTheme.colors.black)
+                }
+                items(spaceCount, itemContent = {})
+                items((1..currentDate.getStartOrLastDate(isStart = false).dayOfMonth).toList()) {
+                    val isSelected = currentDate.dayOfMonth == it
+                    BodyMediumText(
+                        modifier = Modifier
+                            .wrapContentSize()
+                            .background(
+                                color = if (isSelected) SchoolTheme.colors.main else Color.Transparent,
+                                shape = CircleShape
+                            )
+                            .padding(vertical = 4.dp, horizontal = 8.dp)
+                            .schoolClickable {
+                                onSelect(currentDate.setDate(date = it))
+                            },
+                        text = it.toString(),
+                        color = if (isSelected) SchoolTheme.colors.white else SchoolTheme.colors.gray
+                    )
+                }
             }
         }
     }
