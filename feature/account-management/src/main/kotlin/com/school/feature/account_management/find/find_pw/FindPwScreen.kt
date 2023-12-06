@@ -17,6 +17,8 @@ import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.PasswordVisibleIcon
 import com.school.core.ui.component.textfield.SchoolTextField
 import com.school.core.ui.component.textview.BodySmallText
+import com.school.core.ui.util.data.pwLengthCheck
+import com.school.core.ui.util.data.pwRegexCheck
 import com.school.core.ui.util.lifecycle.observeWithLifecycle
 import com.school.feature.account_management.certificate.viewmodel.CertificateViewModel
 import com.school.feature.account_management.find.viewmodel.FindSideEffect
@@ -27,6 +29,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @Composable
 fun FindPwScreen(
     navigateSignIn: () -> Unit,
+    popBackStack: () -> Unit,
     findViewModel: FindViewModel,
     certificateViewModel: CertificateViewModel,
 ) {
@@ -42,7 +45,13 @@ fun FindPwScreen(
     sideEffect.observeWithLifecycle {
         when (it) {
             FindSideEffect.Success -> navigateSignIn()
-            is FindSideEffect.Error -> passwordErrorText = it.message ?: ""
+            is FindSideEffect.Error -> {
+                it.message?.let {
+                    if (it.contains("비밀번호"))
+                        passwordErrorText = it
+                    else popBackStack()
+                }
+            }
         }
     }
 
@@ -87,6 +96,10 @@ fun FindPwScreen(
         ) {
             if (password != passwordCheck) {
                 passwordErrorText = "두 비밀번호가 일치하지 않습니다."
+            } else if (password.pwLengthCheck().not()) {
+                passwordErrorText = "비밀번호의 글자 수는 8 ~ 20자 사이여야 합니다."
+            } else if (password.pwRegexCheck().not()) {
+                passwordErrorText = "비밀번호는 대소문자와 특수문자를 한개씩 포함하여야 합니다."
             } else {
                 findViewModel.findPassword(
                     phoneNumber = certificateState.phoneNumber,

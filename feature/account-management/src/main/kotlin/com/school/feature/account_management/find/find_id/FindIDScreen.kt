@@ -10,18 +10,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.SchoolTextField
+import com.school.core.ui.util.lifecycle.observeWithLifecycle
 import com.school.feature.account_management.certificate.viewmodel.CertificateViewModel
+import com.school.feature.account_management.find.viewmodel.FindSideEffect
 import com.school.feature.account_management.find.viewmodel.FindViewModel
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@OptIn(InternalCoroutinesApi::class)
 @Composable
 fun FindIDScreen(
     navigateSignIn: () -> Unit,
+    popBackStack: () -> Unit,
     findViewModel: FindViewModel,
     certificateViewModel: CertificateViewModel,
 ) {
     val container = findViewModel.container
+    val sideEffect = container.sideEffectFlow
     val state = container.stateFlow.collectAsState().value
     val certificateState = certificateViewModel.container.stateFlow.collectAsState().value
+
+    sideEffect.observeWithLifecycle {
+        if (it is FindSideEffect.Error) {
+            popBackStack()
+        }
+    }
 
     LaunchedEffect(Unit) {
         findViewModel.findId(phoneNumber = certificateState.phoneNumber)

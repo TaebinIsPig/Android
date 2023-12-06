@@ -123,7 +123,8 @@ fun AccountManagementScreen(
                 findViewModel = findViewModel,
                 certificateViewModel = certificateViewModel,
                 navigateSignIn = navigateSignIn,
-                navigateFindPw = navController::navigateFindPw
+                navigateFindPw = navController::navigateFindPw,
+                popBackStack = navController::popBackStack
             )
             certificateGraph(
                 certificateViewModel = certificateViewModel,
