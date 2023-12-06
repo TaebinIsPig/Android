@@ -51,6 +51,7 @@ fun WriteSignInfoScreen(
             is SignupSideEffect.Error -> {
                 it.message?.let {
                     if (it.contains("전화번호")) {
+                        certificateViewModel.saveErrorMessage(message = it)
                         popBackStack()
                     } else if (it.contains("아이디")) {
                         idErrorText = it

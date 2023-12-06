@@ -31,6 +31,7 @@ fun FindIDScreen(
 
     sideEffect.observeWithLifecycle {
         if (it is FindSideEffect.Error) {
+            certificateViewModel.saveErrorMessage(message = it.message ?: "")
             popBackStack()
         }
     }

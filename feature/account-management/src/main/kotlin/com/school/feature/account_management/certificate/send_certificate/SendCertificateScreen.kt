@@ -33,7 +33,7 @@ fun PhoneNumberScreen(
     val sideEffect = container.sideEffectFlow
     val state = container.stateFlow.collectAsState().value
     var phoneNumber by remember { mutableStateOf(state.phoneNumber) }
-    var phoneNumberErrorText by remember { mutableStateOf("") }
+    var phoneNumberErrorText by remember { mutableStateOf(state.errorMessage) }
 
     sideEffect.observeWithLifecycle {
         when (it) {

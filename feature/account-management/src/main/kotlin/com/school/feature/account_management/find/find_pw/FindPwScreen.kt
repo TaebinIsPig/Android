@@ -49,7 +49,10 @@ fun FindPwScreen(
                 it.message?.let {
                     if (it.contains("비밀번호"))
                         passwordErrorText = it
-                    else popBackStack()
+                    else {
+                        certificateViewModel.saveErrorMessage(message = it)
+                        popBackStack()
+                    }
                 }
             }
         }
