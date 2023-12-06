@@ -116,7 +116,8 @@ fun AccountManagementScreen(
                 signupViewModel = signupViewModel,
                 certificateViewModel = certificateViewModel,
                 navigatePhoneNumber = navController::navigatePhoneNumber,
-                navigateSignIn = navigateSignIn
+                navigateSignIn = navigateSignIn,
+                popBackStack = navController::popBackStack
             )
             findGraph(
                 findViewModel = findViewModel,

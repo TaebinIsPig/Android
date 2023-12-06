@@ -30,6 +30,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @Composable
 fun WriteSignInfoScreen(
     navigateSignIn: () -> Unit,
+    popBackStack: () -> Unit,
     signupViewModel: SignupViewModel,
     certificateViewModel: CertificateViewModel,
 ) {
@@ -49,7 +50,9 @@ fun WriteSignInfoScreen(
             is SignupSideEffect.Success -> navigateSignIn()
             is SignupSideEffect.Error -> {
                 it.message?.let {
-                    if (it.contains("아이디")) {
+                    if (it.contains("전화번호")) {
+                        popBackStack()
+                    } else if (it.contains("아이디")) {
                         idErrorText = it
                     } else {
                         passwordErrorText = it

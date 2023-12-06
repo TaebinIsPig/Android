@@ -14,10 +14,12 @@ internal fun NavGraphBuilder.signupGraph(
     certificateViewModel: CertificateViewModel,
     navigatePhoneNumber: () -> Unit,
     navigateSignIn: () -> Unit,
+    popBackStack: () -> Unit,
 ) {
     composable(SignupNavigationItem.WriteSignInfo.route) {
         WriteSignInfoScreen(
             navigateSignIn = navigateSignIn,
+            popBackStack = popBackStack,
             signupViewModel = signupViewModel,
             certificateViewModel = certificateViewModel
         )
