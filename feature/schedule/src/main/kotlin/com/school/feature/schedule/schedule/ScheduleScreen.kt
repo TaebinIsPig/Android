@@ -24,7 +24,6 @@ import com.school.core.design_system.SchoolTheme
 import com.school.core.design_system.attribute.SchoolIcon
 import com.school.core.design_system.attribute.SchoolIconList
 import com.school.core.ui.component.datepicker.CalendarDatePicker
-import com.school.core.ui.component.header.DatePickerHeader
 import com.school.core.ui.component.textview.BodySmallText
 import com.school.core.ui.component.textview.FugazOneText
 import java.time.LocalDate
@@ -62,11 +61,6 @@ fun ScheduleScreen() {
                     shape = RoundedCornerShape(topEnd = 50.dp)
                 )
         ) {
-            Spacer(modifier = Modifier.height(40.dp))
-            DatePickerHeader(
-                currentDate = currentDate,
-                clickCurrentDate = { currentDate = LocalDate.now() })
-            Spacer(modifier = Modifier.height(22.dp))
             CalendarDatePicker(currentDate = currentDate) {
                 currentDate = it
             }

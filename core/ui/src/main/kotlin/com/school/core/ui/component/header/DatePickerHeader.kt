@@ -59,7 +59,7 @@ fun DatePickerHeader(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .offset(y = 1.dp),
-                    text = currentDate.dayOfMonth.toString(),
+                    text = LocalDate.now().dayOfMonth.toString(),
                     color = SchoolTheme.colors.pink3
                 )
             }

@@ -1,14 +1,11 @@
 package com.school.feature.cafeteria.cafeteria
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -23,7 +20,6 @@ import com.school.core.design_system.SchoolTheme
 import com.school.core.design_system.attribute.SchoolIcon
 import com.school.core.design_system.attribute.SchoolIconList
 import com.school.core.ui.component.datepicker.MonthDatePicker
-import com.school.core.ui.component.header.DatePickerHeader
 import com.school.core.ui.component.list.CafeteriaList
 import com.school.core.ui.component.textview.FugazOneText
 import java.time.LocalDate
@@ -63,19 +59,11 @@ fun CafeteriaScreen() {
                     shape = RoundedCornerShape(topEnd = 50.dp)
                 )
         ) {
-            Spacer(modifier = Modifier.height(40.dp))
-            DatePickerHeader(
+            MonthDatePicker(
                 currentDate = currentDate,
                 isOpenDatePicker = isOpenDatePicker,
-                clickOpenDatePicker = { isOpenDatePicker = it },
-                clickCurrentDate = { currentDate = LocalDate.now() }
+                clickOpenDatePicker = { isOpenDatePicker = it }, onSelect = { currentDate = it }
             )
-            Spacer(modifier = Modifier.height(20.dp))
-            AnimatedVisibility(visible = isOpenDatePicker) {
-                MonthDatePicker(currentDate = currentDate) {
-                    currentDate = it
-                }
-            }
             CafeteriaList(
                 modifier = Modifier
                     .weight(1F)
