@@ -18,18 +18,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.school.core.design_system.SchoolTheme
 import com.school.core.design_system.attribute.SchoolIcon
 import com.school.core.design_system.attribute.SchoolIconList
-import com.school.core.ui.component.button.OpenDatePickerButton
 import com.school.core.ui.component.datepicker.WeekDatePicker
+import com.school.core.ui.component.header.DatePickerHeader
 import com.school.core.ui.component.list.TimetableList
-import com.school.core.ui.component.textview.BodyMediumText
 import com.school.core.ui.component.textview.FugazOneText
-import com.school.core.ui.component.textview.TitleMediumText
-import com.school.core.ui.util.data.toDisplayDate
 import java.time.LocalDate
 
 @Composable
@@ -71,25 +67,10 @@ fun TimetableScreen() {
                 )
         ) {
             Spacer(modifier = Modifier.height(40.dp))
-            Row(
-                modifier = Modifier.padding(horizontal = 20.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                TitleMediumText(
-                    text = currentDate.year.toString(),
-                    fontWeight = FontWeight.SemiBold,
-                    color = SchoolTheme.colors.black
-                )
-                BodyMediumText(
-                    text = currentDate.toDisplayDate(),
-                    fontWeight = FontWeight.Medium,
-                    color = SchoolTheme.colors.black
-                )
-                OpenDatePickerButton(isOpen = isOpenDatePicker) {
-                    isOpenDatePicker = !isOpenDatePicker
-                }
-            }
+            DatePickerHeader(
+                currentDate = currentDate,
+                isOpenDatePicker = isOpenDatePicker,
+                clickOpenDatePicker = { isOpenDatePicker = it })
             Spacer(modifier = Modifier.height(20.dp))
             AnimatedVisibility(visible = isOpenDatePicker) {
                 WeekDatePicker(currentDate = currentDate) {
