@@ -38,6 +38,8 @@ import com.school.feature.account_management.navigation.navigateFindID
 import com.school.feature.account_management.navigation.navigateFindPw
 import com.school.feature.main.navigation.MainNavigationItem
 import com.school.feature.timetable.navigation.timetableGraph
+import com.school.profile.navigation.navigateProfile
+import com.school.profile.navigation.profileGraph
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -126,8 +128,9 @@ fun BaseApp(
         mainGraph(
             isBackHome = isBackHome,
             changePreviousRoute = changePreviousRoute,
-            navigateProfile = {}
+            navigateProfile = navController::navigateProfile
         )
+        profileGraph(popBackStack = navController::popBackStack, navigateSetting = {})
         cafeteriaGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
         timetableGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
         scheduleGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
