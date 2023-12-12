@@ -3,6 +3,7 @@ package com.school.core.remote.datasource
 import com.school.core.data.remote.datasource.RemoteAccountDataSource
 import com.school.core.data.remote.request.account.FindPasswordRequest
 import com.school.core.data.remote.response.account.FindIdResponse
+import com.school.core.data.remote.response.account.MyProfileResponse
 import com.school.core.data.remote.util.errorHandling
 import com.school.core.data.remote.util.schoolApiCall
 import com.school.core.remote.api.AccountAPI
@@ -17,5 +18,9 @@ class RemoteAccountDataSourceImpl @Inject constructor(
 
     override suspend fun findPassword(findPasswordRequest: FindPasswordRequest) = schoolApiCall {
         accountAPI.findPassword(findPasswordRequest = findPasswordRequest).errorHandling()
+    }
+
+    override suspend fun myProfile(): MyProfileResponse = schoolApiCall {
+        accountAPI.myProfile()
     }
 }

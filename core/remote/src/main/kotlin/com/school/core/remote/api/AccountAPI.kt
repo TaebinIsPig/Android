@@ -2,6 +2,7 @@ package com.school.core.remote.api
 
 import com.school.core.data.remote.request.account.FindPasswordRequest
 import com.school.core.data.remote.response.account.FindIdResponse
+import com.school.core.data.remote.response.account.MyProfileResponse
 import com.school.core.remote.util.EndPoint
 import retrofit2.Response
 import retrofit2.http.Body
@@ -19,4 +20,7 @@ interface AccountAPI {
     suspend fun findPassword(
         @Body findPasswordRequest: FindPasswordRequest,
     ): Response<Void?>
+
+    @GET("${EndPoint.account}/profile")
+    suspend fun myProfile(): MyProfileResponse
 }
