@@ -1,6 +1,7 @@
 package com.school.feature.main.main
 
 import com.school.core.domain.entity.account.MyProfileEntity
+import java.time.LocalDate
 
 data class MainState(
     val myProfileEntity: MyProfileEntity = MyProfileEntity(
@@ -13,4 +14,5 @@ data class MainState(
             number = 1
         )
     ),
+    val today: LocalDate = LocalDate.now(),
 )

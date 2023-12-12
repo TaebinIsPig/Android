@@ -32,6 +32,7 @@ import com.school.core.ui.component.list.TimetableList
 import com.school.core.ui.component.textview.BodyLargeText
 import com.school.core.ui.component.textview.BodyMediumText
 import com.school.core.ui.component.textview.TitleMediumText
+import com.school.core.ui.util.data.toDisplayDate
 import com.school.core.ui.util.modifier.schoolClickable
 
 @Composable
@@ -109,12 +110,12 @@ fun MainScreen(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 TitleMediumText(
-                    text = "2023",
+                    text = state.today.year.toString(),
                     fontWeight = FontWeight.SemiBold,
                     color = SchoolTheme.colors.black
                 )
                 BodyMediumText(
-                    text = "10월 24일 (화)",
+                    text = state.today.toDisplayDate(),
                     fontWeight = FontWeight.Medium,
                     color = SchoolTheme.colors.black
                 )
