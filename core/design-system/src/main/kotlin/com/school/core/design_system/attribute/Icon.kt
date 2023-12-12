@@ -170,5 +170,35 @@ class SchoolIconList private constructor(
             drawableId = R.drawable.ic_add_schedule,
             contentDescription = "addSchedule"
         )
+
+        @Stable
+        val DefaultProfile = SchoolIconList(
+            drawableId = R.drawable.ic_default_profile,
+            contentDescription = "defaultProfile"
+        )
+
+        @Stable
+        val Setting = SchoolIconList(
+            drawableId = R.drawable.ic_setting,
+            contentDescription = "setting"
+        )
+
+        @Stable
+        val ProfileSetting = SchoolIconList(
+            drawableId = R.drawable.ic_profile_setting,
+            contentDescription = "profileSetting"
+        )
+
+        @Stable
+        val SignOut = SchoolIconList(
+            drawableId = R.drawable.ic_sign_out,
+            contentDescription = "signOut"
+        )
+
+        @Stable
+        val Withdrawal = SchoolIconList(
+            drawableId = R.drawable.ic_withdrawal,
+            contentDescription = "withdrawal"
+        )
     }
 }
