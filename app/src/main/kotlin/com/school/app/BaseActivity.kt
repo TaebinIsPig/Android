@@ -130,7 +130,7 @@ fun BaseApp(
             changePreviousRoute = changePreviousRoute,
             navigateProfile = navController::navigateProfile
         )
-        profileGraph(popBackStack = navController::popBackStack, navigateSetting = {})
+        profileGraph(popBackStack = navController::popBackStack)
         cafeteriaGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
         timetableGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
         scheduleGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
