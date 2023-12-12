@@ -19,12 +19,15 @@ import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.school.core.design_system.SchoolTheme
 import com.school.core.design_system.attribute.SchoolIcon
 import com.school.core.design_system.attribute.SchoolIconList
@@ -36,12 +39,22 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ProfileScreen(popBackStack: () -> Unit) {
+fun ProfileScreen(
+    popBackStack: () -> Unit,
+    profileViewModel: ProfileViewModel = hiltViewModel(),
+) {
+    val container = profileViewModel.container
+    val state = container.stateFlow.collectAsState().value
     val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
+    val myProfile = state.myProfileEntity
 
     BackHandler(sheetState.isVisible) {
         coroutineScope.launch { sheetState.hide() }
+    }
+
+    LaunchedEffect(Unit) {
+        profileViewModel.myProfile()
     }
 
     ModalBottomSheetLayout(
@@ -87,7 +100,7 @@ fun ProfileScreen(popBackStack: () -> Unit) {
                 SchoolIcon(icon = SchoolIconList.DefaultProfile)
                 Spacer(modifier = Modifier.height(8.dp))
                 BodyLargeText(
-                    text = "이동욱",
+                    text = myProfile.name,
                     fontWeight = FontWeight.SemiBold,
                 )
             }
@@ -108,13 +121,15 @@ fun ProfileScreen(popBackStack: () -> Unit) {
                         .padding(horizontal = 30.dp)
                 ) {
                     Spacer(modifier = Modifier.height(30.dp))
-                    ProfileInfo(title = "이름", value = "이동욱")
+                    ProfileInfo(title = "학교", value = myProfile.school)
                     Spacer(modifier = Modifier.height(16.dp))
-                    ProfileInfo(title = "전화번호", value = "01012345678")
+                    StudentInfo(
+                        grade = myProfile.studentInfo.grade,
+                        `class` = myProfile.studentInfo.`class`,
+                        number = myProfile.studentInfo.number
+                    )
                     Spacer(modifier = Modifier.height(16.dp))
-                    ProfileInfo(title = "학교", value = "광주소프트웨어마이스터고등학교")
-                    Spacer(modifier = Modifier.height(16.dp))
-                    StudentInfo(grade = 1, `class` = 2, number = 10)
+                    ProfileInfo(title = "전화번호", value = myProfile.phoneNumber)
                     Spacer(modifier = Modifier.weight(1F))
                 }
             }
