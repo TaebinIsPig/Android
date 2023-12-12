@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.school.core.design_system.SchoolTheme
 import com.school.core.design_system.attribute.SchoolIcon
 import com.school.core.design_system.attribute.SchoolIconList
@@ -34,8 +37,16 @@ import com.school.core.ui.util.modifier.schoolClickable
 @Composable
 fun MainScreen(
     navigateProfile: () -> Unit,
+    mainViewModel: MainViewModel = hiltViewModel(),
 ) {
+    val container = mainViewModel.container
+    val state = container.stateFlow.collectAsState().value
     var currentToggle by remember { mutableStateOf(ToggleMenu.Cafeteria) }
+
+    LaunchedEffect(Unit) {
+        mainViewModel.myProfile()
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -63,7 +74,7 @@ fun MainScreen(
             Spacer(modifier = Modifier.weight(1F))
             BodyLargeText(
                 modifier = Modifier.padding(horizontal = 16.dp),
-                text = "광주소프트웨어마이스터고등학교",
+                text = state.myProfileEntity.school,
                 fontWeight = FontWeight.SemiBold
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -72,11 +83,11 @@ fun MainScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 BodyMediumText(
-                    text = "2학년 3반",
+                    text = "${state.myProfileEntity.studentInfo.grade}학년 ${state.myProfileEntity.studentInfo.`class`}반",
                     fontWeight = FontWeight.Medium
                 )
                 BodyMediumText(
-                    text = "이동욱",
+                    text = state.myProfileEntity.name,
                     fontWeight = FontWeight.Medium
                 )
             }
