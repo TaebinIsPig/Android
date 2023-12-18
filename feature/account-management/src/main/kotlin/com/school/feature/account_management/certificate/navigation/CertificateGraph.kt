@@ -10,6 +10,7 @@ import com.school.feature.account_management.certificate.viewmodel.CertificateVi
 @OptIn(ExperimentalAnimationApi::class)
 internal fun NavGraphBuilder.certificateGraph(
     certificateViewModel: CertificateViewModel,
+    popBackStack: () -> Unit,
     navigateCertificate: () -> Unit,
     navigateWriteSignInfo: () -> Unit,
     navigateFindId: () -> Unit,
@@ -24,6 +25,7 @@ internal fun NavGraphBuilder.certificateGraph(
 
     composable(CertificateNavigationItem.Certificate.route) {
         CertificateScreen(
+            popBackStack = popBackStack,
             navigateWriteSignInfo = navigateWriteSignInfo,
             certificateViewModel = certificateViewModel,
             navigateFindId = navigateFindId,

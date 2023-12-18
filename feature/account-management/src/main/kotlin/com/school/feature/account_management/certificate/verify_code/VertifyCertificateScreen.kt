@@ -37,6 +37,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @OptIn(InternalCoroutinesApi::class)
 @Composable
 fun CertificateScreen(
+    popBackStack: () -> Unit,
     navigateWriteSignInfo: () -> Unit,
     navigateFindId: () -> Unit,
     navigateWriteId: () -> Unit,
@@ -54,6 +55,8 @@ fun CertificateScreen(
                 AccountManagementType.Signup -> navigateWriteSignInfo()
                 AccountManagementType.FindID -> navigateFindId()
                 AccountManagementType.FindPW -> navigateWriteId()
+                AccountManagementType.ChangeNumber -> popBackStack()
+                AccountManagementType.ChangeSchool -> {}
             }
 
             is CertificateSideEffect.Error -> it.message?.let { certificateNumberErrorText = it }

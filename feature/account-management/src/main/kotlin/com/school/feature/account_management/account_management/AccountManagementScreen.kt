@@ -110,6 +110,8 @@ fun AccountManagementScreen(
                 AccountManagementType.Signup -> SignupNavigationItem.SearchSchool.route
                 AccountManagementType.FindID -> CertificateNavigationItem.PhoneNumber.route
                 AccountManagementType.FindPW -> CertificateNavigationItem.PhoneNumber.route
+                AccountManagementType.ChangeNumber -> CertificateNavigationItem.Certificate.route
+                AccountManagementType.ChangeSchool -> SignupNavigationItem.SearchSchool.route
             }
         ) {
             signupGraph(
@@ -128,6 +130,7 @@ fun AccountManagementScreen(
             )
             certificateGraph(
                 certificateViewModel = certificateViewModel,
+                popBackStack = popBackStack,
                 navigateWriteSignInfo = navController::navigateWriteSignInfo,
                 navigateCertificate = navController::navigateCertificate,
                 navigateFindId = navController::navigateFindID,

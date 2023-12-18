@@ -11,7 +11,11 @@ import com.school.core.ui.util.ui.targetX
 import com.school.profile.profile.ProfileScreen
 
 @OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.profileGraph(popBackStack: () -> Unit) {
+fun NavGraphBuilder.profileGraph(
+    popBackStack: () -> Unit,
+    navigateChangePhoneNumber: () -> Unit,
+    navigateChangeSchool: () -> Unit,
+) {
     composable(
         route = ProfileNavigationItem.Profile.route,
         enterTransition = {
@@ -36,6 +40,10 @@ fun NavGraphBuilder.profileGraph(popBackStack: () -> Unit) {
             )
         }
     ) {
-        ProfileScreen(popBackStack = popBackStack)
+        ProfileScreen(
+            popBackStack = popBackStack,
+            navigateChangePhoneNumber = navigateChangePhoneNumber,
+            navigateChangeSchool = navigateChangeSchool
+        )
     }
 }
