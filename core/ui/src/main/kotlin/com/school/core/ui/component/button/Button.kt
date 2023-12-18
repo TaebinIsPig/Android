@@ -17,12 +17,13 @@ import com.school.core.ui.util.modifier.schoolClickable
 fun SchoolButton(
     modifier: Modifier = Modifier,
     activate: Boolean = true,
+    horizontalPadding: Int = 16,
     text: String,
     onClick: () -> Unit,
 ) {
     TitleSmallText(
         modifier = modifier
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = horizontalPadding.dp)
             .fillMaxWidth()
             .background(
                 color = if (activate) SchoolTheme.colors.pink3 else SchoolTheme.colors.lightGray,
