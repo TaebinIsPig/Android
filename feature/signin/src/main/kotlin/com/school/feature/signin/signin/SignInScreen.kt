@@ -3,10 +3,8 @@ package com.school.feature.signin.signin
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.school.core.design_system.SchoolTheme
 import com.school.core.design_system.attribute.SchoolIcon
 import com.school.core.design_system.attribute.SchoolIconList
+import com.school.core.ui.component.background.SchoolBackground
 import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.PasswordVisibleIcon
 import com.school.core.ui.component.textfield.SchoolTextField
@@ -34,6 +33,7 @@ import com.school.core.ui.component.textview.FugazOneText
 import com.school.core.ui.util.lifecycle.observeWithLifecycle
 import com.school.core.ui.util.modifier.schoolClickable
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.delay
 
 @OptIn(InternalCoroutinesApi::class)
 @Composable
@@ -51,11 +51,18 @@ fun SignInScreen(
     var isPasswordVisible by remember { mutableStateOf(true) }
     var idErrorText by remember { mutableStateOf("") }
     var passwordErrorText by remember { mutableStateOf("") }
+    var isSuccess: Boolean? by remember { mutableStateOf(null) }
 
     sideEffect.observeWithLifecycle {
         when (it) {
-            is SignInSideEffect.Success -> navigateMain()
+            is SignInSideEffect.Success -> {
+                isSuccess = true
+                delay(1000)
+                navigateMain()
+            }
+
             is SignInSideEffect.Error -> {
+                isSuccess = false
                 it.message?.let {
                     if (it.contains("아이디")) {
                         idErrorText = it
@@ -63,12 +70,14 @@ fun SignInScreen(
                         passwordErrorText = it
                     }
                 }
+                delay(1000)
+                isSuccess = null
             }
         }
     }
 
-    Column(
-        modifier = Modifier.fillMaxSize()
+    SchoolBackground(
+        isSuccess = isSuccess
     ) {
         Box {
             SchoolIcon(
