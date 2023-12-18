@@ -18,5 +18,6 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.accompanist.nav)
     implementation(libs.coil)
+    implementation(libs.lottie)
     debugImplementation(libs.bundles.compose.debug)
 }
