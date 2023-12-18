@@ -55,7 +55,6 @@ fun ProfileScreen(
     val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
     val myProfile = state.myProfileEntity
-    var editProfileVisible by remember { mutableStateOf(false) }
 
     BackHandler(sheetState.isVisible) {
         coroutineScope.launch { sheetState.hide() }
@@ -71,7 +70,7 @@ fun ProfileScreen(
                 editProfile = {
                     coroutineScope.launch {
                         sheetState.hide()
-                        editProfileVisible = true
+                        profileViewModel.changeEditProfileVisible(editProfileVisible = true)
                     }
                 },
                 signOut = {},
@@ -81,9 +80,9 @@ fun ProfileScreen(
         sheetBackgroundColor = Color.Transparent
     ) {
         EditProfileDialog(
-            visible = editProfileVisible,
+            visible = state.editProfileVisible,
             myProfileEntity = state.myProfileEntity,
-            hideVisible = { editProfileVisible = false },
+            hideVisible = { profileViewModel.changeEditProfileVisible(editProfileVisible = false) },
             changePhoneNumber = navigateChangePhoneNumber,
             changeSchool = navigateChangeSchool,
             changeProfile = {},
