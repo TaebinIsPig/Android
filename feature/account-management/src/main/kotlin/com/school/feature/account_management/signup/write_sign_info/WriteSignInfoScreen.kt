@@ -1,6 +1,5 @@
 package com.school.feature.account_management.signup.write_sign_info
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -13,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.school.core.design_system.SchoolTheme
+import com.school.core.ui.component.background.SchoolBackground
 import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.PasswordVisibleIcon
 import com.school.core.ui.component.textfield.SchoolTextField
@@ -25,6 +25,7 @@ import com.school.feature.account_management.certificate.viewmodel.CertificateVi
 import com.school.feature.account_management.signup.viewmodel.SignupSideEffect
 import com.school.feature.account_management.signup.viewmodel.SignupViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.delay
 
 @OptIn(InternalCoroutinesApi::class)
 @Composable
@@ -44,13 +45,21 @@ fun WriteSignInfoScreen(
     var isPasswordCheckVisible by remember { mutableStateOf(true) }
     var idErrorText by remember { mutableStateOf("") }
     var passwordErrorText by remember { mutableStateOf("") }
+    var isSuccess: Boolean? by remember { mutableStateOf(null) }
 
     sideEffect.observeWithLifecycle {
         when (it) {
-            is SignupSideEffect.Success -> navigateSignIn()
+            is SignupSideEffect.Success -> {
+                isSuccess = true
+                delay(1000)
+                navigateSignIn()
+            }
+
             is SignupSideEffect.Error -> {
+                isSuccess = false
                 it.message?.let {
                     if (it.contains("전화번호")) {
+                        delay(1000)
                         certificateViewModel.saveErrorMessage(message = it)
                         popBackStack()
                     } else if (it.contains("아이디")) {
@@ -59,11 +68,13 @@ fun WriteSignInfoScreen(
                         passwordErrorText = it
                     }
                 }
+                delay(1000)
+                isSuccess = null
             }
         }
     }
 
-    Column {
+    SchoolBackground(isSuccess = isSuccess) {
         SchoolTextField(
             title = "아이디",
             value = id,

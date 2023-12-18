@@ -1,6 +1,5 @@
 package com.school.feature.account_management.find.find_pw
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -13,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.school.core.design_system.SchoolTheme
+import com.school.core.ui.component.background.SchoolBackground
 import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.PasswordVisibleIcon
 import com.school.core.ui.component.textfield.SchoolTextField
@@ -24,6 +24,7 @@ import com.school.feature.account_management.certificate.viewmodel.CertificateVi
 import com.school.feature.account_management.find.viewmodel.FindSideEffect
 import com.school.feature.account_management.find.viewmodel.FindViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.delay
 
 @OptIn(InternalCoroutinesApi::class)
 @Composable
@@ -41,24 +42,34 @@ fun FindPwScreen(
     var passwordCheck by remember { mutableStateOf("") }
     var isPasswordCheckVisible by remember { mutableStateOf(true) }
     var passwordErrorText by remember { mutableStateOf("") }
+    var isSuccess: Boolean? by remember { mutableStateOf(null) }
 
     sideEffect.observeWithLifecycle {
         when (it) {
-            FindSideEffect.Success -> navigateSignIn()
+            FindSideEffect.Success -> {
+                isSuccess = true
+                delay(1000)
+                navigateSignIn()
+            }
+
             is FindSideEffect.Error -> {
+                isSuccess = false
                 it.message?.let {
                     if (it.contains("비밀번호"))
                         passwordErrorText = it
                     else {
+                        delay(1000)
                         certificateViewModel.saveErrorMessage(message = it)
                         popBackStack()
                     }
                 }
+                delay(1000)
+                isSuccess = null
             }
         }
     }
 
-    Column {
+    SchoolBackground(isSuccess = isSuccess) {
         SchoolTextField(
             title = "비밀번호",
             value = password,
