@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -63,6 +65,7 @@ fun EditProfileDialog(
                     .padding(vertical = 70.dp, horizontal = 16.dp)
                     .fillMaxSize()
                     .background(color = SchoolTheme.colors.white, shape = RoundedCornerShape(10.dp))
+                    .verticalScroll(state = rememberScrollState())
             ) {
                 Box(
                     modifier = Modifier
@@ -125,7 +128,7 @@ fun EditProfileDialog(
                         onNumberChange = { number = it }
                     )
                 }
-                Spacer(modifier = Modifier.weight(1F))
+                Spacer(modifier = Modifier.height(40.dp))
                 SchoolButton(text = "저장하기", horizontalPadding = 8, onClick = changeProfile)
                 Spacer(modifier = Modifier.height(34.dp))
             }
