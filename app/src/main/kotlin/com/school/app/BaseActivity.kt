@@ -34,6 +34,8 @@ import com.school.feature.signin.navigation.navigateSignIn
 import com.school.feature.signin.navigation.signInGraph
 import com.school.feature.account_management.navigation.navigateSignup
 import com.school.feature.account_management.navigation.accountManagementGraph
+import com.school.feature.account_management.navigation.navigateChangePhoneNumber
+import com.school.feature.account_management.navigation.navigateChangeSchool
 import com.school.feature.account_management.navigation.navigateFindID
 import com.school.feature.account_management.navigation.navigateFindPw
 import com.school.feature.main.navigation.MainNavigationItem
@@ -130,7 +132,11 @@ fun BaseApp(
             changePreviousRoute = changePreviousRoute,
             navigateProfile = navController::navigateProfile
         )
-        profileGraph(popBackStack = navController::popBackStack)
+        profileGraph(
+            popBackStack = navController::popBackStack,
+            navigateChangePhoneNumber = navController::navigateChangePhoneNumber,
+            navigateChangeSchool = navController::navigateChangeSchool
+        )
         cafeteriaGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
         timetableGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
         scheduleGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)

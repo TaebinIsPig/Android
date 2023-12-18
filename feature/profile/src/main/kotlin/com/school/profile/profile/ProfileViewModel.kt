@@ -15,6 +15,10 @@ class ProfileViewModel @Inject constructor(
 ) : ViewModel(), ContainerHost<ProfileState, Unit> {
     override val container = container<ProfileState, Unit>(ProfileState())
 
+    fun changeEditProfileVisible(editProfileVisible: Boolean) = intent {
+        reduce { state.copy(editProfileVisible = editProfileVisible) }
+    }
+
     fun myProfile() = intent {
         myProfileUseCase().onSuccess {
             reduce { state.copy(myProfileEntity = it) }

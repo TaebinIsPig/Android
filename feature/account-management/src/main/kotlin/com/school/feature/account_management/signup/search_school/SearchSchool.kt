@@ -23,7 +23,8 @@ import androidx.compose.ui.unit.dp
 import com.school.core.design_system.SchoolTheme
 import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.SchoolTextField
-import com.school.core.ui.component.textfield.SearchButton
+import com.school.core.ui.component.textfield.StudentTextField
+import com.school.core.ui.component.textfield.TailingButton
 import com.school.core.ui.component.textview.BodyLargeText
 import com.school.core.ui.component.textview.BodySmallText
 import com.school.core.ui.util.data.nameLengthCheck
@@ -52,7 +53,7 @@ fun SearchSchoolScreen(
             onValueChange = { schoolName = it },
             tailingIcon = if (!isSelectSchool) {
                 {
-                    SearchButton {
+                    TailingButton {
 
                     }
                 }
@@ -75,30 +76,14 @@ fun SearchSchoolScreen(
             } else {
                 Spacer(modifier = Modifier.height(28.dp))
             }
-            Row(
-                modifier = Modifier.padding(start = 16.dp, end = 90.dp),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                WriteSchoolInfoTextField(
-                    modifier = Modifier.weight(1F),
-                    value = grade,
-                    maxLength = 2,
-                    onValueChange = { grade = it },
-                    hint = "학년"
-                )
-                WriteSchoolInfoTextField(
-                    modifier = Modifier.weight(1F),
-                    value = `class`,
-                    onValueChange = { `class` = it },
-                    hint = "반"
-                )
-                WriteSchoolInfoTextField(
-                    modifier = Modifier.weight(1F),
-                    value = number,
-                    onValueChange = { number = it },
-                    hint = "번호"
-                )
-            }
+            StudentTextField(
+                grade = grade,
+                onGradeChange = { grade = it },
+                `class` = `class`,
+                onClassChange = { `class` = it },
+                number = number,
+                onNumberChange = { number = it },
+            )
         }
         Spacer(modifier = Modifier.height(40.dp))
         SchoolButton(
@@ -118,36 +103,6 @@ fun SearchSchoolScreen(
                     )
                     navigatePhoneNumber()
                 }
-            }
-        }
-    }
-}
-
-@Composable
-fun WriteSchoolInfoTextField(
-    modifier: Modifier = Modifier,
-    value: String,
-    maxLength: Int = 3,
-    onValueChange: (String) -> Unit,
-    hint: String,
-) {
-    BasicTextField(
-        modifier = modifier
-            .border(
-                width = 1.dp,
-                color = SchoolTheme.colors.lightGray,
-                shape = RoundedCornerShape(5.dp)
-            )
-            .padding(vertical = 7.dp, horizontal = 12.dp),
-        value = value,
-        onValueChange = { if (it.length < maxLength) onValueChange(it) },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        textStyle = SchoolTheme.typography.bodyLarge.copy(color = SchoolTheme.colors.black)
-    ) {
-        Box {
-            it()
-            if (value.isEmpty()) {
-                BodyLargeText(text = hint, color = SchoolTheme.colors.gray)
             }
         }
     }

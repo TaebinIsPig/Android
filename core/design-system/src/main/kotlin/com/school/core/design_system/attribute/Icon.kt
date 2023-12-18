@@ -154,18 +154,6 @@ class SchoolIconList private constructor(
         )
 
         @Stable
-        val NextMonth = SchoolIconList(
-            drawableId = R.drawable.ic_next_month,
-            contentDescription = "nextMonth"
-        )
-
-        @Stable
-        val PrevMonth = SchoolIconList(
-            drawableId = R.drawable.ic_prev_month,
-            contentDescription = "prevMonth"
-        )
-
-        @Stable
         val AddSchedule = SchoolIconList(
             drawableId = R.drawable.ic_add_schedule,
             contentDescription = "addSchedule"
@@ -199,6 +187,12 @@ class SchoolIconList private constructor(
         val Withdrawal = SchoolIconList(
             drawableId = R.drawable.ic_withdrawal,
             contentDescription = "withdrawal"
+        )
+
+        @Stable
+        val CloseDialog = SchoolIconList(
+            drawableId = R.drawable.ic_close_dialog,
+            contentDescription = "closeDialog"
         )
     }
 }

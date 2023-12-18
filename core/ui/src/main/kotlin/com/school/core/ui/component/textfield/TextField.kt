@@ -38,7 +38,7 @@ fun SchoolTextField(
     modifier: Modifier = Modifier,
     title: String,
     value: String,
-    hint: String,
+    hint: String? = null,
     betweenSpace: Int = 11,
     onValueChange: (String) -> Unit,
     maxLines: Int = 1,
@@ -76,7 +76,7 @@ fun SchoolTextField(
                     modifier = Modifier.weight(1F)
                 ) {
                     it()
-                    if (value.isEmpty()) {
+                    if (value.isEmpty() && hint != null) {
                         BodyMediumText(text = hint, color = SchoolTheme.colors.gray)
                     }
 
@@ -89,7 +89,7 @@ fun SchoolTextField(
             modifier = Modifier
                 .height(1.dp)
                 .fillMaxWidth()
-                .background(SchoolTheme.colors.lightGray)
+                .background(if (readOnly) SchoolTheme.colors.lightGray3 else SchoolTheme.colors.lightGray)
         )
     }
 }
@@ -109,8 +109,9 @@ fun PasswordVisibleIcon(
 }
 
 @Composable
-fun SearchButton(
+fun TailingButton(
     modifier: Modifier = Modifier,
+    title: String = "검색",
     onClick: () -> Unit,
 ) {
     BodyMediumText(
@@ -121,7 +122,7 @@ fun SearchButton(
             )
             .padding(vertical = 6.dp, horizontal = 12.dp)
             .schoolClickable(onClick = onClick),
-        text = "검색"
+        text = title
     )
 }
 
@@ -159,7 +160,7 @@ fun PreviewSchoolTextField() {
                 betweenSpace = 2,
                 onValueChange = { text = it },
                 tailingIcon = {
-                    SearchButton {
+                    TailingButton {
 
                     }
                 }
