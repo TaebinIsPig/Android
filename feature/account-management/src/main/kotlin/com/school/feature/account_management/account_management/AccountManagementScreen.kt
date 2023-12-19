@@ -48,6 +48,7 @@ fun AccountManagementScreen(
     accountManagementType: AccountManagementType,
     popBackStack: () -> Unit,
     navigateSignIn: () -> Unit,
+    savePhoneNumber: (String) -> Unit,
     signupViewModel: SignupViewModel = hiltViewModel(),
     findViewModel: FindViewModel = hiltViewModel(),
     certificateViewModel: CertificateViewModel = hiltViewModel(),
@@ -110,7 +111,7 @@ fun AccountManagementScreen(
                 AccountManagementType.Signup -> SignupNavigationItem.SearchSchool.route
                 AccountManagementType.FindID -> CertificateNavigationItem.PhoneNumber.route
                 AccountManagementType.FindPW -> CertificateNavigationItem.PhoneNumber.route
-                AccountManagementType.ChangeNumber -> CertificateNavigationItem.Certificate.route
+                AccountManagementType.ChangeNumber -> CertificateNavigationItem.PhoneNumber.route
                 AccountManagementType.ChangeSchool -> SignupNavigationItem.SearchSchool.route
             }
         ) {
@@ -135,6 +136,7 @@ fun AccountManagementScreen(
                 navigateCertificate = navController::navigateCertificate,
                 navigateFindId = navController::navigateFindID,
                 navigateWriteId = navController::navigateWriteID,
+                savePhoneNumber = savePhoneNumber
             )
         }
     }

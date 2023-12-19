@@ -119,7 +119,13 @@ fun BaseApp(
         )
         accountManagementGraph(
             popBackStack = navController::popBackStack,
-            navigateSignIn = navController::navigateSignIn
+            navigateSignIn = navController::navigateSignIn,
+            savePhoneNumber = {
+                navController.previousBackStackEntry?.savedStateHandle?.set(
+                    "phoneNumber",
+                    it
+                )
+            }
         )
         signInGraph(
             popBackStack = navController::popBackStack,
@@ -135,7 +141,16 @@ fun BaseApp(
         profileGraph(
             popBackStack = navController::popBackStack,
             navigateChangePhoneNumber = navController::navigateChangePhoneNumber,
-            navigateChangeSchool = navController::navigateChangeSchool
+            navigateChangeSchool = navController::navigateChangeSchool,
+            closeEditProfile = {
+                navController.currentBackStackEntry?.savedStateHandle?.remove<String>("phoneNumber")
+            },
+            changePhoneNumber = {
+                navController.currentBackStackEntry?.savedStateHandle?.get<String>(
+                    "phoneNumber"
+                ) ?: ""
+            }
+
         )
         cafeteriaGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
         timetableGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)

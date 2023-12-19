@@ -15,6 +15,7 @@ internal fun NavGraphBuilder.certificateGraph(
     navigateWriteSignInfo: () -> Unit,
     navigateFindId: () -> Unit,
     navigateWriteId: () -> Unit,
+    savePhoneNumber: (String) -> Unit,
 ) {
     composable(CertificateNavigationItem.PhoneNumber.route) {
         PhoneNumberScreen(
@@ -29,7 +30,8 @@ internal fun NavGraphBuilder.certificateGraph(
             navigateWriteSignInfo = navigateWriteSignInfo,
             certificateViewModel = certificateViewModel,
             navigateFindId = navigateFindId,
-            navigateWriteId = navigateWriteId
+            navigateWriteId = navigateWriteId,
+            savePhoneNumber = savePhoneNumber
         )
     }
 }

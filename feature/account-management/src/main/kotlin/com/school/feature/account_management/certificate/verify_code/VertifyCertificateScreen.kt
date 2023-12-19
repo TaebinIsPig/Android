@@ -33,6 +33,7 @@ import com.school.feature.account_management.certificate.viewmodel.CertificateSi
 import com.school.feature.account_management.certificate.viewmodel.CertificateViewModel
 import com.school.feature.account_management.navigation.AccountManagementType
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.delay
 
 @OptIn(InternalCoroutinesApi::class)
 @Composable
@@ -41,6 +42,7 @@ fun CertificateScreen(
     navigateWriteSignInfo: () -> Unit,
     navigateFindId: () -> Unit,
     navigateWriteId: () -> Unit,
+    savePhoneNumber: (String) -> Unit,
     certificateViewModel: CertificateViewModel,
 ) {
     val container = certificateViewModel.container
@@ -55,7 +57,14 @@ fun CertificateScreen(
                 AccountManagementType.Signup -> navigateWriteSignInfo()
                 AccountManagementType.FindID -> navigateFindId()
                 AccountManagementType.FindPW -> navigateWriteId()
-                AccountManagementType.ChangeNumber -> popBackStack()
+                AccountManagementType.ChangeNumber -> {
+                    runCatching {
+                        savePhoneNumber(state.phoneNumber)
+                    }.onSuccess {
+                        popBackStack()
+                    }
+                }
+
                 AccountManagementType.ChangeSchool -> {}
             }
 
