@@ -20,11 +20,7 @@ import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -48,6 +44,9 @@ fun ProfileScreen(
     popBackStack: () -> Unit,
     navigateChangePhoneNumber: () -> Unit,
     navigateChangeSchool: () -> Unit,
+    changePhoneNumber: () -> String,
+    changeSchool: () -> String,
+    closeEditProfile: () -> Unit,
     profileViewModel: ProfileViewModel = hiltViewModel(),
 ) {
     val container = profileViewModel.container
@@ -81,8 +80,16 @@ fun ProfileScreen(
     ) {
         EditProfileDialog(
             visible = state.editProfileVisible,
-            myProfileEntity = state.myProfileEntity,
-            hideVisible = { profileViewModel.changeEditProfileVisible(editProfileVisible = false) },
+            myProfileEntity = state.myProfileEntity.let {
+                it.copy(
+                    phoneNumber = if (changePhoneNumber().isNotEmpty()) changePhoneNumber() else it.phoneNumber,
+                    school = if (changeSchool().isNotEmpty()) changeSchool() else it.school
+                )
+            },
+            hideVisible = {
+                profileViewModel.changeEditProfileVisible(editProfileVisible = false)
+                closeEditProfile()
+            },
             changePhoneNumber = navigateChangePhoneNumber,
             changeSchool = navigateChangeSchool,
             changeProfile = {},

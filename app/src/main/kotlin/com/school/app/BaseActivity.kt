@@ -43,6 +43,7 @@ import com.school.feature.timetable.navigation.timetableGraph
 import com.school.profile.navigation.navigateProfile
 import com.school.profile.navigation.profileGraph
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -119,7 +120,19 @@ fun BaseApp(
         )
         accountManagementGraph(
             popBackStack = navController::popBackStack,
-            navigateSignIn = navController::navigateSignIn
+            navigateSignIn = navController::navigateSignIn,
+            savePhoneNumber = {
+                navController.previousBackStackEntry?.savedStateHandle?.set(
+                    "phoneNumber",
+                    it
+                )
+            },
+            saveSchool = {
+                navController.previousBackStackEntry?.savedStateHandle?.set(
+                    "school",
+                    it
+                )
+            }
         )
         signInGraph(
             popBackStack = navController::popBackStack,
@@ -135,7 +148,21 @@ fun BaseApp(
         profileGraph(
             popBackStack = navController::popBackStack,
             navigateChangePhoneNumber = navController::navigateChangePhoneNumber,
-            navigateChangeSchool = navController::navigateChangeSchool
+            navigateChangeSchool = navController::navigateChangeSchool,
+            closeEditProfile = {
+                navController.currentBackStackEntry?.savedStateHandle?.remove<String>("phoneNumber")
+                navController.currentBackStackEntry?.savedStateHandle?.remove<String>("school")
+            },
+            changePhoneNumber = {
+                navController.currentBackStackEntry?.savedStateHandle?.get<String>(
+                    "phoneNumber"
+                ) ?: ""
+            },
+            changeSchool = {
+                navController.currentBackStackEntry?.savedStateHandle?.get<String>(
+                    "school"
+                ) ?: ""
+            }
         )
         cafeteriaGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
         timetableGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)

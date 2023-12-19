@@ -48,6 +48,8 @@ fun AccountManagementScreen(
     accountManagementType: AccountManagementType,
     popBackStack: () -> Unit,
     navigateSignIn: () -> Unit,
+    savePhoneNumber: (String) -> Unit,
+    saveSchool: (String) -> Unit,
     signupViewModel: SignupViewModel = hiltViewModel(),
     findViewModel: FindViewModel = hiltViewModel(),
     certificateViewModel: CertificateViewModel = hiltViewModel(),
@@ -110,7 +112,7 @@ fun AccountManagementScreen(
                 AccountManagementType.Signup -> SignupNavigationItem.SearchSchool.route
                 AccountManagementType.FindID -> CertificateNavigationItem.PhoneNumber.route
                 AccountManagementType.FindPW -> CertificateNavigationItem.PhoneNumber.route
-                AccountManagementType.ChangeNumber -> CertificateNavigationItem.Certificate.route
+                AccountManagementType.ChangeNumber -> CertificateNavigationItem.PhoneNumber.route
                 AccountManagementType.ChangeSchool -> SignupNavigationItem.SearchSchool.route
             }
         ) {
@@ -119,7 +121,15 @@ fun AccountManagementScreen(
                 certificateViewModel = certificateViewModel,
                 navigatePhoneNumber = navController::navigatePhoneNumber,
                 navigateSignIn = navigateSignIn,
-                popBackStack = navController::popBackStack
+                popBackStack = navController::popBackStack,
+                popProfile = if (accountManagementType == AccountManagementType.ChangeSchool) {
+                    {
+                        saveSchool(it)
+                        popBackStack()
+                    }
+                } else {
+                    null
+                }
             )
             findGraph(
                 findViewModel = findViewModel,
@@ -135,6 +145,7 @@ fun AccountManagementScreen(
                 navigateCertificate = navController::navigateCertificate,
                 navigateFindId = navController::navigateFindID,
                 navigateWriteId = navController::navigateWriteID,
+                savePhoneNumber = savePhoneNumber
             )
         }
     }

@@ -1,16 +1,9 @@
 package com.school.feature.account_management.signup.search_school
 
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -18,14 +11,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.school.core.design_system.SchoolTheme
 import com.school.core.ui.component.button.SchoolButton
 import com.school.core.ui.component.textfield.SchoolTextField
 import com.school.core.ui.component.textfield.StudentTextField
 import com.school.core.ui.component.textfield.TailingButton
-import com.school.core.ui.component.textview.BodyLargeText
 import com.school.core.ui.component.textview.BodySmallText
 import com.school.core.ui.util.data.nameLengthCheck
 import com.school.feature.account_management.signup.viewmodel.SignupViewModel
@@ -33,6 +24,7 @@ import com.school.feature.account_management.signup.viewmodel.SignupViewModel
 @Composable
 fun SearchSchoolScreen(
     navigatePhoneNumber: () -> Unit,
+    popProfile: ((String) -> Unit)?,
     signupViewModel: SignupViewModel,
 ) {
     val container = signupViewModel.container
@@ -44,6 +36,7 @@ fun SearchSchoolScreen(
     var `class` by remember { mutableStateOf(state.studentInfo.`class`.let { if (it == 0) "" else it.toString() }) }
     var number by remember { mutableStateOf(state.studentInfo.number.let { if (it == 0) "" else it.toString() }) }
     var nameErrorText by remember { mutableStateOf("") }
+
     Column {
         SchoolTextField(
             title = "학교",
@@ -90,8 +83,10 @@ fun SearchSchoolScreen(
             text = "넘어가기",
             activate = (state.schoolName.isEmpty() && schoolName.isNotEmpty()) || (schoolName.isNotEmpty() && grade.isNotEmpty() && `class`.isNotEmpty() && number.isNotEmpty() && name.isNotEmpty())
         ) {
-            if (!isSelectSchool) signupViewModel.saveSchool(schoolName = schoolName)
-            else {
+            if (!isSelectSchool) {
+                signupViewModel.saveSchool(schoolName = schoolName)
+                popProfile?.invoke(schoolName)
+            } else {
                 if (name.nameLengthCheck().not()) {
                     nameErrorText = "이름의 글자 수는 2 ~ 10자 사이여야 합니다."
                 } else {

@@ -15,6 +15,9 @@ fun NavGraphBuilder.profileGraph(
     popBackStack: () -> Unit,
     navigateChangePhoneNumber: () -> Unit,
     navigateChangeSchool: () -> Unit,
+    closeEditProfile: () -> Unit,
+    changePhoneNumber: () -> String,
+    changeSchool: () -> String,
 ) {
     composable(
         route = ProfileNavigationItem.Profile.route,
@@ -43,7 +46,10 @@ fun NavGraphBuilder.profileGraph(
         ProfileScreen(
             popBackStack = popBackStack,
             navigateChangePhoneNumber = navigateChangePhoneNumber,
-            navigateChangeSchool = navigateChangeSchool
+            navigateChangeSchool = navigateChangeSchool,
+            changePhoneNumber = changePhoneNumber,
+            changeSchool = changeSchool,
+            closeEditProfile = closeEditProfile
         )
     }
 }
