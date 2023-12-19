@@ -17,6 +17,7 @@ fun NavGraphBuilder.profileGraph(
     navigateChangeSchool: () -> Unit,
     closeEditProfile: () -> Unit,
     changePhoneNumber: () -> String,
+    changeSchool: () -> String,
 ) {
     composable(
         route = ProfileNavigationItem.Profile.route,
@@ -47,6 +48,7 @@ fun NavGraphBuilder.profileGraph(
             navigateChangePhoneNumber = navigateChangePhoneNumber,
             navigateChangeSchool = navigateChangeSchool,
             changePhoneNumber = changePhoneNumber,
+            changeSchool = changeSchool,
             closeEditProfile = closeEditProfile
         )
     }

@@ -11,13 +11,15 @@ fun NavGraphBuilder.accountManagementGraph(
     popBackStack: () -> Unit,
     navigateSignIn: () -> Unit,
     savePhoneNumber: (String) -> Unit,
+    saveSchool: (String) -> Unit,
 ) {
     composable(AccountManagementNavigationItem.Signup.route) {
         AccountManagementScreen(
             accountManagementType = AccountManagementType.Signup,
             popBackStack = popBackStack,
             navigateSignIn = navigateSignIn,
-            savePhoneNumber = savePhoneNumber
+            savePhoneNumber = savePhoneNumber,
+            saveSchool = saveSchool
         )
     }
 
@@ -26,7 +28,8 @@ fun NavGraphBuilder.accountManagementGraph(
             accountManagementType = AccountManagementType.FindID,
             popBackStack = popBackStack,
             navigateSignIn = navigateSignIn,
-            savePhoneNumber = savePhoneNumber
+            savePhoneNumber = savePhoneNumber,
+            saveSchool = saveSchool
         )
     }
 
@@ -35,7 +38,8 @@ fun NavGraphBuilder.accountManagementGraph(
             accountManagementType = AccountManagementType.FindPW,
             popBackStack = popBackStack,
             navigateSignIn = navigateSignIn,
-            savePhoneNumber = savePhoneNumber
+            savePhoneNumber = savePhoneNumber,
+            saveSchool = saveSchool
         )
     }
 
@@ -44,7 +48,8 @@ fun NavGraphBuilder.accountManagementGraph(
             accountManagementType = AccountManagementType.ChangeNumber,
             popBackStack = popBackStack,
             navigateSignIn = navigateSignIn,
-            savePhoneNumber = savePhoneNumber
+            savePhoneNumber = savePhoneNumber,
+            saveSchool = saveSchool
         )
     }
 
@@ -53,7 +58,8 @@ fun NavGraphBuilder.accountManagementGraph(
             accountManagementType = AccountManagementType.ChangeSchool,
             popBackStack = popBackStack,
             navigateSignIn = navigateSignIn,
-            savePhoneNumber = savePhoneNumber
+            savePhoneNumber = savePhoneNumber,
+            saveSchool = saveSchool
         )
     }
 }

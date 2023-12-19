@@ -49,6 +49,7 @@ fun AccountManagementScreen(
     popBackStack: () -> Unit,
     navigateSignIn: () -> Unit,
     savePhoneNumber: (String) -> Unit,
+    saveSchool: (String) -> Unit,
     signupViewModel: SignupViewModel = hiltViewModel(),
     findViewModel: FindViewModel = hiltViewModel(),
     certificateViewModel: CertificateViewModel = hiltViewModel(),
@@ -120,7 +121,15 @@ fun AccountManagementScreen(
                 certificateViewModel = certificateViewModel,
                 navigatePhoneNumber = navController::navigatePhoneNumber,
                 navigateSignIn = navigateSignIn,
-                popBackStack = navController::popBackStack
+                popBackStack = navController::popBackStack,
+                popProfile = if (accountManagementType == AccountManagementType.ChangeSchool) {
+                    {
+                        saveSchool(it)
+                        popBackStack()
+                    }
+                } else {
+                    null
+                }
             )
             findGraph(
                 findViewModel = findViewModel,

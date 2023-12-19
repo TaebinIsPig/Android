@@ -45,6 +45,7 @@ fun ProfileScreen(
     navigateChangePhoneNumber: () -> Unit,
     navigateChangeSchool: () -> Unit,
     changePhoneNumber: () -> String,
+    changeSchool: () -> String,
     closeEditProfile: () -> Unit,
     profileViewModel: ProfileViewModel = hiltViewModel(),
 ) {
@@ -80,9 +81,10 @@ fun ProfileScreen(
         EditProfileDialog(
             visible = state.editProfileVisible,
             myProfileEntity = state.myProfileEntity.let {
-                if (changePhoneNumber().isNotEmpty()) it.copy(
-                    phoneNumber = changePhoneNumber()
-                ) else it
+                it.copy(
+                    phoneNumber = if (changePhoneNumber().isNotEmpty()) changePhoneNumber() else it.phoneNumber,
+                    school = if (changeSchool().isNotEmpty()) changeSchool() else it.school
+                )
             },
             hideVisible = {
                 profileViewModel.changeEditProfileVisible(editProfileVisible = false)

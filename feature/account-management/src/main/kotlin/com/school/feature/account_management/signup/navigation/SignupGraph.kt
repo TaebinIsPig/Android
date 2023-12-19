@@ -15,6 +15,7 @@ internal fun NavGraphBuilder.signupGraph(
     navigatePhoneNumber: () -> Unit,
     navigateSignIn: () -> Unit,
     popBackStack: () -> Unit,
+    popProfile: ((String) -> Unit)?,
 ) {
     composable(SignupNavigationItem.WriteSignInfo.route) {
         WriteSignInfoScreen(
@@ -28,7 +29,8 @@ internal fun NavGraphBuilder.signupGraph(
     composable(SignupNavigationItem.SearchSchool.route) {
         SearchSchoolScreen(
             navigatePhoneNumber = navigatePhoneNumber,
-            signupViewModel = signupViewModel
+            signupViewModel = signupViewModel,
+            popProfile = popProfile
         )
     }
 }

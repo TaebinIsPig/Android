@@ -43,6 +43,7 @@ import com.school.feature.timetable.navigation.timetableGraph
 import com.school.profile.navigation.navigateProfile
 import com.school.profile.navigation.profileGraph
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -125,6 +126,12 @@ fun BaseApp(
                     "phoneNumber",
                     it
                 )
+            },
+            saveSchool = {
+                navController.previousBackStackEntry?.savedStateHandle?.set(
+                    "school",
+                    it
+                )
             }
         )
         signInGraph(
@@ -144,13 +151,18 @@ fun BaseApp(
             navigateChangeSchool = navController::navigateChangeSchool,
             closeEditProfile = {
                 navController.currentBackStackEntry?.savedStateHandle?.remove<String>("phoneNumber")
+                navController.currentBackStackEntry?.savedStateHandle?.remove<String>("school")
             },
             changePhoneNumber = {
                 navController.currentBackStackEntry?.savedStateHandle?.get<String>(
                     "phoneNumber"
                 ) ?: ""
+            },
+            changeSchool = {
+                navController.currentBackStackEntry?.savedStateHandle?.get<String>(
+                    "school"
+                ) ?: ""
             }
-
         )
         cafeteriaGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
         timetableGraph(isBackHome = isBackHome, changePreviousRoute = changePreviousRoute)
