@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 data class SignupState(
     val schoolPager: Flow<PagingData<SchoolEntity>>? = null,
-    val schoolName: String = "",
+    val school: SchoolEntity? = null,
     val studentInfo: SignupParam.StudentInfoParam = SignupParam.StudentInfoParam(
         grade = 0,
         `class` = 0,

@@ -39,8 +39,8 @@ fun SearchSchoolScreen(
 ) {
     val container = signupViewModel.container
     val state = container.stateFlow.collectAsState().value
-    val isSelectSchool = state.schoolName.isNotEmpty()
-    var schoolName by remember { mutableStateOf(state.schoolName) }
+    val isSelectSchool = state.school != null
+    var schoolName by remember { mutableStateOf(state.school?.schoolName ?: "") }
     var name by remember { mutableStateOf(state.name) }
     var grade by remember { mutableStateOf(state.studentInfo.grade.let { if (it == 0) "" else it.toString() }) }
     var `class` by remember { mutableStateOf(state.studentInfo.`class`.let { if (it == 0) "" else it.toString() }) }
@@ -48,6 +48,7 @@ fun SearchSchoolScreen(
     var nameErrorText by remember { mutableStateOf("") }
     val schoolPager = state.schoolPager?.collectAsLazyPagingItems()
     val focusManager = LocalFocusManager.current
+    var selectedSchool by remember { mutableStateOf(state.school) }
 
     Column {
         SchoolTextField(
@@ -78,6 +79,7 @@ fun SearchSchoolScreen(
                                 SchoolText(schoolName = it.schoolName) {
                                     focusManager.clearFocus()
                                     schoolName = it.schoolName
+                                    selectedSchool = it
                                 }
                             }
                         }
@@ -114,10 +116,10 @@ fun SearchSchoolScreen(
         Spacer(modifier = Modifier.height(40.dp))
         SchoolButton(
             text = "넘어가기",
-            activate = (state.schoolName.isEmpty() && schoolName.isNotEmpty()) || (schoolName.isNotEmpty() && grade.isNotEmpty() && `class`.isNotEmpty() && number.isNotEmpty() && name.isNotEmpty())
+            activate = (state.school == null && schoolName.isNotEmpty()) || (schoolName != null && grade.isNotEmpty() && `class`.isNotEmpty() && number.isNotEmpty() && name.isNotEmpty())
         ) {
             if (!isSelectSchool) {
-                signupViewModel.saveSchool(schoolName = schoolName)
+                signupViewModel.saveSchool(school = selectedSchool)
                 popProfile?.invoke(schoolName)
             } else {
                 if (name.nameLengthCheck().not()) {

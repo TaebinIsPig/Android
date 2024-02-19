@@ -11,6 +11,7 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import javax.inject.Inject
+import com.school.core.domain.entity.school.SchoolEntity
 
 @HiltViewModel
 class SignupViewModel @Inject constructor(
@@ -27,8 +28,8 @@ class SignupViewModel @Inject constructor(
         }
     }
 
-    fun saveSchool(schoolName: String) = intent {
-        reduce { state.copy(schoolName = schoolName) }
+    fun saveSchool(school: SchoolEntity?) = intent {
+        reduce { state.copy(school = school) }
     }
 
     fun saveStudentInfo(grade: String, `class`: String, number: String, name: String) = intent {
@@ -45,19 +46,21 @@ class SignupViewModel @Inject constructor(
     }
 
     fun signup(id: String, password: String, phoneNumber: String) = intent {
-        signupUseCase(
-            SignupParam(
-                name = state.name,
-                studentInfo = state.studentInfo,
-                id = id,
-                password = password,
-                phoneNumber = phoneNumber,
-                school = state.schoolName
-            )
-        ).onSuccess {
-            postSideEffect(SignupSideEffect.Success)
-        }.onFailure {
-            postSideEffect(SignupSideEffect.Error(it.message))
+        state.school?.let {
+            signupUseCase(
+                SignupParam(
+                    name = state.name,
+                    studentInfo = state.studentInfo,
+                    id = id,
+                    password = password,
+                    phoneNumber = phoneNumber,
+                    school = it
+                )
+            ).onSuccess {
+                postSideEffect(SignupSideEffect.Success)
+            }.onFailure {
+                postSideEffect(SignupSideEffect.Error(it.message))
+            }
         }
     }
 }
