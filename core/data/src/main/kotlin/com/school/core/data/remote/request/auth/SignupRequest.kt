@@ -1,6 +1,7 @@
 package com.school.core.data.remote.request.auth
 
 import com.google.gson.annotations.SerializedName
+import com.school.core.domain.entity.school.SchoolEntity
 import com.school.core.domain.param.auth.SignupParam
 
 data class SignupRequest(
@@ -15,7 +16,7 @@ data class SignupRequest(
     @SerializedName("phoneNumber")
     val phoneNumber: String,
     @SerializedName("school")
-    val school: String,
+    val school: SchoolEntity,
 ) {
     data class StudentInfoRequest(
         @SerializedName("grade")

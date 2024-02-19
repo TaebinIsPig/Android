@@ -83,8 +83,8 @@ fun AccountManagementScreen(
                     .padding(top = 20.dp, start = 16.dp)
                     .schoolClickable {
                         if (navController.currentBackStackEntry?.destination?.route == navController.graph.startDestinationRoute) {
-                            if (state.schoolName.isNotEmpty()) {
-                                signupViewModel.saveSchool(schoolName = "")
+                            if (state.school != null) {
+                                signupViewModel.saveSchool(school = null)
                             } else {
                                 keyboardController?.hide()
                                 popBackStack()
