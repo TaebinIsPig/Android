@@ -3,6 +3,7 @@ package com.school.feature.account_management.signup.viewmodel
 import androidx.lifecycle.ViewModel
 import com.school.core.domain.param.auth.SignupParam
 import com.school.core.domain.usecase.auth.SignupUseCase
+import com.school.core.domain.usecase.school.SearchSchoolUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -14,8 +15,18 @@ import javax.inject.Inject
 @HiltViewModel
 class SignupViewModel @Inject constructor(
     private val signupUseCase: SignupUseCase,
+    private val searchSchoolUseCase: SearchSchoolUseCase,
 ) : ViewModel(), ContainerHost<SignupState, SignupSideEffect> {
     override val container = container<SignupState, SignupSideEffect>(SignupState())
+
+    fun search(schoolName: String) = intent {
+        searchSchoolUseCase(schoolName = schoolName).onSuccess {
+            reduce { state.copy(schoolPager = it) }
+        }.onFailure {
+            println("안녕 실패")
+        }
+    }
+
     fun saveSchool(schoolName: String) = intent {
         reduce { state.copy(schoolName = schoolName) }
     }

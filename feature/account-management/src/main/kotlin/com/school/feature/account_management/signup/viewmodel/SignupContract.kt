@@ -1,8 +1,12 @@
 package com.school.feature.account_management.signup.viewmodel
 
+import androidx.paging.PagingData
+import com.school.core.domain.entity.school.SchoolEntity
 import com.school.core.domain.param.auth.SignupParam
+import kotlinx.coroutines.flow.Flow
 
 data class SignupState(
+    val schoolPager: Flow<PagingData<SchoolEntity>>? = null,
     val schoolName: String = "",
     val studentInfo: SignupParam.StudentInfoParam = SignupParam.StudentInfoParam(
         grade = 0,
